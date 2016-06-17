@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% block titulo %} 	 Visualizar Edital {% endblock %}
+{% block conteudo %}
+{% if user.is_superuser %}
+      
+	<div class="ui form">
+		<h2 class="ui header">Informações de Edital</h2>
+		<div class="ui segment form">
+			<div class="two fields">
+				<div class="field">
+					<label>Número</label>
+					{{edital.numero}}
+				</div>
+				<div class="field">
+					<label>Orgão Concedente</label>
+					{{edital.orgao_concedente}}
+				</div>
+			</div>
+			<div class="two fields">
+				<div class="field">
+					<label>Verba</label>
+					{{edital.verba}}
+				</div>
+				<div class="field">
+					<label>Quantidade de Bolsa</label>
+					{{edital.qtd_bolsa}}
+				</div>
+			</div>
+			<div class="two fields">
+				<div class="field">
+					<label>Data de Início</label>
+					{{edital.dt_inicio}}
+				</div>
+				<div class="field">
+					<label>Data de Término</label>
+					{{edital.dt_termino}}
+				</div>
+			</div>
+		</div>
+		<a href='/consulta_edital/'><button class='ui red button'>Voltar</button></a>
+		<a href='/editar_edital/{{edital.id}}'><button class="ui button direita verde_escuro">Editar</button></a>
+	</div> 	
+{%endif%}
+{% endblock %}

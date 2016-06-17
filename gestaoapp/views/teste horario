@@ -1,0 +1,16 @@
+print("antes do for")
+			for h in u.dia.all():	
+				print('1')
+				if str(h.data) == dia:
+					if (form.data['hora_inicio'] < h.hora_inicio.strftime ('%H:%M') and form.data['hora_fim'] < h.hora_inicio.strftime ('%H:%M')) or (form.data['hora_inicio'] > h.hora_fim.strftime ('%H:%M') and form.data['hora_fim'] > h.hora_fim.strftime ('%H:%M') ):
+						print("Horario Valido")
+						dia = form.save(request)
+						user = Usuario.objects.get(id=request.user.id)
+						user.dia.add(dia)
+					else:
+						print("Horario Invalido")
+				elif:
+					print("Dia nao cadastrado")
+					dia = form.save(request)
+					user = Usuario.objects.get(id=request.user.id)
+					user.dia.add(dia)

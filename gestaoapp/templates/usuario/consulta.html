@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+{% block titulo %}Consulta de Usuário{% endblock %}
+{% block conteudo%} 
+
+<form method='POST' action='/consulta_usuario/' class="ui form">
+ 	{% csrf_token %}
+ 	<h1 class=" ui header">Consulta Usuário</h1>
+ 	<div class="ui action input">
+  		{{form.nome}}
+	    	<input type="submit" value="Pesquisar" class='icon search'>
+
+	</div>
+</form>
+<table class="ui celled table">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Vínculo</th>
+			<th>Informações</th>
+		</tr>	
+	</thead>
+	<tbody>
+	{% for usuario in usuarios %}
+		<tr>
+			<td>{{ usuario.first_name }}</td>
+			<td>{{ usuario.vinculo_institucional }}</td>
+			<td class="negative"><a href="../visualizar_usuario/{{usuario.id}}">Mais</a></td>
+				
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+<a href='/usuario/'><button class="ui button verde_escuro direita">Novo Usuario</button></a>
+{%endblock%}

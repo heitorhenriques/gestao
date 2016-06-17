@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% block titulo %}Troca a senha{% endblock %}
+{% block conteudo%} 
+<div class='ui centered grid'>
+	<div class='two column centered row'>
+		<div class='ui column'>
+			<form method='POST' enctype=" multipart/form-data" class="ui form relaxed">
+				{% csrf_token %}  
+		        {{form.erros}}  
+				<h1 class="ui header">Troca Senha </h1>
+				<div class="ui field">
+					<label>Senha anterior</label>
+					{{form.old_password}}
+					{% if form.old_password.errors %}
+	                 	<div class="ui red pointing label">
+	                   		{{ form.old_password.errors }}
+	                 	</div>
+	                {% endif %}
+				</div>
+				<div class="ui field">
+					<label>Nova senha</label>
+					{{form.new_password1}}
+					{% if form.new_password1.errors %}
+	                 	<div class="ui red pointing label">
+	                   		{{ form.new_password1.errors }}
+	                 	</div>
+	                {% endif %}
+				</div>
+				<div class="ui field">
+					<label>Confirmar Senha</label>
+					{{form.new_password2}}
+					{% if form.new_password2.errors %}
+	                 	<div class="ui red pointing label">
+	                   		{{ form.new_password2.errors }}
+	                 	</div>
+	                {% endif %}
+				</div>
+
+				<button class="ui submit button red">Cancelar</button>
+				<input type="submit" class="ui submit button direita verde_escuro">			
+			</form>
+		</div>
+	</div>
+</div>
+{%endblock%}

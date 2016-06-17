@@ -1,0 +1,26 @@
+{% extends 'base.html'%}
+{% block titulo %} 	 Visualizar Artefato {% endblock %}
+{% block conteudo %}
+{% if user.is_superuser %}
+
+			
+<div class="ui segment form">
+	<h2 class="ui header">Informações de Artefato</h2>
+	<div class="two fields">
+		<div class="field">
+			<label>Nome</label>
+			{{artefato.nome}}
+		</div>
+		<div class="field">
+			<label>Descrição</label>
+			{{artefato.descricao}}
+		</div>
+	</div>
+</div>
+<a href='/consulta_artefato/'><button class='ui red button'>Voltar</button></a>
+<a href='/editar_artefato/{{artefato.id}}'><button class="ui button direita verde_escuro">Editar</button></a>	
+
+{%endif%}
+{% endblock %}
+
+

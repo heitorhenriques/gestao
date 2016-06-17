@@ -1,0 +1,159 @@
+/********************Definições gerais*************************/
+.centro{
+	padding-left:8% !important;
+}
+.direita{
+	float: right;
+}
+
+.ui.grid{
+	margin:0 !important;
+	padding:0 !important;
+ }
+.cabecalho{
+	min-height: 16% !important;
+	color: #005e83 !important;
+}
+.cabecalho .grid{
+	margin:0 !important;
+	padding:0 !important;
+}
+.corpo{
+	min-height: 64.9% !important;
+}
+.rodape{
+	min-height: 11% !important;
+}
+
+article{
+	margin: 0 !important;
+}
+input.icon.search{
+    background-color: #005e83 !important;
+    color: #fff !important;
+    font-weight: bold !important; }
+
+/********************Definições cores*************************/
+.red{
+	background-color: #B63333 !important;
+}
+
+.verde_escuro{
+	background:#005e83 !important;
+	color:#FFFFFF !important;
+}
+.icone_red{
+	color:#B63333;
+}
+
+/********************Definições menu*************************/
+
+
+
+.espaco{
+    padding-left: 31px;
+}
+
+.row-menu{
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.item{
+	color:#fff !important;
+	cursor: pointer;
+
+}
+
+.ui.large.menu .item {
+  font-size: 1.3rem !important;
+}
+
+.item .submenu{
+	display:none !important;
+	margin-left: -19%;
+	
+}
+
+.item:hover > .submenu{
+	display: inline-block !important;
+}
+
+.submenu{
+	padding: 0;
+	position: absolute;
+	top: 100%;
+	z-index: 999;
+	background-color: #005e83;
+}
+
+.layout.block{ margin-right: -6px !important;}
+.submenu i, .submenu a {
+	display: inline-flex !important;
+}
+
+i.icon{
+	margin-right:11px !important;
+}
+
+i.icon.newspaper{
+	margin: 0em 0.25em 0em 0em !important;
+}
+
+/********************Definições de form*************************/
+
+
+label{font-size: 1.125em !important;}
+
+input{
+	  border-color: #005E83 !important;
+}
+select{
+	  border-color: #005E83 !important;
+}
+input:active, input:focus{
+background-color:rgba(0, 94, 131, 0.2) !important
+}
+
+input.verde_escuro{
+	background-color: #2E9447 !important;
+}
+.verde{
+	background-color: #2E9447 !important;
+}
+.errorlist{
+	padding:8px !important;
+	margin:0 !important;
+
+}
+
+.errorlist li{
+	list-style: none;
+	
+}
+
+.button.atividade{margin-top: -30px !important;}
+/********************Definições de qualquer coisa*************************/
+
+.ui.pointing.label{
+	font-size: 100%;
+	padding:0%;
+}
+#icone{
+	margin-top: 2% !important;
+}
+
+/********************Definições da Pagina de Projeto*************************/
+
+.bloco-divisao{
+	background:#EDECDE !important;
+	padding: 10px 20px 20px 20px;
+	margin-bottom: 20px;
+
+}
+
+.campo-obrigatorio{
+	color:#E80C0C !important;
+	font-size: 90% !important;
+	font-weight: none !important;
+}

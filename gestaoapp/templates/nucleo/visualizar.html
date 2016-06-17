@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% block titulo %} 	 Visualizar Nucleo {% endblock %}
+{% block conteudo %}
+{% if user.is_superuser %}
+
+	<div class="row">
+		<div class="three wide column"></div>
+		<div class="fifteen wide column">       
+			<div class="ui form">
+				<h2 class="ui header">
+					Informações do Nucleo
+				</h2>
+			</div>
+			<div class="ui segment form">
+				<div class="two fields">
+					<div class="field">
+						<label>Nome</label>
+						{{nucleo.nome}}
+					</div>
+					<div class="field">
+						<label>Edital</label>
+						{{nucleo.sigla}}
+					</div>
+				</div>
+				<div class="field">
+					<label>Descrição</label>
+					{{nucleo.descricao}}
+				</div>
+			</div>
+			<a href='/consulta_nucleo/'><button class='ui red button'>Voltar</button></a>
+			<a href='/editar_nucleo/{{nucleo.id}}'><button class="ui button direita verde_escuro">Editar</button></a>
+		</div> 
+	</div>	
+{%else%}
+<div class='ui centered grid'>
+	<div class='two column centered row'>
+		<div class='ui column centered'>
+			<div class='ui centered'>
+				<h2 class='ui header centered'>Acesso bloqueado, somente administrador.</h2>
+			</div>
+		</div>
+	</div>
+</div>
+{%endif%}
+{% endblock %}

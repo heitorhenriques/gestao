@@ -1,0 +1,188 @@
+<!doctype html>
+    <head>
+        {% load staticfiles %}
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="{% static 'semantic/semantic.css'%}" />
+        <link rel="stylesheet" href="{% static 'semantic/base.css'%}" />
+        <script type="text/javascript" src="{% static 'semantic/jquery.js'%}"></script>
+        <script type="text/javascript" src="{% static 'semantic/base.js'%}"></script>
+        <title>{%block titulo%}{%endblock%}</title>
+    </head>
+    <body class="cor-fundo">
+        <header class="cabecalho">
+            <div class="ui grid">
+                <div class="row"> 
+                    <div class='twelve wide column'>
+                        <h1 class="ui header">
+                            <i class='ui icon world'></i>
+                            <div class="ui content">
+                                Gestão de Projetos
+                                <p class="sub header">
+                                    Fábrica de Software
+                                </p>
+                            </div>
+                        </h1>
+                    </div>
+                </div>
+                {% if user.is_authenticated %}  
+                    <div class="row row-menu">
+                        <nav class='ui menu verde_escuro inverted espaco large'>
+                            <div class="item">Usuário <i class='ui icon caret down'></i>
+                                <div class="submenu">
+                                    <a class='item' href="/usuario/cadastro.html"> 
+                                        <i class='ui icon newspaper'></i>
+                                        Cadastrar 
+                                    </a>
+                                    <a href="/consulta_usuario" class="item branco">
+                                        <i class="search icon branco"></i>
+                                        <div class='content'>
+                                            Consulta Usuário
+                                        </div>
+                                    </a>
+                            <!--          <a href="/troca_senha/" class="item branco">
+                                        <i class="settings icon branco"></i>
+                                        Redefinir Senha
+                                    </a>   -->  
+                                </div>
+                            </div>
+                            <div class="item">Projeto <i class='ui icon caret down'></i>
+                                <div class="submenu">
+                                {% if user.is_superuser %}
+                                    <a class='item' href="/projeto/cadastro.html"> 
+                                        <i class='ui icon newspaper'></i>
+                                        Cadastrar 
+                                    </a>
+                                {% endif %}
+                                    <a href="/consulta_projeto" class="item branco">
+                                        <i class="search icon branco"></i>
+                                        Consulta Projeto
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="item">Horário <i class='ui icon caret down'></i>
+                                <div class="submenu">
+                                    <a class='item' href="/horario/cadastro.html"> 
+                                        <i class='ui icon newspaper'></i>
+                                        Cadastrar 
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="item">Núcleo <i class='ui icon caret down'></i>
+                                <div class="submenu">
+                                {% if user.is_superuser %}
+                                    <a class='item' href="/nucleo"> 
+                                        <i class='ui icon newspaper'></i>
+                                        Cadastrar 
+                                    </a>
+                                {% endif %}
+                                    <a href="/consulta_nucleo" class="item branco">
+                                        <i class="search icon branco"></i>
+                                        Consulta Núcleo
+                                    </a>
+                                </div>
+                            </div>
+    <!--                        <div class="item">Recursos <i class='ui icon caret down'></i>
+                                <div class="submenu">
+                                {% if user.is_superuser %}
+                                    <a class='item' href="/recurso/cadastro.html"> 
+                                        <i class='ui icon newspaper'></i>
+                                        Cadastrar 
+                                    </a>
+                                    <a href="/tipo_recurso" class="item branco">
+                                        <i class="ui icon add square"></i>
+                                        <div class='content'>
+                                            Cadastrar Tipo
+                                        </div>
+                                    </a>
+                                {% endif %}
+                                    <a href="/consulta_recurso" class="item branco">
+                                        <i class="search icon branco"></i>
+                                        Consulta Recursos
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="item">Artefatos <i class='ui icon caret down'></i>
+                                <div class="submenu">
+                                {% if user.is_superuser %}
+                                    <a class='item' href="/artefato/cadastro.html"> 
+                                        <i class='ui icon newspaper'></i>
+                                        Cadastrar 
+                                    </a>
+                                {% endif %}
+                                    <a href="/consulta_artefato" class="item branco">
+                                        <i class="search icon branco"></i>
+                                        Consulta Artefatos
+                                    </a>
+                                </div>
+                            </div>
+          -->                  
+                            <div class="item">Edital <i class='ui icon caret down'></i>
+                                <div class="submenu">
+                                 {% if user.is_superuser %}
+                                    <a class='item' href="/edital/cadastro.html"> 
+                                        <i class='ui icon newspaper'></i>
+                                        Cadastrar 
+                                    </a>
+                                {% endif %}
+                                    <a href="/consulta_edital" class="item branco">
+                                        <i class="search icon branco"></i>
+                                        Consulta Edital
+                                    </a>
+                                </div>
+                            </div>
+          <!--                  
+                            <div class="item">Atividades <i class='ui icon caret down'></i>
+                                <div class="submenu">
+                                {% if user.is_superuser %}
+                                    <a class='item' href="/atividade/cadastro.html"> 
+                                        <i class='ui icon newspaper'></i>
+                                        Cadastrar 
+                                    </a>
+                                {% endif %}
+                                    <a href="/consulta_atividade" class="item branco">
+                                        <i class="search icon branco"></i>
+                                        Consulta Atividades
+                                    </a>
+                                </div>
+                            </div>
+                    -->        
+                            {% if user.is_superuser %}
+                                <div class="item">Administrador <i class='ui icon caret down'></i>
+                                    <div class="submenu">
+                                        <a class='item' href="/desbloquear_usuario"> 
+                                            <i class='ui icon newspaper'></i>
+                                            Desbloqueio 
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="right menu">
+                                <a class="item" href="/logout">Logout</a>
+                            </div>
+                        </nav>
+                    </div>
+                {% endif %}
+            </div>
+        </header>         
+        <article class="corpo ui segment cor-conteudo">
+            <div class="ui grid">
+                <div class="row">
+                    <div class="three wide column"></div>
+                    <div class="ten wide column">       
+                        {%block conteudo%}
+                        {%endblock%}
+                    </div>
+                </div>
+            </div>
+        </article>
+        <footer class="ui grid rodape verde_escuro">
+            <div class="two wide column">
+                <img class="ui small image"src="{% static 'semantic/fabrica.png'%}">
+            </div>
+            <div class="twelve wide column"></div>
+            <div class="two wide column">
+                <img  class="ui small image" src="{% static 'semantic/ifc2.png'%}">
+            </div>  
+        </footer>
+    </body>
+</html>

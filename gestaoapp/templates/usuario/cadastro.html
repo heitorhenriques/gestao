@@ -1,0 +1,170 @@
+{% extends 'base.html'%}
+{% block titulo %} Cadastro de Usuário{% endblock %}
+{% block conteudo %}
+	<form method='POST' enctype="multipart/form-data" class="ui form">
+        {% csrf_token %} 
+	    <h1 class="ui header">Cadastro de Usuário</h1>
+	    <div class="ui secondary segment">
+		    <div class="campo-obrigatorio">(* Campos Obrigatorios)</div>
+	    	<div class="two fields">
+	            <div class="field">
+	                <label>Nome *</label>
+	                {{form.first_name}}
+	                {% if form.first_name.errors %}
+	                	<div class="ui red pointing label">
+	                    	{{ form.first_name.errors }}
+	                 	</div>
+	                {% endif %}
+	            </div>
+	            <div class="field">
+	                <label>Sobrenome *</label>
+	                {{form.last_name}}
+	                {% if form.first_name.errors %}
+	                 	<div class="ui red pointing label">
+	                   		{{ form.first_name.errors }}
+	                 	</div>
+	                {% endif %}
+	            </div>
+	        </div>
+	        <div class="three fields tres">
+	        	<div class="field vinculo">
+	                <label>Vínculo Institucional *</label>
+	               	    <select class="vinculo" >
+	                	<option value='null'> Selecione </option>
+	                	<option value='Aluno'> Aluno </option>
+	                	<option value='Professor'> Professor </option>	
+	                </select>
+	            </div>
+	            <div class="field curso">
+	                <label>Curso *</label>
+	                {{form.curso}}
+	                {% if form.curso.errors %}
+	                	<div class="ui red pointing label">
+	                    	{{ form.curso.errors }}
+	                 	</div>
+	                {% endif %}
+	            </div>
+	            <div class="field periodo">
+	               	<label>Período *</label>
+	                {{form.periodo}}
+	                {% if form.periodo.errors %}
+	                 	<div class="ui red pointing label">
+	                    	{{ form.periodo.errors }}
+	                 	</div>
+	               	{% endif %}
+	            </div>
+	        </div> 
+	        <div class="two fields">
+	           	<div class="field">
+		            <label class="matricula">Matrícula *</label>
+		            {{form.matricula}}
+		            {% if form.matricula.errors %}
+		                <div class="ui red pointing label">
+		                   	{{ form.matricula.errors }}
+		                 </div>
+		            {% endif %}
+		        </div>
+		        <div class="field">
+		            <label>Carga Horária *</label>
+		            {{form.carga_horaria}}
+		            {% if form.carga_horaria.errors %}
+		               	<div ccarga_horarialass="ui red pointing label">
+		                    {{ form.carga_horaria.errors }}
+		                 </div>
+		            {% endif %}
+		        </div>
+		    </div>
+	        <div class="two fields">
+	            <div class="field">
+		            <label>E-mail *</label>
+		            {{form.email}}
+		            {% if form.email.errors %}
+		                <div class="ui red pointing label">
+		                   	{{ form.email.errors }}
+		                </div>
+	                {%endif%}
+		        </div>
+	            <div class="field">
+		            <label>E-mail Opcional</label>
+		            {{form.email_opcional}}
+		            {% if form.email_opcional.errors %}
+		                <div class="ui red pointing label">
+		                   	{{ form.email_opcional.errors }}
+		                </div>
+		            {% endif %}
+		        </div>
+		    </div>
+		    <div class="two fields">
+		        <div class="field">
+			        <label>Telefone 1 *</label>
+			        {{form.telefone1}}
+			        {% if form.telefone1.errors %}
+			            <div class="ui red pointing label">
+			                {{ form.telefone1.errors }}
+			            </div>
+			        {% endif %}
+			    </div>
+			    <div class="field">
+			        <label>Telefone 2</label>
+			        {{form.telefone2}}
+			        {% if form.telefone2.errors %}
+			            <div class="ui red pointing label">
+			                {{ form.telefone2.errors }}
+			            </div>
+			        {% endif %}
+			    </div>
+		   	</div>
+		    <div class="three fields">
+	            <div class="field">
+		            <label>Usuário *</label>
+		            {{form.username}}
+		            {% if form.username.errors %}
+		                <div class="ui red pointing label">
+		                   	{{ form.username.errors }}
+		                </div>
+		            {% endif %}
+		        </div>
+	            <div class="field">
+		            <label>Senha *</label>
+
+		            {{form.password}}
+		            {% if form.password.errors %}
+		                <div class="ui red pointing label">
+		                   	{{ form.password.errors }}
+		                </div>
+		            {% endif %}
+		        </div>
+	            <div class="field">
+		            <label>Confirmar Senha *</label>
+		            {{form.confirma_senha}}
+		            {% if form.confirma_senha.errors %}
+		                <div class="ui red pointing label">
+		                   	{{ form.confirma_senha.errors }}
+		                </div>
+		            {% endif %}
+		        </div>
+		    </div>
+		    <div class="three fields">
+	            <div class="field">
+			        </div>
+	            <div class="field">
+		            <div class="campo-obrigatorio">(Minimo de 8 digitos, letras e numeros)</div>
+		        </div>
+	            <div class="field">
+		        </div>
+		    </div>
+		    <div class="field">
+	            <label>Foto *</label>
+	            {{form.foto}}
+	            {% if form.foto.errors %}
+	                <div class="ui red pointing label">
+	                   	{{ form.foto.errors }}
+	                </div>
+	            {% endif %}
+	        </div>
+        </div>
+       	<input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/>
+	</form>
+        <a href='/horario/'><button class='ui red button'>Cancelar</button></a>
+{% endblock %}
+

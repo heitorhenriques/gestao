@@ -1,0 +1,66 @@
+{% extends 'base.html'%}
+{% block titulo %} Cadastro de Horário{% endblock %}
+{% block conteudo%} 
+	<form method='POST' enctype=" multipart/form-data">
+        {% csrf_token %}           
+        <h1 class="ui header">
+        {%if editar %}
+            Editar Horário
+        {% else %}
+            Cadastro de Horário
+        {%endif%}</h1>
+        <div class="ui secondary segment">
+	        <div class="ui large form">
+		        <div class="two fields">
+				    <div class="field">
+				        <label>Dia da semana</label>
+				        {{form.data}}
+				        {% if form.data.errors %}
+				        	<div class="ui red pointing label">
+				            	{{ form.data.errors }}
+				            </div>
+				        {% endif %}
+				    </div>
+				    <div class="field">
+				        <label>Turno</label>
+				        {{form.turno}}
+				        {% if form.turno.errors %}
+				            <div class="ui red pointing label">
+				                {{ form.turno.errors }}
+				            </div>
+				        {% endif %}
+					</div>
+			    </div>
+	        	<div class="two fields">
+		            <div class="field">
+		                <label>Horário de início</label>
+		                <input type="time" name="hora_inicio">
+		                
+		                {% if form.hora_inicio.errors %}
+		                	<div class="ui red pointing label">
+		                    	{{ form.hora_inicio.errors }}
+		                 	</div>
+		                {% endif %}
+		            </div>
+		            <div class="field">
+		                <label>Horário de término</label>
+		                <input type="time" name="hora_fim">
+		                {% if form.hora_fim.errors %}
+		                 	<div class="ui red pointing label">
+		                   		{{ form.hora_fim.errors }}
+		                 	</div>
+		                {% endif %}
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		  <input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/>
+	</form>
+	<a href='/horario/'><button class='ui red button'>Cancelar</button></a>
+	</div>    
+{% endblock %}
+
+
+
+
+	

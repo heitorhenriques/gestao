@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% block titulo %}Consulta de Atividade{% endblock %}
+{% block conteudo%} 
+
+<form method='POST' action='/consulta_atividade/' class="ui form">
+ 	{% csrf_token %}
+ 	<h1 class=" ui header">Consulta Atividade</h1>
+
+ 	<div class="ui action input">
+  		{{form.nome}}
+	    	<input type="submit" value="Pesquisar" class='icon search'>
+	</div>
+</form>
+<table class="ui celled table">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Descrição</th>
+			<th>Artefato</th>
+			{% if user.is_superuser %}
+				<th>Visualizar</th>
+				<th>Editar</th>
+			{% endif %}
+		</tr>	
+	</thead>
+	<tbody>
+	{% for atividade in atividades %}
+		<tr>
+			<td>{{atividade.nome}}</td>
+			<td>{{atividade.descricao}}</td>
+			{% for artefato in atividade.artefato.all %} 
+			<td>{{artefato.nome}}</td>
+			{%endfor%}
+			{% if user.is_superuser %}
+				<td class="negative"><a href="../visualizar_atividade/{{atividade.id}}">Mais</a></td>
+				<td><a href="../editar_atividade/{{atividade.id}}"><i class="settings large icon"></a></td>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+{{atividade.nome}}
+{%endblock%}
