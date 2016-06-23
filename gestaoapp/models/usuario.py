@@ -2,21 +2,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 from gestaoapp.models.horario import Horario
+from gestaoapp.models.curso import Curso
 from PIL import Image
 
 class Usuario(User):
 	
 	PERIODO_CHOICES = (
-		(1, '1° Semestre'),
-		(2, '2° Semestre'),
-		(3, '3° Semestre'),
-		(4, '4° Semestre'),
-		(5, '5° Semestre'),
-		(6, '6° Semestre'),
-		(7, '7° Semestre'),
-		(8, '8° Semestre'),
-		(9, '9° Semestre'),
-		(10, '10° Semestre'),
+		('primeiro', '1° Semestre'),
+		('segundo', '2° Semestre'),
+		('terceiro', '3° Semestre'),
+		('quarto', '4° Semestre'),
+		('quinto', '5° Semestre'),
+		('sexto', '6° Semestre'),
+		('setimo', '7° Semestre'),
+		('oitavo', '8° Semestre'),
+		('nono', '9° Semestre'),
+		('decimo', '10° Semestre'),
 		
 	)
 	periodo = models.CharField(
@@ -31,7 +32,7 @@ class Usuario(User):
 	telefone1 = models.CharField(max_length=11)
 	telefone2 = models.CharField(max_length=11, blank=True, null=True)
 	vinculo_institucional = models.CharField(max_length=255,null=True, blank=True)
-	curso = models.CharField(max_length=255, null=True, blank=True)
+	curso = models.ForeignKey(Curso, null=True, blank=True)
 	dia = models.ManyToManyField(Horario, blank=True)
 	verificacao=models.CharField(max_length=255,null=True, blank=True, unique = True)
 

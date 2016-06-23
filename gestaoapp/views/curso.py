@@ -34,7 +34,6 @@ class CadastroCurso(LoginRequiredMixin, View):
 			form.save(request)
 
 			return redirect('/cadastro_sucesso')
-
 		else:
 			return render(request, self.template, {'form': form})
 

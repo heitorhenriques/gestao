@@ -3,7 +3,6 @@ from django.contrib import admin
 from gestaoapp.models import *
 admin.site.register(Usuario)
 admin.site.register(Horario)
-admin.site.register(Dia)
 admin.site.register(Turno)
 admin.site.register(TipoProjeto)
 admin.site.register(Projeto)

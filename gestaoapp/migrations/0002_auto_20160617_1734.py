@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('gestaoapp', '0020_auto_20160616_1805'),
+        ('gestaoapp', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='projeto',
-            name='tipo',
-            field=models.CharField(blank=True, max_length=255, null=True, choices=[(b'Pesquisa', b'Pesquisa')]),
+            model_name='usuario',
+            name='curso',
+            field=models.ForeignKey(blank=True, to='gestaoapp.Curso', null=True),
         ),
     ]

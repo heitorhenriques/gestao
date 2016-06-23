@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.template import RequestContext
-from gestaoapp.views.usuario import CadastroUsuario, ConsultaUsuario, VisualizarUsuario, AdministrarUsuario, LiberarUsuario
+from gestaoapp.views.usuario import CadastroUsuario, ConsultaUsuario, VisualizarUsuario, AdministrarUsuario, LiberarUsuario, AdmOn
 from gestaoapp.views.horario import CadastroHorario, ExcluirHorario
 from gestaoapp.views.projeto import CadastroProjeto, ConsultaProjeto, VisualizarProjeto
 from gestaoapp.views.nucleo	import CadastroNucleo, ConsultaNucleo, VisualizarNucleo
