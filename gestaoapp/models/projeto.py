@@ -13,9 +13,9 @@ class Projeto(models.Model):
 	
 	TIPO_CHOICES = (
 		('Pesquisa', 'Pesquisa'),
-		('Extensão', 'Extensão'),
+		('Extensao', 'Extensão'),
 		('Ensino', 'Ensino'),
-		('Pesquisa/Extensão', 'Pesquisa/Extensão'),
+		('Pesquisa/Extensao', 'Pesquisa/Extensão'),
 		
 	)
 	tipo = models.CharField(

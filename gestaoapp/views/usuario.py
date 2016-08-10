@@ -108,15 +108,41 @@ class LiberarUsuario(LoginRequiredMixin,View):
 			
 		return render(request, self.template)
 
+class BloquearUsuario(LoginRequiredMixin,View):
+
+	template = 'sucesso.html'
+
+	def get(self, request, usuario_verificacao = None):
+
+		if usuario_verificacao:
+			nome = Usuario.objects.get(verificacao =usuario_verificacao)
+			nome.is_active = False
+			nome.save()
+			
+		return render(request, self.template)
+
 class AdmOn(LoginRequiredMixin,View):
 
-	template = 'usuario/conta_desbloqueada.html'
+	template = 'sucesso.html'
 
 	def get(self, request, usuario_verificacao = None):
 
 		if usuario_verificacao:
 			nome = Usuario.objects.get(verificacao =usuario_verificacao)
 			nome.is_superuser = True
+			nome.save()
+			
+		return render(request, self.template)
+
+class AdmOff(LoginRequiredMixin,View):
+
+	template = 'sucesso.html'
+
+	def get(self, request, usuario_verificacao = None):
+
+		if usuario_verificacao:
+			nome = Usuario.objects.get(verificacao =usuario_verificacao)
+			nome.is_superuser = False
 			nome.save()
 			
 		return render(request, self.template)

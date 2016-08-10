@@ -5,40 +5,45 @@
 <form method='POST' action='/consulta_projeto/' class="ui form">
  	{% csrf_token %}
  	<h1 class="ui header">Consulta Projeto</h1>
- 	<div class="ui action input">
-  		{{form.nome}}
-	    	<input type="submit" value="Pesquisar" class='icon search'>
+ 	<div class="field">
+	 	<div class="ui action input">
+	  		{{form.nome}}
+		    <input type="submit" value="Pesquisar" class='icon search'>
+		</div>
 	</div>
 </form>
-<table class="ui celled table">
-	<thead>
-		<tr>
-			<th>Nome</th>
-			<th>Data de Inicio</th>
-			<th>Data de Finalização</th>
-			<th>Situação</th>
-			<th>Núcleos da Fábrica</th>
-			<th>Coordenador do Projeto</th>
-			<th>Visualizar</th>
-			<th>Editar</th>
-		</tr>	
-	</thead>
-	<tbody>
-	{% for projeto in projetos %}
-		<tr>
-			<td>{{ projeto.nome }}</td>
-			<td>{{ projeto.data_inicio }}</td>
-			<td>{{ projeto.data_fim}}</td>
-			<td>{{ projeto.situacao }}</td>
-			{% for nucleo in projeto.nucleo.all %} 
-				<td>{{ nucleo.nome }}</td>
-			{%endfor%}
-			<td>{{ projeto.coordenador }}</td>
-			<td><a href="../visualizar_projeto/{{projeto.id}}">Mais</a></td>
-			<td><a href="../editar_projeto/{{projeto.id}}"><i class="settings large icon"></a></td>
-		</tr>
-	{% endfor %}
-	</tbody>
-</table>
-<a href='/projeto/'><button class="ui button verde_escuro direita">Novo Projeto</button></a>
+<div class="ui secondary segment">
+	<table class="ui celled table">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Data de Inicio</th>
+				<th>Data de Finalização</th>
+				<th>Situação</th>
+				<th>Núcleos da Fábrica</th>
+				<th>Coordenador do Projeto</th>
+				<th>Visualizar</th>
+				<th>Editar</th>
+			</tr>	
+		</thead>
+		<tbody>
+		{% for projeto in projetos %}
+			<tr>
+				<td>{{ projeto.nome }}</td>
+				<td>{{ projeto.data_inicio }}</td>
+				<td>{{ projeto.data_fim}}</td>
+				<td>{{ projeto.situacao }}</td>
+				<td>
+				{% for nucleo in projeto.nucleo.all %} 
+					{{ nucleo.nome }}
+				{%endfor%}</td>
+				<td>{{ projeto.coordenador }}</td>
+				<td><a href="../visualizar_projeto/{{projeto.id}}">Mais</a></td>
+				<td><a href="../editar_projeto/{{projeto.id}}"><i class="settings large icon"></i></a></td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+
 {%endblock%}

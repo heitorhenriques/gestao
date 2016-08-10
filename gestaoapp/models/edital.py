@@ -1,7 +1,7 @@
 from django.db import models
 
 class Edital (models.Model):
-	numero = models.CharField(max_length=255)
+	numero = models.IntegerField()
 	orgao_concedente = models.CharField(max_length =255)
 	dt_inicio = models.DateField()
 	dt_termino = models.DateField()

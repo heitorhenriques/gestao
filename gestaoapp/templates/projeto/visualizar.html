@@ -53,7 +53,7 @@
 		<div class="field">
 			<label>Núcleo</label>
 			{% for nucleo in projeto.nucleo.all %} 
-				{{nucleo.nome}}
+				{{nucleo.nome}}<br>
 			{%endfor%}
 		</div>
 	</div>
@@ -62,10 +62,10 @@
 			<label>Situação</label>
 			{{projeto.situacao}}
 		</div>
-		<div class="field">
+		<!-- <div class="field">
 			<label>Quantida de Bolsas</label>
 			{{projeto.qtd_bolsa}}
-		</div>
+		</div> -->
 	</div>
 	<div class="field">	
 		<label>Descrição</label>

@@ -27,17 +27,12 @@ class CadastroProjeto(LoginRequiredMixin,View):
 		if projeto_id:
 			nome = Projeto.objects.get(id=projeto_id)
 			form = FormProjeto(instance=nome, data=request.POST)
-			print("1")
 		else:
 			form = FormProjeto(request.POST)
-			print ("2")
 		if form.is_valid():
-			print("3")
 			form.save(request)
-			print("4")
 			return redirect('/cadastro_sucesso')
 		else:
-			print("5")
 			return render(request, self.template, {'form': form})
 
 class ConsultaProjeto(LoginRequiredMixin, View):

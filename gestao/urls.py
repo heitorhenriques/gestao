@@ -19,10 +19,12 @@ urlpatterns = [
     url(r'^consulta_usuario/', ConsultaUsuario.as_view()),
     url(r'^visualizar_usuario/(?P<usuario_id>\d+)/$', VisualizarUsuario.as_view()),
     url(r'^liberar_usuario/(?P<usuario_verificacao>\w+)/$', LiberarUsuario.as_view()),
+    url(r'^bloquear_usuario/(?P<usuario_verificacao>\w+)/$', BloquearUsuario.as_view()),
     url(r'^adm_on/(?P<usuario_verificacao>\w+)/$', AdmOn.as_view()),
+    url(r'^adm_off/(?P<usuario_verificacao>\w+)/$', AdmOff.as_view()),
 
 
-    url(r'^horario/', CadastroHorario.as_view()),    
+    url(r'^horario/(?P<horario_id>\d+)/$', CadastroHorario.as_view()),    
     url(r'^excluir_horario/(?P<horario_id>\d+)/$', ExcluirHorario.as_view()),    
     url(r'^editar_horario/(?P<horario_id>\d+)/$', CadastroHorario.as_view()),
     url(r'^hora_invalida/', hora_invalida),
