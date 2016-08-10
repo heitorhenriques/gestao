@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from gestaoapp.forms.projeto import FormProjeto
 from gestaoapp.models.projeto import Projeto
+from gestaoapp.models.usuario import Usuario
 from gestaoapp.forms.busca import Busca
 from gestaoapp.views.loginrequired import LoginRequiredMixin
 
@@ -18,9 +19,10 @@ class CadastroProjeto(LoginRequiredMixin,View):
 			editar=True
 		else:
 			form = FormProjeto()
-			editar=False
+			usuarios = Usuario.objects.filter(is_superuser=True) and Usuario.objects.filter(is_active =True)
+			editar = False
 		
-		return render(request, self.template, {'form': form,'editar':editar})
+		return render(request, self.template, {'form': form,'editar':editar, 'usuarios':usuarios})
 
 	def post(self, request, projeto_id=None):
 		

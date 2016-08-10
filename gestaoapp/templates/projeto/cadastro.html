@@ -43,7 +43,7 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="field">
+          <!--  <div class="field">
                 <label>Coordenador *</label>
                 {{form.coordenador}}
                 {% if form.coordenador.errors %}
@@ -51,6 +51,15 @@
                         {{ form.coordenador.errors }}
                     </div>
                 {% endif %}
+            </div>-->
+            <div class="field">
+                <label>Coordenador *</label>
+                <select id="id_coordenador" name="coordenador">
+                    <option value="" selected="selected">---------</option>
+                        {%for usuario in usuarios%}
+                            <option value="{{usuario.id}}">{{usuario.first_name}}</option>
+                        {%endfor%}
+                </select>
             </div>
             <label class="campo-obrigatorio">(Ex. 6 = 6 meses)</label>
             <div class="three fields">
