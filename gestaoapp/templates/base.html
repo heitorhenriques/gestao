@@ -25,6 +25,7 @@
 						</h1>
 					</div>
 				</div>
+				{% if user.is_authenticated %}  
 				<div class="computer only row">
 					<nav class="ui large menu stackable"><a class="item" href="/home" >Home</a>
 						<div class="ui dropdown item">Usuario<i class="dropdown icon"></i>
@@ -113,6 +114,7 @@
 								<div class="ui header">Administrador</div>
 									<a class="item" href="/curso"><i class='ui icon newspaper'></i>Cadastro de Curso</a>
 									<a class="item" href="/desbloquear_usuario"><i class="search icon branco"></i>Desbolquear Usuario</a>
+								{% if user.is_superuser %}
 								<div class="ui divider"></div>
 								<a class="ui header" href="/logout"><i class="sign out icon"></i>Logout</a>
 								<div class="ui divider"></div>
@@ -121,6 +123,7 @@
 						</div>
 					</nav>
 				</div>
+				{% end if %}
 			</div>
 		</header>         
 		<article class="corpo ui segment cor-conteudo">
