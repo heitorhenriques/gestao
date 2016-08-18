@@ -23,8 +23,7 @@ urlpatterns = [
     url(r'^adm_on/(?P<usuario_verificacao>\w+)/$', AdmOn.as_view()),
     url(r'^adm_off/(?P<usuario_verificacao>\w+)/$', AdmOff.as_view()),
 
-
-    url(r'^horario/(?P<horario_id>\d+)/$', CadastroHorario.as_view()),    
+    url(r'^horario/', CadastroHorario.as_view()),
     url(r'^excluir_horario/(?P<horario_id>\d+)/$', ExcluirHorario.as_view()),    
     url(r'^editar_horario/(?P<horario_id>\d+)/$', CadastroHorario.as_view()),
     url(r'^hora_invalida/', hora_invalida),
