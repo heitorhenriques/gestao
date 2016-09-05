@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}, name='logout'),
     url(r'^troca_senha/$', 'django.contrib.auth.views.password_change',{'template_name': 'troca.html'}, name='troca_senha'),
     
+    url(r'^', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
     url(r'^home/', home),
 
     url(r'^usuario/', CadastroUsuario.as_view(), name='usuario'),
