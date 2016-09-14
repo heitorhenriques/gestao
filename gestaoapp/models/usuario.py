@@ -27,7 +27,7 @@ class Usuario(User):
 
 	email_opcional = models.EmailField(max_length=254, null=True, blank=True)
 	matricula = models.CharField(max_length=255, unique = True)
-	foto = models.ImageField('Imagem', upload_to='imagens')
+	foto = models.ImageField('Imagem', upload_to='gestao/imagens/')
 	carga_horaria = models.IntegerField()
 	telefone1 = models.CharField(max_length=11)
 	telefone2 = models.CharField(max_length=11, blank=True, null=True)
