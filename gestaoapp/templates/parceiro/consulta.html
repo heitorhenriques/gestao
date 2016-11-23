@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% block titulo %}Consulta de Parceiros{% endblock %}
+{% block conteudo%} 
+	
+	<div class="ui cards ">
+		{% for parceiro in parceiros %}
+			<div class="card">
+				<a class="image"><img src="/{{ parceiro.imagem }}"></a>
+				<div class="content">
+					<a class="header">{{parceiro.apelido}}</a>
+					<div class="meta">
+						<a>{{parceiro.nome}}</a>
+					</div>
+
+					<div class="description">
+						{{parceiro.descricao}}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+{%endblock%}
