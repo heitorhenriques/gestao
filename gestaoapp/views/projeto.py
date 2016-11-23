@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from gestaoapp.forms.projeto import FormProjeto
+from gestaoapp.forms.projeto_membro import FormProjetoMembro
 from gestaoapp.models.projeto import Projeto
 from gestaoapp.models.usuario import Usuario
 from gestaoapp.forms.busca import Busca
@@ -16,13 +17,21 @@ class CadastroProjeto(LoginRequiredMixin,View):
 		if projeto_id:
 			nome = Projeto.objects.get(id=projeto_id)
 			form = FormProjeto(instance= nome)
+			coordenadores = Usuario.objects.filter(vinculo_institucional = "Professor", is_active = True)
+			coordenador = nome.coordenador
+			inicio = nome.data_inicio
+			termino = nome.data_fim
+			membros = Usuario.objects.filter( is_active = True)
+			membro = nome.membro
 			editar=True
+			return render(request, self.template, {'form': form,'editar':editar, 'coordenadores': coordenadores,'membro': membro ,'membros': membros, 'coordenador': coordenador, 'inicio': inicio, 'termino': termino })
 		else:
 			form = FormProjeto()
-			usuarios = Usuario.objects.filter(is_superuser=True) and Usuario.objects.filter(is_active =True)
+			coordenadores = Usuario.objects.filter(vinculo_institucional = "Professor", is_active = True)
+			membros = Usuario.objects.filter( is_active = True)
 			editar = False
 		
-		return render(request, self.template, {'form': form,'editar':editar, 'usuarios':usuarios})
+		return render(request, self.template, {'form': form,'editar':editar, 'coordenadores': coordenadores, 'membros': membros })
 
 	def post(self, request, projeto_id=None):
 		
@@ -74,3 +83,35 @@ class VisualizarProjeto(LoginRequiredMixin, View):
 	def post(self, request):
 		
 		return render(request, self.template)
+
+class AddMembro(LoginRequiredMixin,View):
+
+	template = 'projeto/add_membro.html'
+
+	def get(self, request, projeto_id=None):
+
+		if projeto_id:
+			nome = Projeto.objects.get(id=projeto_id)
+			form = FormProjetoMembro(instance= nome)
+			editar=True
+			return render(request, self.template, {'form': form,'editar':editar,})
+		else:
+			form = FormProjetoMembro()
+			coordenadores = Usuario.objects.filter(vinculo_institucional = "Professor", is_active = True)
+			membros = Usuario.objects.filter( is_active = True)
+			editar = False
+		
+		return render(request, self.template, {'form': form,'editar':editar, 'coordenadores': coordenadores, 'membros': membros })
+
+	def post(self, request, projeto_id=None):
+		
+		if projeto_id:
+			nome = Projeto.objects.get(id=projeto_id)
+			form = FormProjetoMembro(instance=nome, data=request.POST)
+		else:
+			form = FormProjetoMembro(request.POST)
+		if form.is_valid():
+			form.save(request)
+			return redirect('/cadastro_sucesso')
+		else:
+			return render(request, self.template, {'form': form})

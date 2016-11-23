@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}, name='logout'),
-    url(r'^troca_senha/$', 'django.contrib.auth.views.password_change',{'template_name': 'troca.html'}, name='troca_senha'),
+    url(r'^trocar_senha/$', 'django.contrib.auth.views.password_change',{'template_name': 'troca.html'}, name='troca_senha'),
     
     url(r'^$','django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
     url(r'^home/', home),
@@ -35,6 +35,8 @@ urlpatterns = [
     url(r'^editar_projeto/(?P<projeto_id>\d+)/$', CadastroProjeto.as_view()),
     url(r'^consulta_projeto/', ConsultaProjeto.as_view()),
     url(r'^visualizar_projeto/(?P<projeto_id>\d+)/$', VisualizarProjeto.as_view()),
+    url(r'^add_membro/(?P<projeto_id>\d+)/$', CadastroProjeto.as_view()),
+    url(r'^editar_membro/(?P<projeto_id>\d+)/$', AddMembro.as_view()),
     #url(r'^horaprojeto/', CadastroHoraProjeto.as_view()),
 
     url(r'^nucleo/', CadastroNucleo.as_view()),
@@ -66,5 +68,10 @@ urlpatterns = [
     url(r'^editar_edital/(?P<edital_id>\d+)/$', CadastroEdital.as_view()),
     url(r'^consulta_edital/', ConsultaEdital.as_view()),
     url(r'^visualizar_edital/(?P<edital_id>\d+)/$', VisualizarEdital.as_view()),
+    
+    url(r'^parceiro/', CadastroParceiro.as_view()),
+    url(r'^editar_parceiro/(?P<parceiro_id>\d+)/$', CadastroParceiro.as_view()),
+    url(r'^consulta_parceiro/', ConsultaParceiro.as_view()),
+    url(r'^visualizar_parceiro/(?P<parceiro_id>\d+)/$', VisualizarParceiro.as_view()),
 
 ]

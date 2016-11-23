@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.template import RequestContext
 from gestaoapp.views.usuario import CadastroUsuario, ConsultaUsuario, VisualizarUsuario, AdministrarUsuario, LiberarUsuario, BloquearUsuario, AdmOn, AdmOff
 from gestaoapp.views.horario import CadastroHorario, ExcluirHorario
-from gestaoapp.views.projeto import CadastroProjeto, ConsultaProjeto, VisualizarProjeto
+from gestaoapp.views.projeto import CadastroProjeto, ConsultaProjeto, VisualizarProjeto, AddMembro
 from gestaoapp.views.nucleo	import CadastroNucleo, ConsultaNucleo, VisualizarNucleo
 from gestaoapp.views.recurso import CadastroRecurso, ConsultaRecurso, VisualizarRecurso
 from gestaoapp.views.tiporecurso import CadastroTipoRecurso
@@ -10,6 +10,8 @@ from gestaoapp.views.artefato import CadastroArtefato, ConsultaArtefato, Visuali
 from gestaoapp.views.atividade import CadastroAtividade, ConsultaAtividade, VisualizarAtividade
 from gestaoapp.views.edital import CadastroEdital, ConsultaEdital, VisualizarEdital
 from gestaoapp.views.curso import CadastroCurso, ConsultaCurso, VisualizarCurso
+from gestaoapp.views.parceiro import CadastroParceiro, ConsultaParceiro, VisualizarParceiro
+
 
 def sucesso(request):
 	return render(request, 'usuario/aguarde_liberacao.html')

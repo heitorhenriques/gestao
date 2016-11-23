@@ -17,29 +17,26 @@
 		<thead>
 			<tr>
 				<th>Nome</th>
+				<th>Coordenador do Projeto</th>
 				<th>Data de Inicio</th>
 				<th>Data de Finalização</th>
-				<th>Situação</th>
-				<th>Núcleos da Fábrica</th>
-				<th>Coordenador do Projeto</th>
-				<th>Visualizar</th>
-				<th>Editar</th>
+				{% if user.is_superuser %}
+					<th>Visualizar</th>
+					<th>Editar</th>
+				{% endif %}
 			</tr>	
 		</thead>
 		<tbody>
 		{% for projeto in projetos %}
 			<tr>
 				<td>{{ projeto.nome }}</td>
+				<td>{{ projeto.coordenador }}</td>
 				<td>{{ projeto.data_inicio }}</td>
 				<td>{{ projeto.data_fim}}</td>
-				<td>{{ projeto.situacao }}</td>
-				<td>
-				{% for nucleo in projeto.nucleo.all %} 
-					{{ nucleo.nome }}
-				{%endfor%}</td>
-				<td>{{ projeto.coordenador }}</td>
-				<td><a href="../visualizar_projeto/{{projeto.id}}">Mais</a></td>
-				<td><a href="../editar_projeto/{{projeto.id}}"><i class="settings large icon"></i></a></td>
+				{% if user.is_superuser %}
+					<td><a href="../visualizar_projeto/{{projeto.id}}">Mais</a></td>
+					<td><a href="../editar_projeto/{{projeto.id}}"><i class="settings large icon"></i></a></td>
+				{% endif %}
 			</tr>
 		{% endfor %}
 		</tbody>

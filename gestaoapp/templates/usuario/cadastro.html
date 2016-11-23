@@ -29,11 +29,17 @@
 	        <div class="three fields tres">
 	        	<div class="field vinculo">
 	                <label>Vínculo Institucional *</label>
-	               	    <select class="vinculo" >
+	                {{form.vinculo_institucional}}
+	                {% if form.periodo.errors %}
+	                 	<div class="ui red pointing label">
+	                    	{{ form.periodo.errors }}
+	                 	</div>
+	               	{% endif %}
+	              <!-- 	    <select class="vinculo" >
 	                	<option value='null'> Selecione </option>
 	                	<option value='Aluno'> Aluno </option>
 	                	<option value='Professor'> Professor </option>	
-	                </select>
+	                </select> -->
 	            </div>
 	            <div class="field curso">
 	                <label>Curso *</label>
@@ -153,6 +159,24 @@
 	            <div class="field">
 		        </div>
 		    </div>
+		      <div class="field">
+	            <label>Curriculo Lattes </label>
+	            {{form.lattes}}
+	            {% if form.lattes.errors %}
+	                <div class="ui red pointing label">
+	                   	{{ form.lattes.errors }}
+	                </div>
+	            {% endif %}
+	        </div>   
+	        <div class="field">
+	            <label>Descrição</label>
+	            {{form.desc}}
+	            {% if form.desc.errors %}
+	                <div class="ui red pointing label">
+	                   	{{ form.desc.errors }}
+	                </div>
+	            {% endif %}
+	        </div>
 		    <div class="field">
 	            <label>Foto *</label>
 	            {{form.foto}}

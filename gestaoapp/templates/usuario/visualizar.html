@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
 {% block titulo %} 	 Visualizar Usuário {% endblock %}
+{% load staticfiles %}
 {% block conteudo %}
 	<div class="ui grid">
 		{% csrf_token %}
@@ -71,8 +72,8 @@
 									<th>Dia da Semana</th>
 									<th>Início</th>
 									<th>Termino</th>
-									{% if user.is_superuser %}
 									<th>Editar</th>
+									{% if user.is_superuser %}
 									<th>Excluir</th>
 									{% endif %}	
 								</tr>
@@ -92,8 +93,8 @@
 								{% endif%}
 								<td>{{data.hora_inicio}}</td>
  								<td>{{data.hora_fim}}</td>
- 								{% if user.is_superuser %}
  								<td><a href="/editar_horario/{{ data.id }}"><i class="edit icon black large"></i></a></td>
+ 								{% if user.is_superuser %}
  								<td><a href="/excluir_horario/{{ data.id }}"><i class="remove icon icone_red large"></i></a></td>
  								{% endif %}
 

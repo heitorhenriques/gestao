@@ -13,5 +13,6 @@ admin.site.register(Atividade)
 admin.site.register(Edital)
 admin.site.register(Artefato)
 admin.site.register(SituacaoProjeto)
+admin.site.register(Parceiro)
 
 

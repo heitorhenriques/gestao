@@ -32,8 +32,12 @@
 							<div class="menu">
 							{% if user.is_superuser %}
 								<a class="item" href="/usuario"><i class='ui icon newspaper'></i>Cadastro</a>
-							{% endif %}
 								<a class="item" href="/consulta_usuario"><i class="search icon branco"></i>Consulta</a>
+							{% endif %}
+							{% if user.is_superuser %}
+							{% else %}
+								<a class="item" href="/visualizar_usuario/{{ request.user.id }}"><i class="search icon branco"></i>Editar Horario</a>
+							{% endif %}
 							</div>
 						</div>
 						<div class="ui dropdown item">Projetos<i class="dropdown icon"></i>
@@ -63,6 +67,13 @@
 								<a class="item" href="/edital"><i class='ui icon newspaper'></i>Cadastro</a>
 							{% endif %}
 								<a class="item" href="/consulta_edital"><i class="search icon branco"></i>Consulta</a>
+							</div>
+						</div>
+						<div class="ui dropdown item">Parceiros<i class="dropdown icon"></i>
+							<div class="menu">
+							{% if user.is_superuser %}
+								<a class="item" href="/parceiro"><i class='ui icon newspaper'></i>Cadastro</a>
+							{% endif %}
 							</div>
 						</div>
 						{% if user.is_superuser %}
@@ -109,6 +120,12 @@
 									<a class="item" href="/edital"><i class='ui icon newspaper'></i>Cadastro</a>
 									{% endif %}
 									<a class="item" href="/consulta_edital"><i class="search icon branco"></i>Consulta</a>
+								<div class="ui divider"></div>
+								<div class="ui header">Parceiro</div>
+									{% if user.is_superuser %}
+									<a class="item" href="/parceiro"><i class='ui icon newspaper'></i>Cadastro</a>
+									{% endif %}
+									<a class="item" href="/consulta_parceiro"><i class="search icon branco"></i>Consulta</a>
 								<div class="ui divider"></div>
 								{% if user.is_superuser %}
 								<div class="ui header">Administrador</div>

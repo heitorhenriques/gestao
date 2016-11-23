@@ -57,21 +57,38 @@
 			{%endfor%}
 		</div>
 	</div>
-	<div class="two fields">	
+	<!-- <div class="two fields">	
 		<div class="field">
 			<label>Situação</label>
 			{{projeto.situacao}}
 		</div>
-		<!-- <div class="field">
+		<div class="field">
 			<label>Quantida de Bolsas</label>
 			{{projeto.qtd_bolsa}}
-		</div> -->
-	</div>
+		</div> 
+	</div>-->
+
 	<div class="field">	
 		<label>Descrição</label>
 		{{projeto.descricao}}
 	</div>
-</div>
+	<h2 class="ui header">Membros  <a href='/editar_membro/{{projeto.id}}'><i class="add user black icon"></i></a> </h2>
+	<div class="field">
+		<table class="ui celled table">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Vinculo</th>
+				</tr>
+			</thead>
+				{% for membros in projeto.membro.all %} 
+			<tbody>
+				<td>{{membros.first_name}} {{membros.last_name}}</td>	
+				<td>{{membros.vinculo_institucional}} </td>	
+ 			</tbody>
+				{%endfor%}
+ 		</table>
+ 	</div>
 <a href='/consulta_projeto/'><button class='ui red button'>Voltar</button></a>
 <a href='/editar_projeto/{{projeto.id}}'><button class="ui button direita verde_escuro">Editar </button></a>
 {%else%}

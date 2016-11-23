@@ -34,14 +34,14 @@
 			   	<td class="centro"><i class="remove icone_red large icon"></i></td>
 			   	{% endif %}
 			   	{% if usuario.is_active %} 
-			   	<td class="centro"><a href="http://127.0.0.1:8000/bloquear_usuario/{{usuario.verificacao}}"><i class="remove black large icon"></i></a></td>
+			   	<td class="centro"><a href="http://0.0.0.0:8000/bloquear_usuario/{{usuario.verificacao}}"><i class="remove black large icon"></i></a></td>
 			   	{% else %}
-			   	<td class="centro"><a href="http://127.0.0.1:8000/liberar_usuario/{{usuario.verificacao}}"><i class="checkmark black large icon"></i></a></td>
+			   	<td class="centro"><a href="http://0.0.0.0:8000/liberar_usuario/{{usuario.verificacao}}"><i class="checkmark black large icon"></i></a></td>
 			   	{% endif %}
 			   	{% if usuario.is_superuser %} 
-			   	<td class="centro"><a href="http://127.0.0.1:8000/adm_off/{{usuario.verificacao}}"><i class="remove black large icon"></i></a></td>
+			   	<td class="centro"><a href="http://0.0.0.0:8000/adm_off/{{usuario.verificacao}}"><i class="remove black large icon"></i></a></td>
 			   	{% else %}
-			   	<td class="centro"><a href="http://127.0.0.1:8000/adm_on/{{usuario.verificacao}}"><i class="checkmark black large icon"></i></a></td>
+			   	<td class="centro"><a href="http://0.0.0.0:8000/adm_on/{{usuario.verificacao}}"><i class="checkmark black large icon"></i></a></td>
 			   	{% endif %}
 		    </tr>
     		{% endfor %}

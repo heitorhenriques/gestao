@@ -24,6 +24,7 @@
                 {% endif %}
             </div>
             <div class="two fields">
+            {%if not editar%}
                 <div class="field">
                     <label>Código *</label>
                     {{form.codigo}}
@@ -33,6 +34,7 @@
                         </div>
                     {% endif %}
                 </div>
+            {% endif %}
                 <div class="field">
                     <label>Tipo *</label>
                     {{form.tipo}}
@@ -43,22 +45,17 @@
                     {% endif %}
                 </div>
             </div>
-          <!--  <div class="field">
-                <label>Coordenador *</label>
-                {{form.coordenador}}
-                {% if form.coordenador.errors %}
-                    <div class="ui red red pointing label">
-                        {{ form.coordenador.errors }}
-                    </div>
-                {% endif %}
-            </div>-->
             <div class="field">
                 <label>Coordenador *</label>
                 <select id="id_coordenador" name="coordenador">
+                    {% if editar %}
+                    <option value="{{coordenador.id}}" selected="selected">{{coordenador.first_name}}</option>
+                    {% else %}
                     <option value="" selected="selected">---------</option>
-                        {%for usuario in usuarios%}
-                            <option value="{{usuario.id}}">{{usuario.first_name}}</option>
-                        {%endfor%}
+                    {% endif %}
+                    {% for coordenador in coordenadores %}
+                        <option value="{{coordenador.id}}">{{coordenador.first_name}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <label class="campo-obrigatorio">(Ex. 6 = 6 meses)</label>
@@ -112,6 +109,15 @@
                 </div>
             </div>
             <div class="field">
+                <label>Parceiro</label>
+                {{form.parceiro}}
+                {% if form.parceiro.errors %}
+                    <div class="ui red pointing label">
+                        {{ form.parceiro.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="field">
                 <label>Descrição *</label>
                 {{form.descricao}}
                 {% if form.descricao.errors %}
@@ -119,7 +125,26 @@
                         {{ form.descricao.errors }}
                     </div>
                 {% endif %}
-            </div>   
+            </div>
+            <h3> Membros do Projeto </h3>
+            <div class="field">
+                <label>Membros</label>
+                    {{form.membro}}
+                {% if form.membro.errors %}
+                    <div class="ui red red pointing label">
+                        {{ form.membro.errors }}
+                    </div>
+                {% endif %}
+                </div>
+
+            <!--<div class="field">
+                <label>Membros *</label>
+                <select multiple id="id_membro" name="membro">
+                    {% for mem in membros %}
+                        <option value="{{mem.id}}" selected="selected">{{mem.first_name}}</option>
+                    {% endfor %}
+                </select>
+            </div> -->    
         </div>
         <input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/>	
 	</form>
