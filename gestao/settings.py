@@ -64,10 +64,21 @@ WSGI_APPLICATION = 'gestao.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        # Ends with "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
+        # Ends with "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        # DB name or path to database file if using sqlite3.
+        "NAME": "sgp",
+        # Not used with sqlite3.
+        "USER": "postgres",
+        # Not used with sqlite3.
+        "PASSWORD": "postgres",
+        # Set to empty string for localhost. Not used with sqlite3.
+        # Set to empty string for default. Not used with sqlite3.
+        "PORT": "5432",
     }
 }
 
@@ -89,10 +100,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+
+STATIC_PATH = (
+    os.path.join(BASE_DIR, 'static'),
+)
+MEDIA_PATH = (
+    os.path.join(BASE_DIR, 'media'),
+)
+MEDIA_ROOT = (
+    os.path.join(BASE_DIR, 'media'),
+)
+STATICFILES_DIRS = (
+    MEDIA_PATH,
+    STATIC_PATH,
+)
 LOGIN_REDIRECT_URL = '/horario/'
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
