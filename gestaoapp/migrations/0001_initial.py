@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 from django.conf import settings
+import django.core.validators
 import django.contrib.auth.models
 
 
@@ -41,7 +42,7 @@ class Migration(migrations.Migration):
             name='Edital',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('numero', models.CharField(max_length=255)),
+                ('numero', models.IntegerField()),
                 ('orgao_concedente', models.CharField(max_length=255)),
                 ('dt_inicio', models.DateField()),
                 ('dt_termino', models.DateField()),
@@ -79,16 +80,28 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nome', models.CharField(max_length=255)),
                 ('sigla', models.CharField(max_length=5)),
-                ('descricao', models.CharField(max_length=255)),
+                ('descricao', models.TextField()),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Parceiro',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('nome', models.CharField(max_length=255)),
+                ('cnpj', models.CharField(max_length=255)),
+                ('descricao', models.TextField()),
+                ('endereco', models.CharField(max_length=255)),
+                ('imagem', models.ImageField(upload_to=b'static/imagens/parceiro/', verbose_name=b'Imagem')),
+                ('site', models.URLField(null=True, blank=True)),
             ],
         ),
         migrations.CreateModel(
             name='Projeto',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('tipo', models.CharField(blank=True, max_length=255, null=True, choices=[(b'Pesquisa', b'Pesquisa'), (b'Extens\xc3\xa3o', b'Extens\xc3\xa3o'), (b'Ensino', b'Ensino'), (b'Pesquisa/Extens\xc3\xa3o', b'Pesquisa/Extens\xc3\xa3o')])),
+                ('tipo', models.CharField(blank=True, max_length=255, null=True, choices=[(b'Pesquisa', b'Pesquisa'), (b'Extensao', b'Extens\xc3\xa3o'), (b'Ensino', b'Ensino'), (b'Pesquisa/Extensao', b'Pesquisa/Extens\xc3\xa3o')])),
                 ('nome', models.CharField(max_length=255)),
-                ('codigo', models.CharField(max_length=255)),
+                ('codigo', models.CharField(unique=True, max_length=255)),
                 ('duracao', models.CharField(max_length=255)),
                 ('data_inicio', models.DateField()),
                 ('data_fim', models.DateField()),
@@ -137,16 +150,18 @@ class Migration(migrations.Migration):
             name='Usuario',
             fields=[
                 ('user_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('periodo', models.CharField(blank=True, max_length=255, null=True, choices=[(1, b'1\xc2\xb0 Semestre'), (2, b'2\xc2\xb0 Semestre'), (3, b'3\xc2\xb0 Semestre'), (4, b'4\xc2\xb0 Semestre'), (5, b'5\xc2\xb0 Semestre'), (6, b'6\xc2\xb0 Semestre'), (7, b'7\xc2\xb0 Semestre'), (8, b'8\xc2\xb0 Semestre'), (9, b'9\xc2\xb0 Semestre'), (10, b'10\xc2\xb0 Semestre')])),
+                ('periodo', models.CharField(blank=True, max_length=255, null=True, choices=[(b'primeiro', b'1\xc2\xb0 Semestre'), (b'segundo', b'2\xc2\xb0 Semestre'), (b'terceiro', b'3\xc2\xb0 Semestre'), (b'quarto', b'4\xc2\xb0 Semestre'), (b'quinto', b'5\xc2\xb0 Semestre'), (b'sexto', b'6\xc2\xb0 Semestre'), (b'setimo', b'7\xc2\xb0 Semestre'), (b'oitavo', b'8\xc2\xb0 Semestre'), (b'nono', b'9\xc2\xb0 Semestre'), (b'decimo', b'10\xc2\xb0 Semestre')])),
+                ('vinculo_institucional', models.CharField(blank=True, max_length=255, null=True, choices=[(b'Aluno', b'Aluno'), (b'Professor', b'Professor')])),
                 ('email_opcional', models.EmailField(max_length=254, null=True, blank=True)),
                 ('matricula', models.CharField(unique=True, max_length=255)),
-                ('foto', models.ImageField(upload_to=b'imagens', verbose_name=b'Imagem')),
-                ('carga_horaria', models.IntegerField()),
+                ('foto', models.ImageField(upload_to=b'static/imagens/', verbose_name=b'Imagem')),
+                ('carga_horaria', models.IntegerField(validators=[django.core.validators.MaxValueValidator(100), django.core.validators.MinValueValidator(1)])),
                 ('telefone1', models.CharField(max_length=11)),
                 ('telefone2', models.CharField(max_length=11, null=True, blank=True)),
-                ('vinculo_institucional', models.CharField(max_length=255, null=True, blank=True)),
-                ('curso', models.CharField(max_length=255, null=True, blank=True)),
                 ('verificacao', models.CharField(max_length=255, unique=True, null=True, blank=True)),
+                ('lattes', models.URLField(null=True, blank=True)),
+                ('desc', models.TextField()),
+                ('curso', models.ForeignKey(blank=True, to='gestaoapp.Curso', null=True)),
                 ('dia', models.ManyToManyField(to='gestaoapp.Horario', blank=True)),
             ],
             options={
@@ -156,7 +171,7 @@ class Migration(migrations.Migration):
             },
             bases=('auth.user',),
             managers=[
-                ('objects', django.contrib.auth.models.UserManager()),
+                (b'objects', django.contrib.auth.models.UserManager()),
             ],
         ),
         migrations.CreateModel(
@@ -183,13 +198,18 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='projeto',
+            name='membro',
+            field=models.ManyToManyField(related_name='Membros', to='gestaoapp.Usuario', blank=True),
+        ),
+        migrations.AddField(
+            model_name='projeto',
             name='nucleo',
             field=models.ManyToManyField(to='gestaoapp.Nucleo'),
         ),
         migrations.AddField(
             model_name='projeto',
-            name='situacao',
-            field=models.ForeignKey(blank=True, to='gestaoapp.SituacaoProjeto', null=True),
+            name='parceiro',
+            field=models.ManyToManyField(to='gestaoapp.Parceiro'),
         ),
         migrations.AddField(
             model_name='horaprojeto',
