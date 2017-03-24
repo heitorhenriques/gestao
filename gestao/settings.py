@@ -95,7 +95,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 LOGIN_REDIRECT_URL = '/horario/'
-
+MEDIA_ROOT = '/var/www/gestao/static'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
