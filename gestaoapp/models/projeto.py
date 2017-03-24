@@ -1,23 +1,19 @@
 # encoding: utf-8
 from django.db import models
-from gestaoapp.models.recurso import Recurso
-from gestaoapp.models.nucleo import Nucleo
-from gestaoapp.models.usuario import Usuario
-from gestaoapp.models.atividade import Atividade
+
 from gestaoapp.models.edital import Edital
-from gestaoapp.models.tipoprojeto import TipoProjeto
-from gestaoapp.models.situacaoprojeto import SituacaoProjeto
-from gestaoapp.models.faseprojeto import FaseProjeto
+from gestaoapp.models.nucleo import Nucleo
 from gestaoapp.models.parceiro import Parceiro
+from gestaoapp.models.usuario import Usuario
 
 
 class Projeto(models.Model):
 	
 	TIPO_CHOICES = (
-		('Pesquisa', 'Pesquisa'),
-		('Extensao', 'Extensão'),
-		('Ensino', 'Ensino'),
-		('Pesquisa/Extensao', 'Pesquisa/Extensão'),
+        ('Pesquisa', 'Pesquisa'),
+        ('Extensao', 'Extensão'),
+        ('Ensino', 'Ensino'),
+        ('Pesquisa_Extensao', 'Pesquisa/Extensão'),
 		
 	)
 	tipo = models.CharField(
