@@ -2,7 +2,7 @@
 {% block titulo %} Cadastro de Projeto{% endblock %}
 {% block conteudo%} 
 {% if user.is_superuser %}
-	<form method='POST' class="ui form">
+    <form method='POST' enctype="multipart/form-data" class="ui form">
 	    {% csrf_token %}      
 		<h1 class="ui header"> 
         {%if editar %}
@@ -22,6 +22,15 @@
                         {{ form.nome.errors }}
                     </div>
                 {% endif %}
+            </div>
+           <div class="field">
+               <label>Imagem *</label>
+               {{ form.imagem }}
+               {% if form.imagem.errors %}
+                   <div class="ui red pointing label">
+                       {{ form.imagem.errors }}
+                   </div>
+               {% endif %}
             </div>
             <div class="two fields">
             {%if not editar%}

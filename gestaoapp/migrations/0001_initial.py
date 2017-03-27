@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
-from django.conf import settings
-import django.core.validators
 import django.contrib.auth.models
+import django.core.validators
+from django.conf import settings
+from django.db import models, migrations
 
 
 class Migration(migrations.Migration):
@@ -91,7 +91,7 @@ class Migration(migrations.Migration):
                 ('cnpj', models.CharField(max_length=255)),
                 ('descricao', models.TextField()),
                 ('endereco', models.CharField(max_length=255)),
-                ('imagem', models.ImageField(upload_to=b'static/imagens/parceiro/', verbose_name=b'Imagem')),
+                ('imagem', models.ImageField(upload_to=b'static/imagens/parceiro', verbose_name=b'Imagem')),
                 ('site', models.URLField(null=True, blank=True)),
             ],
         ),
@@ -99,7 +99,10 @@ class Migration(migrations.Migration):
             name='Projeto',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('tipo', models.CharField(blank=True, max_length=255, null=True, choices=[(b'Pesquisa', b'Pesquisa'), (b'Extensao', b'Extens\xc3\xa3o'), (b'Ensino', b'Ensino'), (b'Pesquisa/Extensao', b'Pesquisa/Extens\xc3\xa3o')])),
+                ('tipo', models.CharField(blank=True, max_length=255, null=True,
+                                          choices=[(b'Pesquisa', b'Pesquisa'), (b'Extensao', b'Extens\xc3\xa3o'),
+                                                   (b'Ensino', b'Ensino'),
+                                                   (b'Pesquisa_Extensao', b'Pesquisa/Extens\xc3\xa3o')])),
                 ('nome', models.CharField(max_length=255)),
                 ('codigo', models.CharField(unique=True, max_length=255)),
                 ('duracao', models.CharField(max_length=255)),
