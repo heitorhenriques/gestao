@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
+
+from gestaoapp.forms.busca import Busca
 from gestaoapp.forms.projeto import FormProjeto
 from gestaoapp.forms.projeto_membro import FormProjetoMembro
 from gestaoapp.models.projeto import Projeto
 from gestaoapp.models.usuario import Usuario
-from gestaoapp.forms.busca import Busca
 from gestaoapp.views.loginrequired import LoginRequiredMixin
 
 
@@ -39,7 +40,7 @@ class CadastroProjeto(LoginRequiredMixin,View):
 			nome = Projeto.objects.get(id=projeto_id)
 			form = FormProjeto(instance=nome, data=request.POST)
 		else:
-			form = FormProjeto(request.POST)
+			form = FormProjeto(request.POST, request.FILES)
 		if form.is_valid():
 			form.save(request)
 			return redirect('/cadastro_sucesso')
