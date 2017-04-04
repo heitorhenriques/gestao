@@ -1,8 +1,43 @@
 {% extends 'base.html'%}
+
 {% block titulo %} Cadastro de Usuário{% endblock %}
 {% block conteudo %}
-	<form method='POST' enctype="multipart/form-data" class="ui form">
-        {% csrf_token %} 
+    {% if form.errors %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">Campos Obrigatorios</div>
+            <ul class="list">
+                {% if form.matricula.errors %}
+                    <li> Matricula é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.carga_horaria.errors %}
+                    <li> Carga Horario é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.telefone.errors %}
+                    <li> Telefone é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.username.errors %}
+                    <li> Usuario é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.password.errors %}
+                    <li> Senha é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.confirma_senha.errors %}
+                    <li> Confirmar Senha é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.desc.errors %}
+                    <li> Descrição é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.foto.errors %}
+                    <li> Foto é um campo obrigatorio</li>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method='POST' enctype="multipart/form-data" class="ui form">
+        {% csrf_token %}
 	    <h1 class="ui header">Cadastro de Usuário</h1>
 	    <div class="ui secondary segment">
 		    <div class="campo-obrigatorio">(* Campos Obrigatorios)</div>
@@ -74,7 +109,7 @@
 		            <label>Carga Horária *</label>
 		            {{form.carga_horaria}}
 		            {% if form.carga_horaria.errors %}
-		               	<div ccarga_horarialass="ui red pointing label">
+                        <div class="ui red pointing label">
 		                    {{ form.carga_horaria.errors }}
 		                 </div>
 		            {% endif %}
@@ -169,7 +204,7 @@
 	            {% endif %}
 	        </div>   
 	        <div class="field">
-	            <label>Descrição</label>
+                <label>Descrição *</label>
 	            {{form.desc}}
 	            {% if form.desc.errors %}
 	                <div class="ui red pointing label">
@@ -187,7 +222,7 @@
 	            {% endif %}
 	        </div>
         </div>
-       	<input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/>
+        <input type="submit" value="Enviar" class="ui submit green right floated button"/>
 	</form>
         <a href='/horario/'><button class='ui red button'>Cancelar</button></a>
 {% endblock %}

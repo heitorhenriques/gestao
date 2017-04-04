@@ -1,8 +1,7 @@
-from django.conf.urls import include, url
-from django.contrib import admin
-from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib.auth.views import password_reset
+from django.conf.urls import include, url, patterns
+from django.contrib import admin
+
 from gestaoapp.views import *
 
 urlpatterns = [
@@ -75,3 +74,9 @@ urlpatterns = [
     url(r'^visualizar_parceiro/(?P<parceiro_id>\d+)/$', VisualizarParceiro.as_view()),
 
 ]
+if settings.DEBUG:
+    urlpatterns += patterns(
+        'django.views.static',
+        (r'^media/(?P<path>.*)',
+         'serve',
+         {'document_root': settings.MEDIA_ROOT}), )

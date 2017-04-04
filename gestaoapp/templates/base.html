@@ -3,10 +3,10 @@
 		{% load staticfiles %}
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" href="{% static 'semantic-2.1/dist/semantic.css'%}" />
-		<link rel="stylesheet" href="{% static 'semantic/base.css'%}" />
-		<script type="text/javascript" src="{% static 'semantic/jquery.js'%}"></script>
+        <link rel="stylesheet" href="{% static 'base.css' %}"/>
+        <script type="text/javascript" src="{% static 'semantic-2.1/dist/jquery-3.2.0.min.js' %}"></script>
 		<script type="text/javascript" src="{% static 'semantic-2.1/dist/semantic.js'%}"></script>
-		<script type="text/javascript" src="{% static 'semantic/base.js'%}"></script>
+        <script type="text/javascript" src="{% static 'base.js' %}"></script>
 		<title>{%block titulo%}{%endblock%}</title>
 	</head>
 	<body class="cor-fundo">
@@ -33,6 +33,8 @@
 							{% if user.is_superuser %}
 								<a class="item" href="/usuario"><i class='ui icon newspaper'></i>Cadastro</a>
 								<a class="item" href="/consulta_usuario"><i class="search icon branco"></i>Consulta</a>
+                                <a class="item" href="/desbloquear_usuario"><i class="search icon branco"></i>Desbolquear
+                                    Usuario</a>
 							{% endif %}
 							{% if user.is_superuser %}
 							{% else %}
@@ -77,10 +79,10 @@
 							</div>
 						</div>
 						{% if user.is_superuser %}
-					   <div class="ui dropdown item">Administrador<i class="dropdown icon"></i>
+                            <div class="ui dropdown item">Curso<i class="dropdown icon"></i>
 							<div class="menu">
 								<a class="item" href="/curso"><i class='ui icon newspaper'></i>Cadastro de Curso</a>
-								<a class="item" href="/desbloquear_usuario"><i class="search icon branco"></i>Desbolquear Usuario</a>
+
 							</div>
 						</div>
 						{% endif %}
@@ -156,11 +158,11 @@
 		</article>
 		<footer class="ui grid rodape verde_escuro">
 			<div class="two wide column">
-				<img class="ui small image"src="{% static 'semantic/fabrica.png'%}">
+                <img class="ui small image" src="{% static 'fabrica.png' %}">
 			</div>
 			<div class="twelve wide column"></div>
 			<div class="two wide column">
-				<img  class="ui small image" src="{% static 'semantic/ifc2.png'%}">
+                <img class="ui small image" src="{% static 'ifc2.png' %}">
 			</div>  
 		</footer>
 		<script type="text/javascript">

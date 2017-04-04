@@ -35,7 +35,7 @@ class Projeto(models.Model):
 	data_cadastro =  models.DateField(auto_now= True)
 	#situacao = models.ForeignKey(SituacaoProjeto, null=True, blank=True)
 	membro = models.ManyToManyField(Usuario, blank=True, related_name = "Membros")
-	parceiro = models.ManyToManyField(Parceiro)
+	parceiro = models.ManyToManyField(Parceiro, blank=True)
 
 	def __unicode__(self):
 		return self.nome

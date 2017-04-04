@@ -1,10 +1,11 @@
 # encoding: utf-8
-from django.db import models
 from django.contrib.auth.models import User
-from gestaoapp.models.horario import Horario
-from gestaoapp.models.curso import Curso
-from PIL import Image
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+
+from gestaoapp.models.curso import Curso
+from gestaoapp.models.horario import Horario
+
 
 class Usuario(User):
 	
@@ -37,7 +38,7 @@ class Usuario(User):
 
 	email_opcional = models.EmailField(max_length=254, null=True, blank=True)
 	matricula = models.CharField(max_length=255, unique = True)
-	foto = models.ImageField('Imagem', upload_to='static/imagens/')
+	foto = models.ImageField(upload_to='profile_images')
 	carga_horaria = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)])
 	telefone1 = models.CharField(max_length=11)
 	telefone2 = models.CharField(max_length=11, blank=True, null=True)
