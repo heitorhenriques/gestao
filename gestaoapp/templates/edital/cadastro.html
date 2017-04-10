@@ -1,6 +1,37 @@
 {% extends 'base.html'%}
 {% block titulo %} Cadastro de Edital{% endblock %}
 {% block conteudo%}
+
+    {% if form.errors %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">Campos Obrigatorios</div>
+            <ul class="list">
+                {% if form.numero.errors %}
+                    <li> Numero é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.orgao_concedente.errors %}
+                    <li> Orgao Concedente é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.dt_inicio.errors %}
+                    <li> Data de Inicio é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.dt_termino.errors %}
+                    <li> Data de Termino é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.qtd_bolsa.errors %}
+                    <li> Quantidade de bolsa é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.verba.errors %}
+                    <li> Verba é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.url_edital.errors %}
+                    <li> URL é um campo obrigatorio</li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+
 {% if user.is_superuser %}
 
 	<form method='POST'>

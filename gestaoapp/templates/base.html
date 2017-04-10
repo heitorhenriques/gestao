@@ -76,12 +76,15 @@
 							{% if user.is_superuser %}
 								<a class="item" href="/parceiro"><i class='ui icon newspaper'></i>Cadastro</a>
 							{% endif %}
+                                <a class="item" href="/consulta_parceiro"><i class="search icon branco"></i>Consulta</a>
 							</div>
 						</div>
 						{% if user.is_superuser %}
                             <div class="ui dropdown item">Curso<i class="dropdown icon"></i>
 							<div class="menu">
 								<a class="item" href="/curso"><i class='ui icon newspaper'></i>Cadastro de Curso</a>
+                                <a class="item" href="/consulta_curso"><i class='search icon branco'></i>Consulta de
+                                    Curso</a>
 
 							</div>
 						</div>
@@ -101,7 +104,11 @@
 									<a class="item" href="/usuario"><i class='ui icon newspaper'></i>Cadastro</a>
 									{% endif %}
 									<a class="item" href="/consulta_usuario"><i class="search icon branco"></i>Consulta</a>
-								<div class="ui divider"></div>
+                                {% if user.is_superuser %}
+                                    <a class="item" href="/desbloquear_usuario"><i class="search icon branco"></i>Desbolquear
+                                        Usuario</a>
+                                {% endif %}
+                                <div class="ui divider"></div>
 								<div class="ui header">Projetos</div>
 									{% if user.is_superuser %}
 									<a class="item" href="/projeto"><i class='ui icon newspaper'></i>Cadastro</a>
@@ -130,9 +137,10 @@
 									<a class="item" href="/consulta_parceiro"><i class="search icon branco"></i>Consulta</a>
 								<div class="ui divider"></div>
 								{% if user.is_superuser %}
-								<div class="ui header">Administrador</div>
+                                    <div class="ui header">Curso</div>
 									<a class="item" href="/curso"><i class='ui icon newspaper'></i>Cadastro de Curso</a>
-									<a class="item" href="/desbloquear_usuario"><i class="search icon branco"></i>Desbolquear Usuario</a>
+                                    <a class="item" href="/consulta_curso"><i class='search icon branco'></i>Consulta de
+                                        Curso</a>
 								{% endif %}
 								
 								<div class="ui divider"></div>

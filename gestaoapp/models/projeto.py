@@ -22,7 +22,7 @@ class Projeto(models.Model):
 	)
 
 	nome = models.CharField(max_length = 255)
-	imagem = models.ImageField("Imagem", upload_to="static/imagens/projeto")
+    imagem = models.ImageField("Imagem", upload_to='projeto')
 	codigo = models.CharField(max_length= 255, unique = True)
 	#tipo = models.ForeignKey(TipoProjeto)
 	coordenador = models.ForeignKey(Usuario,related_name = "coordenador")

@@ -29,6 +29,9 @@ urlpatterns = [
     url(r'^hora_invalida/', hora_invalida),
 
     url(r'^curso/', CadastroCurso.as_view()),
+    url(r'^editar_curso/(?P<curso_id>\d+)/$', CadastroCurso.as_view()),
+    url(r'^consulta_curso/', ConsultaCurso.as_view()),
+    url(r'^visualizar_curso/(?P<curso_id>\d+)/$', VisualizarCurso.as_view()),
 
     url(r'^projeto/', CadastroProjeto.as_view()),
     url(r'^editar_projeto/(?P<projeto_id>\d+)/$', CadastroProjeto.as_view()),

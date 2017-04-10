@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block titulo %}     Visualizar Parceiro {% endblock %}
+{% block conteudo %}
+    {% if user.is_superuser %}
+        <h2 class="ui header">Informações do Parceiro</h2>
+        <div class="ui segment form">
+
+            <div class="two fields">
+                <div class="field">
+                    <img class="ui medium bordered image" src="{{ parceiro.imagem.url }}">
+
+                </div>
+                <div class="field">
+                    <label>Nome</label>
+                    {{ parceiro.nome }}
+                    <label>CNPJ</label>
+                    {{ parceiro.cnpj }}
+                    <label>Endereço</label>
+                    {{ parceiro.endereco }}
+                    <label>Site</label>
+                    {{ parceiro.site }}
+                    <label>Descrição</label>
+                    {{ parceiro.descricao }}
+
+                </div>
+            </div>
+        </div>
+        <a href='/consulta_parceiro/'>
+            <button class='ui red button'>Voltar</button>
+        </a>
+        <a href='/editar_parceiro/{{ parceiro.id }}'>
+            <button class="ui button direita verde_escuro">Editar</button>
+        </a>
+    {% endif %}
+{% endblock %}

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
+
+from gestaoapp.forms.busca import Busca
 from gestaoapp.forms.curso import FormCurso
 from gestaoapp.models.curso import Curso
-from gestaoapp.forms.busca import Busca
 from gestaoapp.views.loginrequired import LoginRequiredMixin
+
 
 class CadastroCurso(LoginRequiredMixin, View):
 
@@ -49,7 +51,7 @@ class ConsultaCurso(LoginRequiredMixin, View):
 	def post(self, request):
 		form = Busca(request.POST)
 		if form.is_valid():
-			curso = Curso.objects.filter(nome__icontains=form.cleaned_data['nome'])
+			curso = Curso.objects.filter(nome__icontains=form.cleaned_data['curso'])
 
 			return render(request, self.template, {'cursos': curso, 'form':form})
 		else:

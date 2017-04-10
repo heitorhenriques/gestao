@@ -1,6 +1,54 @@
+
 {% extends 'base.html'%}
 {% block titulo %} Cadastro de Projeto{% endblock %}
-{% block conteudo%} 
+{% block conteudo %}
+
+    {% if form.errors %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">Campos Obrigatorios</div>
+            <ul class="list">
+                {% if form.nome.errors %}
+                    <li> Nome é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.imagem.errors %}
+                    <li> Imagem é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.codigo.errors %}
+                    <li> Codigo é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.tipo.errors %}
+                    <li> Tipo de Projeto é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.duracao.errors %}
+                    <li> Duração do Projeto é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.data_inicio.errors %}
+                    <li> Data de inicio de Projeto é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.data_fim.errors %}
+                    <li> Data de termino do Projeto é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.nucleo.errors %}
+                    <li> Nucleo é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.edital.errors %}
+                    <li> Edital é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.parceiro.errors %}
+                    <li> Parceiro é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.descricao.errors %}
+                    <li> Descrição é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.membros.errors %}
+                    <li> Membros é um campo obrigatorio</li>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+
 {% if user.is_superuser %}
     <form method='POST' enctype="multipart/form-data" class="ui form">
 	    {% csrf_token %}      

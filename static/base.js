@@ -30,6 +30,10 @@ $(document).ready(function(){
 				$('.direita').css('margin-top','-30px');
 	})
 
+    $('.special.cards .image').dimmer({
+        on: 'hover'
+    });
+
     $('.message .close')
         .on('click', function () {
             $(this)

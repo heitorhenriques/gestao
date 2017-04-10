@@ -1,6 +1,19 @@
 {% extends 'base.html'%}
 {% block titulo %} Cadastro de Curso{% endblock %}
 {% block conteudo%}
+
+    {% if form.errors %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">Campos Obrigatorios</div>
+            <ul class="list">
+                {% if form.curso.errors %}
+                    <li> Curso é um campo obrigatorio</li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+
 {% if user.is_superuser %}
 
 	<form method='POST'>

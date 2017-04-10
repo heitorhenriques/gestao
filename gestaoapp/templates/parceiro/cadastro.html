@@ -1,6 +1,40 @@
 {% extends 'base.html'%}
 {% block titulo %} Cadastro de Recursos{% endblock %}
 {% block conteudo%}
+    <div class="ui success message">
+        <i class="close icon"></i>
+        <div class="header">Cadastrado com sucesso!!!!</div>
+
+    </div>
+
+    {% if form.errors %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">Campos Obrigatorios</div>
+            <ul class="list">
+                {% if form.nome.errors %}
+                    <li> Razão Social é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.cnpj.errors %}
+                    <li> CNPJ é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.endereco.errors %}
+                    <li> Endereço é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.imagem.errors %}
+                    <li> Logo é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.site.errors %}
+                    <li> Site é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.descricao.errors %}
+                    <li> Descrição é um campo obrigatorio</li>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+
 {% if user.is_superuser %}
 <form method='POST' enctype="multipart/form-data" class="ui form">
     {% csrf_token %}
