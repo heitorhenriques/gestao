@@ -4,7 +4,12 @@
 {% block conteudo %}
     {% load staticfiles %}
 {% if user.is_superuser %}
-
+    {% if msg %}
+        <div class="ui success message">
+            <i class="close icon"></i>
+            <div class="header">{{ msg }}</div>
+        </div>
+    {% endif %}
 
     <form method='POST' action='/' class="ui form">
     {% csrf_token %}

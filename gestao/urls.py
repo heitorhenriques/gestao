@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^trocar_senha/$', 'django.contrib.auth.views.password_change',{'template_name': 'troca.html'}, name='troca_senha'),
     
     url(r'^$','django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
-    url(r'^home/', home),
+    url(r'^home/', Home.as_view()),
 
     url(r'^usuario/', CadastroUsuario.as_view(), name='usuario'),
     url(r'^editar_usuario/(?P<usuario_id>\d+)/$', CadastroUsuario.as_view()),

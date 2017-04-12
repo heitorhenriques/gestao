@@ -1,78 +1,80 @@
-from django.shortcuts import render, redirect
+# -*- coding: utf-8 -*-
+from django.shortcuts import render
 from django.views.generic.base import View
 
 from gestaoapp.forms.busca import Busca
-from gestaoapp.forms.curso import FormCurso
+from gestaoapp.forms.curso import FormCursoCad, FormCursoEdit
 from gestaoapp.models.curso import Curso
 from gestaoapp.views.loginrequired import LoginRequiredMixin
 
 
 class CadastroCurso(LoginRequiredMixin, View):
+    template = 'curso/cadastro.html'
 
-	template = 'curso/cadastro.html'
+    def get(self, request, curso_id=None):
 
-	def get(self, request, curso_id=None):
+        if curso_id:
+            curso = Curso.objects.get(id=curso_id)
+            form = FormCursoEdit(instance=curso)
+            editar = True
+        else:
+            form = FormCursoCad()
+            editar = False
 
-		if curso_id:
-			curso = Curso.objects.get(id=curso_id)
-			form = FormCurso(instance= curso)
-			editar=True
-		else:
-			form = FormCurso()
-			editar=False
-		
-		return render(request, self.template, {'form': form,'editar':editar})
+        return render(request, self.template, {'form': form, 'editar': editar})
 
-	def post(self, request, curso_id=None):
-		
-		if curso_id:
-			curso = Curso.objects.get(id=curso_id)
-			form = FormCurso(instance=curso, data=request.POST)
-		else:
+    def post(self, request, curso_id=None):
 
-			form = FormCurso(request.POST)
+        if curso_id:
+            curso = Curso.objects.get(id=curso_id)
+            form = FormCursoEdit(instance=curso, data=request.POST)
+        else:
 
-		if form.is_valid():
-			form.save(request)
+            form = FormCursoCad(request.POST)
 
-			return redirect('/cadastro_sucesso')
-		else:
-			return render(request, self.template, {'form': form})
+        if form.is_valid():
+            form.save(request)
+            msg = 'Operação realizada com sucesso!'
+            form = FormCursoCad()
+            return render(request, self.template, {'form': form, 'msg': msg})
+        else:
+            return render(request, self.template, {'form': form})
+
 
 class ConsultaCurso(LoginRequiredMixin, View):
+    template = 'curso/consulta.html'
 
-	template = 'curso/consulta.html'
-	def get(self, request):
-		form = Busca()
-		curso = Curso.objects.all()
+    def get(self, request):
+        form = Busca()
+        curso = Curso.objects.all()
 
-		return render(request, self.template, {'cursos': curso ,"form": form})
-	
-	def post(self, request):
-		form = Busca(request.POST)
-		if form.is_valid():
-			curso = Curso.objects.filter(nome__icontains=form.cleaned_data['curso'])
+        return render(request, self.template, {'cursos': curso, "form": form})
 
-			return render(request, self.template, {'cursos': curso, 'form':form})
-		else:
-			form = Busca(request.POST)				
-			curso = Curso.objects.all()
-		return render(request, self.template, {'cursos': curso,"form": form})
+    def post(self, request):
+        form = Busca(request.POST)
+        if form.is_valid():
+            curso = Curso.objects.filter(nome__icontains=form.cleaned_data['curso'])
+
+            return render(request, self.template, {'cursos': curso, 'form': form})
+        else:
+            form = Busca(request.POST)
+            curso = Curso.objects.all()
+        return render(request, self.template, {'cursos': curso, "form": form})
+
 
 class VisualizarCurso(LoginRequiredMixin, View):
-	
-	template = "curso/visualizar.html"
-	
-	def get(self, request, curso_id=None):
-		
-		if curso_id:
-			curso = Curso.objects.get(id=curso_id)
+    template = "curso/visualizar.html"
 
-		else:
-			return render(request, self.template, { })
+    def get(self, request, curso_id=None):
 
-		return render(request, self.template, {'curso': curso})
-	
-	def post(self, request):
-		
-		return render(request, self.template)
+        if curso_id:
+            curso = Curso.objects.get(id=curso_id)
+
+        else:
+            return render(request, self.template, {})
+
+        return render(request, self.template, {'curso': curso})
+
+    def post(self, request):
+
+        return render(request, self.template)

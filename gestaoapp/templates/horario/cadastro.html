@@ -2,6 +2,13 @@
 {% block titulo %} Cadastro de Horário{% endblock %}
 {% block conteudo %}
 
+    {% if msg %}
+        <div class="ui success message">
+            <i class="close icon"></i>
+            <div class="header">{{ msg }}</div>
+        </div>
+    {% endif %}
+
     {% if form.errors %}
         <div class="ui error message">
             <i class="close icon"></i>
@@ -56,9 +63,13 @@
 			    </div>
 	        	<div class="two fields">
 		            <div class="field">
-		                <label>Horário de início</label>
+                        <label>Horário de início</label>
+                        {% if editar %}
+                            {{ form.hora_inicio }}
+                        {% else %}
 		                <input type="time" name="hora_inicio">
-		                
+                        {% endif %}
+
 		                {% if form.hora_inicio.errors %}
 		                	<div class="ui red pointing label">
 		                    	{{ form.hora_inicio.errors }}
@@ -67,8 +78,14 @@
 		            </div>
 		            <div class="field">
 		                <label>Horário de término</label>
-		                <input type="time" name="hora_fim">
-		                {% if form.hora_fim.errors %}
+
+                        {% if editar %}
+                            {{ form.hora_fim }}
+                        {% else %}
+                            <input type="time" name="hora_fim">
+                        {% endif %}
+
+                        {% if form.hora_fim.errors %}
 		                 	<div class="ui red pointing label">
 		                   		{{ form.hora_fim.errors }}
 		                 	</div>

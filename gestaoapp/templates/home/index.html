@@ -1,15 +1,71 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block titulo %} home {% endblock %}
-{% block conteudo%} 
-<div class='ui centered grid'>
-	<div class='two column centered row'>
-		<div class='ui column centered'>
-			<div class='ui centered'>
-				<h2 class='ui header centered'>Bem vindo!</h2>
-				<h3 class='ui header centered'>{{ request.user.first_name }}</h3>			
-			</div>
-		</div>
-	</div>
-</div>
+{% block conteudo %}
+    <div class='ui centered grid'>
+        <div class='two column centered row'>
+            <div class='ui column centered'>
+                <div class='ui centered'>
+                    <h2 class='ui header centered'>Bem vindo!</h2>
+                    <h3 class='ui header centered'>{{ request.user.first_name }}</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    Projetos
+    {% for projeto in projeto_membro %}
+        <div class="ui card">
+            <div class="image">
+                <img src="{{ projeto.imagem.url }}">
+            </div>
+            <div class="content">
+                <a href="/visualizar_projeto/{{ projeto.id }}" class="header">{{ projeto.nome }}</a>
+                <div class="description">{{ projeto.descricao }}</div>
+            </div>
+            <div class="extra content">
+                <a><i class="user icon"></i>{{ projeto.membro.all|length }} Membros </a>
+
+            </div>
+        </div>
+
+        {#                        {{ projeto.nome }}#}
+        {#                        {{ projeto.parceiro.nome }}#}
+        {#                        {{ projeto.cnpj }}#}
+        {##}
+        {#                        {% for p in projeto.parceiro.all %}#}
+        {#                            {{ p.nome }}#}
+        {#                        {% endfor %}#}
+
+    {% endfor %}
+
+    Coordenador
+    {% for projeto in projeto_coordenador %}
+        <div class="ui card">
+            <div class="image">
+                <img src="{{ projeto.imagem.url }}">
+            </div>
+            <div class="content">
+                <a href="/visualizar_projeto/{{ projeto.id }}" class="header">{{ projeto.nome }}</a>
+                <div class="description">{{ projeto.descricao }}</div>
+            </div>
+            <div class="extra content">
+                <a><i class="user icon"></i>{{ projeto.membro.all|length }} Membros </a>
+
+            </div>
+        </div>
+
+        {#                        {{ projeto.nome }}#}
+        {#                        {{ projeto.parceiro.nome }}#}
+        {#                        {{ projeto.cnpj }}#}
+        {##}
+        {#                        {% for p in projeto.parceiro.all %}#}
+        {#                            {{ p.nome }}#}
+        {#                        {% endfor %}#}
+
+    {% endfor %}
+
+    {{ projeto_coodenador }}
+
 
 {% endblock %}
