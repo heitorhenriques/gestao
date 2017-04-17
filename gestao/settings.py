@@ -60,9 +60,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'gestao.wsgi.application'
 
+# Database
+# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-Database
-https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
         'default': {
@@ -74,7 +74,7 @@ DATABASES = {
                 'PORT': '5432',                                   # Set to empt$
         }
 }
-#
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
