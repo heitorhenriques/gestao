@@ -1,4 +1,4 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block titulo %} Cadastro de Horário{% endblock %}
 {% block conteudo %}
 
@@ -31,53 +31,53 @@
         </div>
     {% endif %}
 
-	<form method='POST' enctype=" multipart/form-data">
-        {% csrf_token %}           
+    <form method='POST' enctype=" multipart/form-data">
+        {% csrf_token %}
         <h1 class="ui header">
-        {%if editar %}
-            Editar Horário
-        {% else %}
-            Cadastro de Horário
-        {%endif%}</h1>
+            {% if editar %}
+                Editar Horário
+            {% else %}
+                Cadastro de Horário
+            {% endif %}</h1>
         <div class="ui secondary segment">
-	        <div class="ui large form">
-		        <div class="two fields">
-				    <div class="field">
-				        <label>Dia da semana</label>
-				        {{form.data}}
-				        {% if form.data.errors %}
-				        	<div class="ui red pointing label">
-				            	{{ form.data.errors }}
-				            </div>
-				        {% endif %}
-				    </div>
-				    <div class="field">
-				        <label>Turno</label>
-				        {{form.turno}}
-				        {% if form.turno.errors %}
-				            <div class="ui red pointing label">
-				                {{ form.turno.errors }}
-				            </div>
-				        {% endif %}
-					</div>
-			    </div>
-	        	<div class="two fields">
-		            <div class="field">
+            <div class="ui large form">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Dia da semana</label>
+                        {{ form.data }}
+                        {% if form.data.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.data.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="field">
+                        <label>Turno</label>
+                        {{ form.turno }}
+                        {% if form.turno.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.turno.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
                         <label>Horário de início</label>
                         {% if editar %}
                             {{ form.hora_inicio }}
                         {% else %}
-		                <input type="time" name="hora_inicio">
+                            <input type="time" name="hora_inicio">
                         {% endif %}
 
-		                {% if form.hora_inicio.errors %}
-		                	<div class="ui red pointing label">
-		                    	{{ form.hora_inicio.errors }}
-		                 	</div>
-		                {% endif %}
-		            </div>
-		            <div class="field">
-		                <label>Horário de término</label>
+                        {% if form.hora_inicio.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.hora_inicio.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="field">
+                        <label>Horário de término</label>
 
                         {% if editar %}
                             {{ form.hora_fim }}
@@ -86,18 +86,78 @@
                         {% endif %}
 
                         {% if form.hora_fim.errors %}
-		                 	<div class="ui red pointing label">
-		                   		{{ form.hora_fim.errors }}
-		                 	</div>
-		                {% endif %}
-		            </div>
-		        </div>
-		    </div>
-		</div>
-		  <input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/>
-	</form>
-	<a href='/horario/'><button class='ui red button'>Cancelar</button></a>
-	</div>    
+                            <div class="ui red pointing label">
+                                {{ form.hora_fim.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {#        <div class="ui secondary segment">#}
+        {#            <div class="ui form">#}
+        {#                <div class="four fields">#}
+        {#                    <div class="field">#}
+        {#                        <label>Dia da semana</label>#}
+        {#                    </div>#}
+        {#                    <div class="field">#}
+        {#                        <label> Hora Inicio</label>#}
+        {#                    </div>#}
+        {#                    <div class="field">#}
+        {#                        <label> Hora Fim</label>#}
+        {#                    </div>#}
+        {#                    <div class="field">#}
+        {#                    </div>#}
+        {##}
+        {#                </div>#}
+        {#                <div class="four fields">#}
+        {#                    <div class="field">#}
+        {#                        <div class="inline field">#}
+        {#                            <div class="ui slider checkbox">#}
+        {#                                <input type="checkbox" tabindex="0" class="hidden">#}
+        {#                                <label>Segunda Feira</label>#}
+        {#                            </div>#}
+        {#                        </div>#}
+        {#                    </div>#}
+        {#                    <div class="field">#}
+        {#                        {% if editar %}#}
+        {#                            {{ form.hora_inicio }}#}
+        {#                        {% else %}#}
+        {#                            <input type="time" name="hora_inicio">#}
+        {#                        {% endif %}#}
+        {##}
+        {#                        {% if form.hora_inicio.errors %}#}
+        {#                            <div class="ui red pointing label">#}
+        {#                                {{ form.hora_inicio.errors }}#}
+        {#                            </div>#}
+        {#                        {% endif %}#}
+        {#                    </div>#}
+        {##}
+        {#                    <div class="field">#}
+        {##}
+        {#                        {% if editar %}#}
+        {#                            {{ form.hora_fim }}#}
+        {#                        {% else %}#}
+        {#                            <input type="time" name="hora_fim">#}
+        {#                        {% endif %}#}
+        {##}
+        {#                        {% if form.hora_fim.errors %}#}
+        {#                            <div class="ui red pointing label">#}
+        {#                                {{ form.hora_fim.errors }}#}
+        {#                            </div>#}
+        {#                        {% endif %}#}
+        {#                    </div>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
+
+        <input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/>
+    </form>
+    <a href='/horario/'>
+        <button class='ui red button'>Cancelar</button>
+    </a>
+    </div>
 {% endblock %}
 
 

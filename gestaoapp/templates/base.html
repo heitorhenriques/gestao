@@ -110,6 +110,11 @@
                             <div class="ui divider"></div>
                             <a class="ui header" href="/home"><i class="home icon"></i>Home</a>
                             <div class="ui divider"></div>
+                            <a class="ui header" href="/home"><i class="user icon"></i>{{ request.user.first_name }}</a>
+                            <a class="item" href="/editar_usuario/{{ request.user.id }}"><i class='setting icon'></i>Editar
+                                Usuário</a>
+                            <a class="item" href="/alterar_senha/"><i class='setting icon'></i>Alterar Senha</a>
+                            <div class="ui divider"></div>
                             <div class="ui header">Usuario</div>
                             {% if user.is_superuser %}
                                 <a class="item" href="/usuario"><i class='ui icon newspaper'></i>Cadastro</a>
