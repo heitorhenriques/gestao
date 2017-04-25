@@ -44,8 +44,14 @@ class CadastroProjeto(LoginRequiredMixin, View):
             form = FormProjetoEdit(instance=nome, data=request.POST)
         else:
             form = FormProjeto(request.POST, request.FILES)
+
         if form.is_valid():
-            form.save(request)
+            # form.save(request)
+
+            user = form.save(commit=False)
+            if 'imagem' in request.FILES:
+                user.imagem = request.FILES['imagem']
+            user.save()
 
             msg = "Operação realizada com sucesso!"
             form = FormProjeto()

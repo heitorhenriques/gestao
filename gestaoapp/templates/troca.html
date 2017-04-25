@@ -5,8 +5,8 @@
 	<div class='two column centered row'>
 		<div class='ui column'>
 			<form method='POST' enctype=" multipart/form-data" class="ui form relaxed">
-				{% csrf_token %}  
-		        {{form.erros}}  
+                {% csrf_token %}
+                {{ form.erros }}
 				<h1 class="ui header">Troca Senha </h1>
 				<div class="ui field">
 					<label>Senha anterior</label>

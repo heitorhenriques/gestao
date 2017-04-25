@@ -8,8 +8,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}, name='logout'),
-    url(r'^trocar_senha/$', 'django.contrib.auth.views.password_change',{'template_name': 'troca.html'}, name='troca_senha'),
-    
+    url(r'^alterar_senha/$', 'django.contrib.auth.views.password_change', {'template_name': 'troca.html'},
+        name='password_change_done'),
+
     url(r'^$','django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
     url(r'^home/', Home.as_view()),
 

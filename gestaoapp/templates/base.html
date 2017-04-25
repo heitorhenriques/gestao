@@ -94,6 +94,9 @@
                     <div class="ui dropdown item right floated"><i class="user icon"></i>
                         {{ request.user.first_name }} <i class="dropdown icon"></i>
                         <div class="menu">
+                            <a class="item" href="/editar_usuario/{{ request.user.id }}"><i class='setting icon'></i>Editar
+                                Usuário</a>
+                            <a class="item" href="/alterar_senha/"><i class='setting icon'></i>Alterar Senha</a>
                             <a class="item" href="/logout"><i class='ui icon sign out'></i>Sair</a>
                         </div>
 

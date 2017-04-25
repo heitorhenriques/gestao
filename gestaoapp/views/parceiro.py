@@ -32,7 +32,12 @@ class CadastroParceiro(LoginRequiredMixin, View):
             form = FormParceiro(request.POST, request.FILES)
 
         if form.is_valid():
-            form.save(request)
+            # form.save(request)
+
+            user = form.save(commit=False)
+            if 'imagem' in request.FILES:
+                user.imagem = request.FILES['imagem']
+            user.save()
 
             msg = "Operação realizada com sucesso!"
             form = FormParceiro()

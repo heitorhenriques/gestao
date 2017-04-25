@@ -33,7 +33,11 @@ class CadastroUsuario(View):
             form = FormUsuario(request.POST, request.FILES)
 
         if form.is_valid():
-            form.save()
+            # form.save()
+            user = form.save(commit=False)
+            if 'foto' in request.FILES:
+                user.foto = request.FILES['foto']
+            user.save()
 
             msg = "Operação realizada com sucesso!"
             form = FormUsuario()
