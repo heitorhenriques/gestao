@@ -34,7 +34,7 @@ class CadastroUsuario(View):
 
         if form.is_valid():
             # form.save()
-            user = form.save(commit=False)
+            user = form.save()
             if 'foto' in request.FILES:
                 user.foto = request.FILES['foto']
             user.save()
@@ -47,7 +47,6 @@ class CadastroUsuario(View):
 
         else:
             return render(request, self.template, {'form': form})
-
 
 class AdministrarUsuario(LoginRequiredMixin, View):
     template = 'usuario/desbloquear.html'

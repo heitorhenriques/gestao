@@ -48,7 +48,7 @@ class CadastroProjeto(LoginRequiredMixin, View):
         if form.is_valid():
             # form.save(request)
 
-            user = form.save(commit=False)
+            user = form.save(request)
             if 'imagem' in request.FILES:
                 user.imagem = request.FILES['imagem']
             user.save()
@@ -59,6 +59,12 @@ class CadastroProjeto(LoginRequiredMixin, View):
             return render(request, self.template, {'form': form, 'msg': msg})
             # return redirect('/cadastro_sucesso')
         else:
+            if projeto_id:
+                nome = Projeto.objects.get(id=projeto_id)
+                form = FormProjetoEdit(instance=nome, data=request.POST)
+            else:
+                form = FormProjeto(request.POST, request.FILES)
+
             return render(request, self.template, {'form': form})
 
 

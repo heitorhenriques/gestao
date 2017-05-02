@@ -22,6 +22,13 @@ $(document).ready(function () {
 
 
     })
+    $('.ui.accordion')
+        .accordion()
+    ;
+    $(document).ready(function () {
+        // init the accordion on the menu
+        $('.ui.accordion').accordion();
+    });
 
     $('.ui.checkbox')
         .checkbox()
@@ -37,6 +44,10 @@ $(document).ready(function () {
     $('.special.cards .image').dimmer({
         on: 'hover'
     });
+
+    $('.your.element')
+        .sidebar('behavior name', argumentOne, argumentTwo)
+    ;
 
     $('.message .close')
         .on('click', function () {

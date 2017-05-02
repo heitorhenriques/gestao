@@ -46,6 +46,7 @@ class CadastroHorario(LoginRequiredMixin, View):
                 dia = form.save(request)
                 user = Usuario.objects.get(id=request.user.id)
                 user.dia.add(dia)
+                msg = "Operação realizada com sucesso!"
             else:
                 print("Dia cadastrado!")
                 for h in u.dia.all():
@@ -61,13 +62,13 @@ class CadastroHorario(LoginRequiredMixin, View):
 
                             msg = "Operação realizada com sucesso!"
                             form = FormHorario()
-                            # return render(request, self.template, {'form': form, 'msg': msg})
+                            return render(request, self.template, {'form': form, 'msg': msg})
                         else:
-                            msg = "Operação ERRO com sucesso!"
+                            msg1 = "Horario ja Cadastrado! "
 
-                        return render(request, self.template, {'form': form, 'msg': msg})
+                            return render(request, self.template, {'form': form, 'msg1': msg1})
 
-                        # return render(request, self.template, {'form': form, 'msg':msg})
+            return render(request, self.template, {'form': form, 'msg': msg})
                         # return redirect('/cadastro_sucesso')
         else:
             return render(request, self.template, {'form': form})

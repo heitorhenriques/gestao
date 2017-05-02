@@ -14,30 +14,35 @@
     </div>
 
     Projetos
-    {% for projeto in projeto_membro %}
-        <div class="ui card">
-            <div class="image">
-                <img src="{{ projeto.imagem.url }}">
-            </div>
-            <div class="content">
-                <a href="/visualizar_projeto/{{ projeto.id }}" class="header">{{ projeto.nome }}</a>
-                <div class="description">{{ projeto.descricao }}</div>
-            </div>
-            <div class="extra content">
-                <a><i class="user icon"></i>{{ projeto.membro.all|length }} Membros </a>
 
+    <div class="ui link cards">
+        {% for projeto in projeto_membro %}
+
+            <div class="ui card">
+                <div class="image">
+                    <img src="{{ projeto.imagem.url }}">
+                </div>
+                <div class="content">
+                    <a href="/visualizar_projeto/{{ projeto.id }}" class="header">{{ projeto.nome }}</a>
+                    <div class="description">{{ projeto.descricao }}</div>
+                </div>
+                <div class="extra content">
+                    <a><i class="user icon"></i>{{ projeto.membro.all|length }} Membros </a>
+
+                </div>
             </div>
-        </div>
+        {% endfor %}
+    </div>
 
-        {#                        {{ projeto.nome }}#}
-        {#                        {{ projeto.parceiro.nome }}#}
-        {#                        {{ projeto.cnpj }}#}
-        {##}
-        {#                        {% for p in projeto.parceiro.all %}#}
-        {#                            {{ p.nome }}#}
-        {#                        {% endfor %}#}
+    {#                        {{ projeto.nome }}#}
+    {#                        {{ projeto.parceiro.nome }}#}
+    {#                        {{ projeto.cnpj }}#}
+    {##}
+    {#                        {% for p in projeto.parceiro.all %}#}
+    {#                            {{ p.nome }}#}
+    {#                        {% endfor %}#}
 
-    {% endfor %}
+
 
     Coordenador
     {% for projeto in projeto_coordenador %}

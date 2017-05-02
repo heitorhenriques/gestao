@@ -103,6 +103,9 @@
                     </div>
                 </nav>
             </div>
+
+
+
             <div class="mobile tablet only row">
                 <nav class="ui large menu ">
                     <div class="ui dropdown item"><i class="content icon"></i><i class="dropdown icon"></i>
@@ -110,7 +113,9 @@
                             <div class="ui divider"></div>
                             <a class="ui header" href="/home"><i class="home icon"></i>Home</a>
                             <div class="ui divider"></div>
-                            <a class="ui header" href="/home"><i class="user icon"></i>{{ request.user.first_name }}</a>
+
+
+                            <a class="ui header"><i class="user icon"></i>{{ request.user.first_name }}</a>
                             <a class="item" href="/editar_usuario/{{ request.user.id }}"><i class='setting icon'></i>Editar
                                 Usuário</a>
                             <a class="item" href="/alterar_senha/"><i class='setting icon'></i>Alterar Senha</a>
@@ -169,6 +174,8 @@
         {% endif %}
     </div>
 </header>
+
+
 <article class="corpo ui segment cor-conteudo">
     <div class="ui grid">
         <div class="row">

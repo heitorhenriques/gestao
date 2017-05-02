@@ -2,36 +2,36 @@ from django.db import models
 
 
 class Horario(models.Model):
-    # MANHA = 'MA'
-    # TARDE = 'TA'
-    # NOITE = 'NO'
-    #
-    # HORARIO_CHOICES = (
-    #     (MANHA, 'Manha'),
-    #     (TARDE, 'Tarde'),
-    #     (NOITE, 'Noite'),
-    # )
+    MANHA = 'MA'
+    TARDE = 'TA'
+    NOITE = 'NO'
+
+    HORARIO_CHOICES = (
+        (MANHA, 'Manha'),
+        (TARDE, 'Tarde'),
+        (NOITE, 'Noite'),
+    )
     turno = models.CharField(
         max_length=2,
-        # choices=HORARIO_CHOICES
+        choices=HORARIO_CHOICES
     )
 
-    # SEGUNDA = 'SEG'
-    # TERCA = 'TER'
-    # QUARTA = 'QUA'
-    # QUINTA = 'QUI'
-    # SEXTA = 'SEX'
+    SEGUNDA = 'SEG'
+    TERCA = 'TER'
+    QUARTA = 'QUA'
+    QUINTA = 'QUI'
+    SEXTA = 'SEX'
 
-    # DIA_CHOICES = (
-    # 	(SEGUNDA, 'Segunda-Feira'),
-    # 	(TERCA, 'Terca-Feira'),
-    # 	(QUARTA, 'Quarta-Feira'),
-    # 	(QUINTA, 'Quinta-Feira'),
-    # 	(SEXTA, 'Sexta-Feira'),
-    # )
+    DIA_CHOICES = (
+        (SEGUNDA, 'Segunda-Feira'),
+        (TERCA, 'Terca-Feira'),
+        (QUARTA, 'Quarta-Feira'),
+        (QUINTA, 'Quinta-Feira'),
+        (SEXTA, 'Sexta-Feira'),
+    )
     data = models.CharField(
         max_length=255,
-        # choices=DIA_CHOICES
+        choices=DIA_CHOICES
     )
 
     hora_inicio = models.TimeField()

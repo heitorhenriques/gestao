@@ -9,6 +9,13 @@
         </div>
     {% endif %}
 
+    {% if msg1 %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">{{ msg1 }}</div>
+        </div>
+    {% endif %}
+
     {% if form.errors %}
         <div class="ui error message">
             <i class="close icon"></i>
