@@ -56,7 +56,7 @@ class ConsultaEdital(LoginRequiredMixin, View):
     def post(self, request):
         form = Busca(request.POST)
         if form.is_valid():
-            edital = Edital.objects.filter(nome__icontains=form.cleaned_data['nome'])
+            edital = Edital.objects.filter(nome__icontains=form.cleaned_data['numero'])
 
             return render(request, self.template, {'editals': edital, 'form': form})
         else:

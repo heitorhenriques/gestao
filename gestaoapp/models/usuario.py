@@ -46,6 +46,7 @@ class Usuario(User):
     verificacao = models.CharField(max_length=255, null=True, blank=True, unique=True)
     lattes = models.URLField(null=True, blank=True)
     desc = models.TextField()
+    super_adm = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.first_name

@@ -1,46 +1,52 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block titulo %}Consulta de Projeto{% endblock %}
-{% block conteudo%} 
+{% block conteudo %}
 
-<form method='POST' action='/consulta_projeto/' class="ui form">
- 	{% csrf_token %}
- 	<h1 class="ui header">Consulta Projeto</h1>
- 	<div class="field">
-	 	<div class="ui action input">
-	  		{{form.nome}}
-		    <input type="submit" value="Pesquisar" class='icon search'>
-		</div>
-	</div>
-</form>
-<div class="ui secondary segment">
-	<table class="ui celled table">
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>Coordenador do Projeto</th>
-				<th>Data de Inicio</th>
-				<th>Data de Finalização</th>
-				{% if user.is_superuser %}
-					<th>Visualizar</th>
-					<th>Editar</th>
-				{% endif %}
-			</tr>	
-		</thead>
-		<tbody>
-		{% for projeto in projetos %}
-			<tr>
-				<td>{{ projeto.nome }}</td>
-				<td>{{ projeto.coordenador }}</td>
-				<td>{{ projeto.data_inicio }}</td>
-				<td>{{ projeto.data_fim}}</td>
-				{% if user.is_superuser %}
-					<td><a href="../visualizar_projeto/{{projeto.id}}">Mais</a></td>
-					<td><a href="../editar_projeto/{{projeto.id}}"><i class="settings large icon"></i></a></td>
-				{% endif %}
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-</div>
+    <form method='POST' action='/consulta_projeto/' class="ui form">
+        {% csrf_token %}
+        <h1 class="ui header">Consulta Projeto</h1>
+        <div class="field">
+            <div class="ui action input">
+                {{ form.nome }}
+                <input type="submit" value="Pesquisar" class='icon search'>
+            </div>
+        </div>
+    </form>
+    <div class="ui secondary segment">
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Coordenador do Projeto</th>
+                <th>Data de Inicio</th>
+                <th>Data de Finalização</th>
+                {% if user.is_superuser %}
+                    <th>Visualizar</th>
+                    <th>Editar</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for projeto in projetos %}
+                <tr>
+                    <td>{{ projeto.nome }}</td>
+                    <td>{{ projeto.coordenador }}</td>
+                    <td>{{ projeto.data_inicio }}</td>
+                    <td>{{ projeto.data_fim }}</td>
+                    {% if user.is_superuser %}
 
-{%endblock%}
+                        <td><a href="../visualizar_projeto/{{ projeto.id }}">Mais</a></td>
+                        {% if projeto.coordenador.id == request.user.id or usuario.super_adm %}
+                            <td><a href="../editar_projeto/{{ projeto.id }}"><i class="settings large icon"></i></a>
+                            </td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

@@ -80,8 +80,13 @@
             <label>Descrição</label>
             {{ projeto.descricao }}
         </div>
-        <h2 class="ui header">Membros <a href='/editar_membro/{{ projeto.id }}'><i class="add user black icon"></i></a>
-        </h2>
+
+        {% if projeto.coordenador.id == request.user.id %}
+            <h2 class="ui header">Membros <a href='/editar_membro/{{ projeto.id }}'><i class="add user black icon"></i></a>
+            </h2>
+        {% else %}
+            <h2 class="ui header">Membros </h2>
+        {% endif %}
         <div class="field">
             <table class="ui celled table">
                 <thead>
@@ -101,9 +106,12 @@
         <a href='/consulta_projeto/'>
             <button class='ui red button'>Voltar</button>
         </a>
+
+        {% if projeto.coordenador.id == request.user.id %}
         <a href='/editar_projeto/{{ projeto.id }}'>
             <button class="ui button direita verde_escuro">Editar</button>
         </a>
+        {% endif %}
     {% else %}
         <div class='ui centered grid'>
             <div class='two column centered row'>

@@ -74,8 +74,9 @@ class ConsultaProjeto(LoginRequiredMixin, View):
     def get(self, request):
         form = Busca()
         projeto = Projeto.objects.all()
+        usuario = Usuario.objects.get(pk=request.user)
 
-        return render(request, self.template, {'projetos': projeto, "form": form})
+        return render(request, self.template, {'projetos': projeto, "form": form, 'usuario': usuario})
 
     def post(self, request):
         form = Busca(request.POST)

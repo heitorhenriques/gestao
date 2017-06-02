@@ -12,9 +12,9 @@
             </div>
         </div>
     </div>
-
-    Projetos
-
+    {% if projeto_membro %}
+        <h1 class="ui header">Projetos</h1>
+    {% endif %}
     <div class="ui link cards">
         {% for projeto in projeto_membro %}
 
@@ -43,8 +43,10 @@
     {#                        {% endfor %}#}
 
 
+    {% if projeto_coordenador %}
+        <h1 class="ui header">Coordenador</h1>
+    {% endif %}
 
-    Coordenador
     {% for projeto in projeto_coordenador %}
         <div class="ui card">
             <div class="image">
