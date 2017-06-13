@@ -130,6 +130,15 @@
                     </div>
                 {% endif %}
             </div>
+            <div class="field">
+                <label>Arquivos</label>
+                {{form.pdf_edital}}
+                {% if form.pdf_edital.errors %}
+                    <div class="ui red pointing label">
+                        {{ form.pdf_edital.errors }}
+                    </div>
+                {% endif %}
+            </div>
 		</div>
         </div>
             <input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/> 
