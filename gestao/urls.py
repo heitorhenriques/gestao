@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^excluir_horario/(?P<horario_id>\d+)/$', ExcluirHorario.as_view()),    
     url(r'^editar_horario/(?P<horario_id>\d+)/$', CadastroHorario.as_view()),
     url(r'^hora_invalida/', hora_invalida),
+    url(r'^apresentar_horarios/', ApresentarHorarios.as_view()),
 
     url(r'^curso/', CadastroCurso.as_view()),
     url(r'^editar_curso/(?P<curso_id>\d+)/$', CadastroCurso.as_view()),

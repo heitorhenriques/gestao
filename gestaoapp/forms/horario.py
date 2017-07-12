@@ -6,6 +6,7 @@ from gestaoapp.models import Horario
 class FormHorario(forms.ModelForm):
     hora_inicio = forms.TimeField(label='hora_inicio')
     hora_fim = forms.TimeField(label='hora_fim')
+    usuario = forms.CharField(required=False)
 
     def verifica_horario(self):
         hora_inicio = self.cleaned_data.get('hora_inicio')

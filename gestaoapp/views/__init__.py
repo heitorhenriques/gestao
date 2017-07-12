@@ -5,7 +5,7 @@ from gestaoapp.views.atividade import CadastroAtividade, ConsultaAtividade, Visu
 from gestaoapp.views.curso import CadastroCurso, ConsultaCurso, VisualizarCurso
 from gestaoapp.views.edital import CadastroEdital, ConsultaEdital, VisualizarEdital
 from gestaoapp.views.home import Home
-from gestaoapp.views.horario import CadastroHorario, ExcluirHorario
+from gestaoapp.views.horario import CadastroHorario, ExcluirHorario, ApresentarHorarios
 from gestaoapp.views.nucleo import CadastroNucleo, ConsultaNucleo, VisualizarNucleo
 from gestaoapp.views.parceiro import CadastroParceiro, ConsultaParceiro, VisualizarParceiro
 from gestaoapp.views.projeto import CadastroProjeto, ConsultaProjeto, VisualizarProjeto, AddMembro

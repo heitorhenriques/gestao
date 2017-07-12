@@ -22,13 +22,8 @@ $(document).ready(function () {
 
 
     })
-    $('.ui.accordion')
-        .accordion()
-    ;
-    $(document).ready(function () {
-        // init the accordion on the menu
-        $('.ui.accordion').accordion();
-    });
+
+    $('.ui.accordion').accordion();
 
     $('.ui.checkbox')
         .checkbox()

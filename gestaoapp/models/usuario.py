@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from gestaoapp.models.curso import Curso
-from gestaoapp.models.horario import Horario
+# from gestaoapp.models.horario import Horario
 
 
 class Usuario(User):
@@ -42,7 +42,7 @@ class Usuario(User):
     telefone1 = models.CharField(max_length=11)
     telefone2 = models.CharField(max_length=11, blank=True, null=True)
     curso = models.ForeignKey(Curso, null=True, blank=True)
-    dia = models.ManyToManyField(Horario, blank=True)
+    # dia = models.ManyToManyField(Horario, blank=True)
     verificacao = models.CharField(max_length=255, null=True, blank=True, unique=True)
     lattes = models.URLField(null=True, blank=True)
     desc = models.TextField()

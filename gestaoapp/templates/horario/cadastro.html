@@ -37,7 +37,6 @@
             </ul>
         </div>
     {% endif %}
-
         <div class="ui segment">
             <h2 class="ui header">
                 Cadastro de horários
@@ -45,34 +44,57 @@
                     Defina os períodos
                 </div>
             </h2>
-            <form method="POST" action="" class="ui form">
+            <form method="POST" action="" class="ui form">{% csrf_token %}
                 <div class="fields">
                     <div class="five wide field">
-                        <label>Dia</label>
-                        <div class="ui input">
-                            <input type="text" name="_"/>
-                        </div>
+                        <label>Dia da semana</label>
+                        {{ form.data }}
+                        {% if form.data.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.data.errors }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="five wide field">
-                        <label>Período</label>
-                        <div class="ui input">
-                            <input type="text" name="_"/>
-                        </div>
+                        <label>Turno</label>
+                        {{ form.turno }}
+                        {% if form.turno.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.turno.errors }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="three wide field">
-                        <label>Entrada</label>
-                        <div class="ui input">
-                            <input type="text" name="_"/>
-                        </div>
+                        <label>Horário de início</label>
+                        {% if editar %}
+                            {{ form.hora_inicio }}
+                        {% else %}
+                            <input type="time" name="hora_inicio">
+                        {% endif %}
+
+                        {% if form.hora_inicio.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.hora_inicio.errors }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="three wide field">
-                        <label>Saída</label>
-                        <div class="ui input">
-                            <input type="text" name="_"/>
-                        </div>
+                        <label>Horário de término</label>
+
+                        {% if editar %}
+                            {{ form.hora_fim }}
+                        {% else %}
+                            <input type="time" name="hora_fim">
+                        {% endif %}
+
+                        {% if form.hora_fim.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.hora_fim.errors }}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -140,4 +162,32 @@
         </table>
     </div>
 
+    <script defer src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
+    <script>
+        $(document).ready(function () {
+
+            horarios = getHorarios();
+            //horarios = JSON.parse(horarios[0]);
+            //alert(horarios);
+
+            function getHorarios() {
+                $.ajax({
+                    url: '/apresentar_horarios/',
+                    dataType: 'json',
+                    success: function (response) {
+                        //alert(response.data);
+                        data = response.data;
+                        for(var i in data) {
+                            alert(JSON.stringify(data[i]));
+                        }
+                    },
+                    error: function (response) {
+                        alert('Error: '+response);
+                    }
+                });
+
+                return response;
+            }
+        });
+    </script>
 {% endblock %}

@@ -1,5 +1,7 @@
 from django.db import models
 
+from gestaoapp.models.usuario import Usuario
+
 
 class Horario(models.Model):
     MANHA = 'MA'
@@ -11,6 +13,7 @@ class Horario(models.Model):
         (TARDE, 'Tarde'),
         (NOITE, 'Noite'),
     )
+
     turno = models.CharField(
         max_length=2,
         choices=HORARIO_CHOICES
@@ -34,8 +37,9 @@ class Horario(models.Model):
         choices=DIA_CHOICES
     )
 
+    usuario = models.ForeignKey(Usuario, null=False, blank=False)
     hora_inicio = models.TimeField()
     hora_fim = models.TimeField()
 
     def __unicode__(self):
-        return self.data
+        return '%s_%s_%s' %(self.usuario.username, self.data, self.turno)
