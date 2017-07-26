@@ -14,6 +14,8 @@ class CadastroHorario(LoginRequiredMixin, View):
 
     def get(self, request, horario_id=None):
 
+        horarios = self.buscarHorarios(request)
+
         if horario_id:
             nome = Horario.objects.get(id=horario_id)
             form = FormHorarioEdit(instance=nome)
@@ -22,7 +24,7 @@ class CadastroHorario(LoginRequiredMixin, View):
             form = FormHorario()
             editar = False
 
-        return render(request, self.template, {'form': form, 'editar': editar})
+        return render(request, self.template, {'form': form, 'horarios': horarios, 'editar': editar})
 
     def post(self, request):
 
@@ -37,6 +39,19 @@ class CadastroHorario(LoginRequiredMixin, View):
         else:
             msg = form.errors
         return render(request, self.template, {'form': form, 'msg': msg})
+
+    def buscarHorarios(self, request):
+        usuario = Usuario.objects.get(pk=request.user.id)
+        horarios = Horario.objects.filter(usuario=usuario).values('id', 'hora_inicio', 'hora_fim', 'data', 'turno')
+        return self.indexarHorarios(horarios)
+
+    def indexarHorarios(self, horarios):
+        horarios_dict = {}
+        for horario in horarios:
+            indice = horario['data']+'_'+horario['turno']
+            horarios_dict[indice] = horario
+        return horarios_dict
+
 
 
 
@@ -110,7 +125,6 @@ class ApresentarHorarios(LoginRequiredMixin, View):
 
     def get(self, request):
         usuario = Usuario.objects.get(pk=request.user.id)
-        #data = {'hello': 'world'}
 
         horarios = list(Horario.objects.filter(usuario=usuario).values('id', 'hora_inicio', 'hora_fim', 'data', 'turno'))
         return JsonResponse({'data': horarios})

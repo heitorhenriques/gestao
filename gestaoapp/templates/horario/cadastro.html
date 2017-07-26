@@ -160,10 +160,50 @@
                 </tr>
             </tbody>
         </table>
+
+        <table class="ui definition celled fixed table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Manhã</th>
+                    <th>Tarde</th>
+                    <th>Noite</th>
+                </tr>
+            </thead>
+
+            {% with 'Segunda-Feira Terça-Feira Quarta-Feira Quinta-Feira Sexta-Feira' as dias_da_semana %}
+            <tbody>
+                {% for dia in dias_da_semana.split %}
+                <tr>
+                    <td>{{ dia }}</td>
+                    {% with 'Manhã Tarde Noite' as turnos %}
+                        {% for turno in turnos.split %}
+                            <td>
+                            {% with dia|slice:"0:3"|upper as d and turno|slice:"0:2"|upper as t %}
+                                {% with d|add:"_"|add:t as key %}
+                                    {% if 'SEG_TA' in horarios %}
+                                        {{ horarios.key }}
+                                        <label class="ui blue label">
+
+                                        </label>
+                                    {% else %}
+                                        ---
+                                    {% endif %}
+                                {% endwith %}
+                            {% endwith %}
+                        {% endfor %}
+                    {% endwith %}
+                </tr>
+                {{ horarios }}
+                {% endfor %}
+            </tbody>
+            {% endwith %}
+        </table>
     </div>
 
     <script defer src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
     <script>
+        /*
         $(document).ready(function () {
 
             horarios = getHorarios();
@@ -189,5 +229,6 @@
                 return response;
             }
         });
+        */
     </script>
 {% endblock %}
