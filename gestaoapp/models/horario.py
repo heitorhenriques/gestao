@@ -41,5 +41,3 @@ class Horario(models.Model):
     hora_inicio = models.TimeField()
     hora_fim = models.TimeField()
 
-    def __unicode__(self):
-        return '%s_%s_%s' %(self.usuario.username, self.data, self.turno)

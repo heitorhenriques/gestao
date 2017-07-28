@@ -123,3 +123,23 @@ input.verde_escuro{
 	font-size: 90% !important;
 	font-weight: none !important;
 }
+
+.top_td {
+	vertical-align: baseline;
+}
+
+.horario_card{
+	border: 1px solid #000000!important;
+}
+
+.laranja_fabrica {
+	background-color: #f59a5d!important;
+}
+
+.verde_fabrica {
+	background-color: #289191!important;
+}
+
+.vermelho_fabrica {
+	background-color: #d94e4e!important;
+}

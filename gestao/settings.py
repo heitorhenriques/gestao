@@ -27,6 +27,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gestaoapp',
+    'gestaoapp.templatetags',
 )
 
 MIDDLEWARE_CLASSES = (

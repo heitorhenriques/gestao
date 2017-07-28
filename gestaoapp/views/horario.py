@@ -13,45 +13,52 @@ class CadastroHorario(LoginRequiredMixin, View):
     template = 'horario/cadastro.html'
 
     def get(self, request, horario_id=None):
-
-        horarios = self.buscarHorarios(request)
+        horarios = self.getHorarios(request)
 
         if horario_id:
-            nome = Horario.objects.get(id=horario_id)
-            form = FormHorarioEdit(instance=nome)
+            horario_atual = Horario.objects.get(id=horario_id)
+            form = FormHorarioEdit(instance=horario_atual)
             editar = True
         else:
             form = FormHorario()
             editar = False
 
-        return render(request, self.template, {'form': form, 'horarios': horarios, 'editar': editar})
+        return render(request, self.template, {'form': form, 'editar': editar, 'horarios': horarios})
 
-    def post(self, request):
+    def post(self, request, horario_id=None):
 
-        form = FormHorario(data=request.POST)
-        #form.usuario = Usuario.objects.get(pk=request.user.id)
+        edit = False
+        msg = None
+
+        if horario_id:
+            edit = True
+            horario_atual = Horario.objects.get(id=horario_id)
+            form = FormHorario(data=request.POST, instance=horario_atual)
+        else:
+            form = FormHorario(data=request.POST)
 
         if form.is_valid() and form.verifica_horario():
              msg = "Horário registrado com sucesso!"
              horario = form.save(commit=False)
              horario.usuario = Usuario.objects.get(pk=request.user.id)
              horario.save()
-        else:
-            msg = form.errors
-        return render(request, self.template, {'form': form, 'msg': msg})
 
-    def buscarHorarios(self, request):
-        usuario = Usuario.objects.get(pk=request.user.id)
-        horarios = Horario.objects.filter(usuario=usuario).values('id', 'hora_inicio', 'hora_fim', 'data', 'turno')
-        return self.indexarHorarios(horarios)
+        horarios = self.getHorarios(request)
+        return render(request, self.template, {'form': form, 'msg': msg, 'edit': edit, 'horarios': horarios})
 
-    def indexarHorarios(self, horarios):
-        horarios_dict = {}
+
+    def getHorarios(self, request):
+        horarios = Horario.objects.filter(usuario=Usuario.objects.get(pk=request.user.id)).order_by('hora_inicio', 'hora_fim')
+        return self.organizarHorarios(horarios)
+
+    def organizarHorarios(self, horarios):
+        horarios_organizados_por_dia = {}
         for horario in horarios:
-            indice = horario['data']+'_'+horario['turno']
-            horarios_dict[indice] = horario
-        return horarios_dict
-
+            if horario.data in horarios_organizados_por_dia:
+                horarios_organizados_por_dia[horario.data].append(horario)
+            else:
+                horarios_organizados_por_dia[horario.data] = [horario]
+        return horarios_organizados_por_dia
 
 
 

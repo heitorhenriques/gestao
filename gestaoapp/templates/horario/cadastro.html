@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load get_dict_item %}
 {% block titulo %} Cadastro de Horário{% endblock %}
 {% block conteudo %}
 
@@ -39,9 +40,13 @@
     {% endif %}
         <div class="ui segment">
             <h2 class="ui header">
-                Cadastro de horários
+                {% if edit == True %}
+                 Editar Horário
+                {% else %}
+                Cadastrar Horário
+                {% endif %}
                 <div class="sub header">
-                    Defina os períodos
+                    Preencha o formulário abaixo
                 </div>
             </h2>
             <form method="POST" action="" class="ui form">{% csrf_token %}
@@ -67,7 +72,7 @@
                     </div>
 
                     <div class="three wide field">
-                        <label>Horário de início</label>
+                        <label>Entrada</label>
                         {% if editar %}
                             {{ form.hora_inicio }}
                         {% else %}
@@ -82,7 +87,7 @@
                     </div>
 
                     <div class="three wide field">
-                        <label>Horário de término</label>
+                        <label>Saída</label>
 
                         {% if editar %}
                             {{ form.hora_fim }}
@@ -98,137 +103,69 @@
                     </div>
                 </div>
 
+                <a href="/horario/" class="ui left labeled icon blue button"><i class="plus icon"></i>Cadastrar</a>
                 <input type="reset" class="ui button" value="Limpar"/>
-                <input type="submit" class="ui right floated green button" value="Salvar"/>
+                <input type="submit" class="ui right floated verde_escuro button" value="Salvar"/>
             </form>
         </div>
 
-        <table class="ui definition celled fixed table">
+    {% if horarios %}
+    {% with 'Segunda-Feira Terça-Feira Quarta-Feira Quinta-Feira Sexta-Feira' as dias_da_semana %}
+        <table class="ui celled fixed table">
             <thead>
                 <tr>
-                    <th></th>
-                    <th>Manhã</th>
-                    <th>Tarde</th>
-                    <th>Noite</th>
+                    {% for dia in dias_da_semana.split %}
+                    <th>{{ dia }}</th>
+                    {% endfor %}
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <td>
-                        <label>Segunda-Feira</label>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label>Terça-Feira</label>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label>Quarta-Feira</label>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label>Quinta-Feira</label>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label>Sexta-Feira</label>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table class="ui definition celled fixed table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Manhã</th>
-                    <th>Tarde</th>
-                    <th>Noite</th>
-                </tr>
-            </thead>
-
-            {% with 'Segunda-Feira Terça-Feira Quarta-Feira Quinta-Feira Sexta-Feira' as dias_da_semana %}
-            <tbody>
                 {% for dia in dias_da_semana.split %}
-                <tr>
-                    <td>{{ dia }}</td>
-                    {% with 'Manhã Tarde Noite' as turnos %}
-                        {% for turno in turnos.split %}
-                            <td>
-                            {% with dia|slice:"0:3"|upper as d and turno|slice:"0:2"|upper as t %}
-                                {% with d|add:"_"|add:t as key %}
-                                    {% if 'SEG_TA' in horarios %}
-                                        {{ horarios.key }}
-                                        <label class="ui blue label">
-
-                                        </label>
-                                    {% else %}
-                                        ---
+                    <td class="top_td">
+                    {% with dia|slice:"0:3"|upper as dia_prefixo %}
+                    {% for horario in horarios|get_dict_item:dia_prefixo %}
+                        <div class="ui
+                         {% if horario.turno == 'MA' %}
+                            laranja_fabrica
+                        {% elif horario.turno == 'TA' %}
+                            verde_fabrica
+                        {% elif horario.turno == 'NO' %}
+                            vermelho_fabrica
+                        {% endif %}
+                         horario_card card">
+                            <div class="content">
+                                <div class="header">
+                                    {{ horario.hora_inicio }} - {{ horario.hora_fim }}
+                                </div>
+                                <div class="description">
+                                    {% if horario.turno == 'MA' %}
+                                        Manhã
+                                    {% elif horario.turno == 'TA' %}
+                                        Tarde
+                                    {% elif horario.turno == 'NO' %}
+                                        Noite
                                     {% endif %}
-                                {% endwith %}
-                            {% endwith %}
-                        {% endfor %}
+                                </div>
+                            </div>
+                            <div class="ui two bottom attached centered icon black buttons">
+                                <a  href="/editar_horario/{{ horario.id }}" class="ui icon button">
+                                    <i class="configure icon"></i>
+                                </a>
+                                <a href="/excluir_horario/{{ horario.id }}" class="ui icon button">
+                                    <i class="remove icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
                     {% endwith %}
-                </tr>
-                {{ horarios }}
+                    </td>
                 {% endfor %}
+                </tr>
             </tbody>
-            {% endwith %}
         </table>
+    {% endwith %}
+    {% endif %}
     </div>
-
-    <script defer src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js'></script>
-    <script>
-        /*
-        $(document).ready(function () {
-
-            horarios = getHorarios();
-            //horarios = JSON.parse(horarios[0]);
-            //alert(horarios);
-
-            function getHorarios() {
-                $.ajax({
-                    url: '/apresentar_horarios/',
-                    dataType: 'json',
-                    success: function (response) {
-                        //alert(response.data);
-                        data = response.data;
-                        for(var i in data) {
-                            alert(JSON.stringify(data[i]));
-                        }
-                    },
-                    error: function (response) {
-                        alert('Error: '+response);
-                    }
-                });
-
-                return response;
-            }
-        });
-        */
-    </script>
 {% endblock %}
