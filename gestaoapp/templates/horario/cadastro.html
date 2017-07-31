@@ -108,66 +108,6 @@
                 <input type="submit" class="ui right floated verde_escuro button" value="Salvar"/>
             </form>
         </div>
-
-    {% if horarios %}
-    {% with 'Segunda-Feira Terça-Feira Quarta-Feira Quinta-Feira Sexta-Feira' as dias_da_semana %}
-        <table class="ui celled fixed table">
-            <thead>
-                <tr>
-                    {% for dia in dias_da_semana.split %}
-                    <th>{{ dia }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                {% for dia in dias_da_semana.split %}
-                    <td class="top_td">
-                    {% with dia|slice:"0:3"|upper as dia_prefixo %}
-                    {% for horario in horarios|get_dict_item:dia_prefixo %}
-                        <div class="ui
-                         {% if horario.turno == 'MA' %}
-                            laranja_fabrica
-                        {% elif horario.turno == 'TA' %}
-                            verde_fabrica
-                        {% elif horario.turno == 'NO' %}
-                            vermelho_fabrica
-                        {% endif %}
-                         horario_card card">
-                            <div class="content">
-                                <div class="header">
-                                    {{ horario.hora_inicio }} - {{ horario.hora_fim }}
-                                </div>
-                                <div class="description">
-                                    {% if horario.turno == 'MA' %}
-                                        Manhã
-                                    {% elif horario.turno == 'TA' %}
-                                        Tarde
-                                    {% elif horario.turno == 'NO' %}
-                                        Noite
-                                    {% endif %}
-                                </div>
-                            </div>
-                            {% if horario.usuario.id == request.user.id %}
-                            <div class="ui two bottom attached centered icon black buttons">
-                                <a  href="/editar_horario/{{ horario.id }}" class="ui icon button">
-                                    <i class="configure icon"></i>
-                                </a>
-                                <a href="/excluir_horario/{{ horario.id }}" class="ui icon button">
-                                    <i class="remove icon"></i>
-                                </a>
-                            </div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                    {% endwith %}
-                    </td>
-                {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-    {% endwith %}
-    {% endif %}
+        {% include 'horario/tabela_horarios.html' %}
     </div>
 {% endblock %}

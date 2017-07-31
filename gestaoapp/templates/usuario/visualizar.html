@@ -66,42 +66,8 @@
 					
 					<div class="field">
 						<label>Horário de Trabalho</label>
-						<table class="ui celled table">
-							<thead>
-								<tr>
-									<th>Dia da Semana</th>
-									<th>Início</th>
-									<th>Termino</th>
-									<th>Editar</th>
-									{% if user.is_superuser %}
-									<th>Excluir</th>
-									{% endif %}	
-								</tr>
-							</thead>
-							{% for data in usuario.dia.all %} 
-							<tbody>
-								{% if data.data == 'SEG' %} 
-								<td>Segunda-Feira</td>
-								{% elif data.data == 'TER' %} 
-								<td>Terça-Feira</td>
-								{% elif data.data == 'QUA' %} 
-								<td>Quarta-Feira</td>
-								{% elif data.data == 'QUI'%} 
-								<td>Quinta-Feira</td>
-								{% elif data.data == 'SEX'%} 
-								<td>Sexta-Feira</td>
-								{% endif%}
-								<td>{{data.hora_inicio}}</td>
- 								<td>{{data.hora_fim}}</td>
- 								<td><a href="/editar_horario/{{ data.id }}"><i class="edit icon black large"></i></a></td>
- 								{% if user.is_superuser %}
- 								<td><a href="/excluir_horario/{{ data.id }}"><i class="remove icon icone_red large"></i></a></td>
- 								{% endif %}
 
- 							</tbody>
- 							{%endfor%}
-
- 						</table>
+                        {% include 'horario/tabela_horarios.html' %}
 					</div>
 				</div>	
 				<a href='/consulta_usuario/'><button class='ui red button direita '>Voltar</button></a>

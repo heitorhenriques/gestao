@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.http import JsonResponse
 
+from gestaoapp.controls import TabelaHorarios
 from gestaoapp.forms.horario import FormHorario, FormHorarioEdit
 from gestaoapp.models.horario import Horario
 from gestaoapp.models.usuario import Usuario
@@ -13,7 +14,7 @@ class CadastroHorario(LoginRequiredMixin, View):
     template = 'horario/cadastro.html'
 
     def get(self, request, horario_id=None):
-        horarios = self.getHorarios(request)
+        horarios = TabelaHorarios().get(request.user.id)
 
         if horario_id:
             horario_atual = Horario.objects.get(id=horario_id)
@@ -50,22 +51,22 @@ class CadastroHorario(LoginRequiredMixin, View):
         else:
             print(form.errors)
 
-        horarios = self.getHorarios(request)
+        horarios = TabelaHorarios().get(usuario)
         return render(request, self.template, {'form': form, 'msg': msg, 'edit': edit, 'horarios': horarios})
 
 
-    def getHorarios(self, request):
-        horarios = Horario.objects.filter(usuario=Usuario.objects.get(pk=request.user.id)).order_by('hora_inicio', 'hora_fim')
-        return self.organizarHorarios(horarios)
-
-    def organizarHorarios(self, horarios):
-        horarios_organizados_por_dia = {}
-        for horario in horarios:
-            if horario.data in horarios_organizados_por_dia:
-                horarios_organizados_por_dia[horario.data].append(horario)
-            else:
-                horarios_organizados_por_dia[horario.data] = [horario]
-        return horarios_organizados_por_dia
+    # def getHorarios(self, request):
+    #     horarios = Horario.objects.filter(usuario=Usuario.objects.get(pk=request.user.id)).order_by('hora_inicio', 'hora_fim')
+    #     return self.organizarHorarios(horarios)
+    #
+    # def organizarHorarios(self, horarios):
+    #     horarios_organizados_por_dia = {}
+    #     for horario in horarios:
+    #         if horario.data in horarios_organizados_por_dia:
+    #             horarios_organizados_por_dia[horario.data].append(horario)
+    #         else:
+    #             horarios_organizados_por_dia[horario.data] = [horario]
+    #     return horarios_organizados_por_dia
 
 class ExcluirHorario(LoginRequiredMixin, View):
     def get(self, request, horario_id):
