@@ -84,6 +84,16 @@ background-color:rgba(0, 94, 131, 0.2) !important
 input.verde_escuro{
 	background-color: #2E9447 !important;
 }
+
+.azul_escuro{
+	background:#005e83 !important;
+	color:#FFFFFF !important;
+}
+
+.azul_escuro:hover {
+	background-color: #257fa3!important;
+}
+
 .verde{
 	background-color: #2E9447 !important;
 }
@@ -122,4 +132,24 @@ input.verde_escuro{
 	color:#E80C0C !important;
 	font-size: 90% !important;
 	font-weight: none !important;
+}
+
+.top_td {
+	vertical-align: baseline;
+}
+
+.horario_card{
+	border: 2px solid #000000!important;
+}
+
+.laranja_fabrica {
+	border-color: #f59a5d!important;
+}
+
+.verde_fabrica {
+	border-color: #289191!important;
+}
+
+.vermelho_fabrica {
+	border-color: #d94e4e!important;
 }
