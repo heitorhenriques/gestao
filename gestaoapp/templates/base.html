@@ -90,6 +90,16 @@
                             </div>
                         </div>
                     {% endif %}
+                    {% if user.is_superuser %}
+                        <div class="ui dropdown item">Bolsa<i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item" href="/bolsa"><i class='ui icon newspaper'></i>Cadastro de Bolsa</a>
+                                <a class="item" href="/consulta_bolsa"><i class='search icon branco'></i>Consulta de
+                                    Bolsa</a>
+
+                            </div>
+                        </div>
+                    {% endif %}
 
                     <div class="ui dropdown item right floated"><i class="user icon"></i>
                         {{ request.user.first_name }} <i class="dropdown icon"></i>

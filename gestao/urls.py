@@ -78,6 +78,13 @@ urlpatterns = [
     url(r'^consulta_parceiro/', ConsultaParceiro.as_view()),
     url(r'^visualizar_parceiro/(?P<parceiro_id>\d+)/$', VisualizarParceiro.as_view()),
 
+    url(r'^bolsa/', CadastroBolsa.as_view()),
+    url(r'^editar_bolsa/(?P<bolsa_id>\d+)/$', CadastroBolsa.as_view()),
+    url(r'^consulta_bolsa/', ConsultaBolsa.as_view()),
+    url(r'^visualizar_bolsa/(?P<bolsa_id>\d+)/$', VisualizarBolsa.as_view()),
+
+
+
 ]
 if settings.DEBUG:
     urlpatterns += patterns(

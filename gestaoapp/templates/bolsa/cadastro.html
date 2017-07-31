@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block titulo %} Cadastro de Bolsa{% endblock %}
+{% block conteudo %}
+
+    {% if msg %}
+        <div class="ui success message">
+            <i class="close icon"></i>
+            <div class="header">{{ msg }}</div>
+        </div>
+    {% endif %}
+
+    {% if form.errors %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">Campos Obrigatorios</div>
+            <ul class="list">
+                {% if form.codigo.errors %}
+                    <li> Curso é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.valor.errors %}
+                    <li> Valor é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.dt_inicio.errors %}
+                    <li> Data de Inicio é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.dt_termino.errors %}
+                    <li> Data de Termino é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.qtd_pagamento.errors %}
+                    <li> Quantidade de Pagamento é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.edital.errors %}
+                    <li> Edital é um campo obrigatorio</li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+    {% if user.is_superuser %}
+
+        <form method='POST'>
+            {% csrf_token %}
+            <h1 class="ui header">
+                {% if editar %}
+                    Editar Bolsa
+                {% else %}
+                    Cadastro de Bolsa
+                {% endif %}
+            </h1>
+            <div class="ui secondary segment">
+                <div class="ui form">
+                    <div class="field">
+                        <label>Codigo Bolsa</label>
+                        {{ form.codigo }}
+                        {% if form.codigo.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.codigo.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Valor</label>
+                            {{ form.valor }}
+                            {% if form.valor.errors %}
+                                <div class="ui red pointing label">
+                                    {{ form.valor.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="field">
+                            <label>Edital</label>
+                            {{ form.edital }}
+                            {% if form.edital.errors %}
+                                <div class="ui red pointing label">
+                                    {{ form.edital.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Data de Inicio</label>
+                            {{ form.dt_inicio }}
+                            {% if form.dt_inicio.errors %}
+                                <div class="ui red pointing label">
+                                    {{ form.dt_inicio.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="field">
+                            <label>Data de Termino</label>
+                            {{ form.dt_termino }}
+                            {% if form.dt_termino.errors %}
+                                <div class="ui red pointing label">
+                                    {{ form.dt_termino.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {#                    <div class="field">#}
+                    {#                        <label>Quantidade de Pagamento</label>#}
+                    {#                        {{ form.qtd_pagamento}}#}
+                    {#                        {% if form.qtd_pagamento.errors %}#}
+                    {#                            <div class="ui red pointing label">#}
+                    {#                                {{ form.qtd_pagamento.errors }}#}
+                    {#                            </div>#}
+                    {#                        {% endif %}#}
+                    {#                    </div>#}
+                </div>
+            </div>
+            <input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/>
+        </form>
+        <a href='/consulta_edital/'>
+            <button class='ui red button'>Cancelar</button>
+        </a>
+        </div>
+    {% else %}
+        <div class='ui centered grid'>
+            <div class='two column centered row'>
+                <div class='ui column centered'>
+                    <div class='ui centered'>
+                        <h2 class='ui header centered'>Acesso bloqueado, somente administrador.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+
+
+{% endblock %}

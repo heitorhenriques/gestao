@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from gestaoapp.views.artefato import CadastroArtefato, ConsultaArtefato, VisualizarArtefato
 from gestaoapp.views.atividade import CadastroAtividade, ConsultaAtividade, VisualizarAtividade
+from gestaoapp.views.bolsa import CadastroBolsa, ConsultaBolsa, VisualizarBolsa
 from gestaoapp.views.curso import CadastroCurso, ConsultaCurso, VisualizarCurso
 from gestaoapp.views.edital import CadastroEdital, ConsultaEdital, VisualizarEdital
 from gestaoapp.views.home import Home
