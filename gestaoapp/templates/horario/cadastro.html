@@ -103,7 +103,7 @@
                     </div>
                 </div>
 
-                <a href="/horario/" class="ui left labeled icon blue button"><i class="plus icon"></i>Cadastrar</a>
+                <a href="/horario/" class="ui left labeled icon azul_escuro button"><i class="plus icon"></i>Cadastrar</a>
                 <input type="reset" class="ui button" value="Limpar"/>
                 <input type="submit" class="ui right floated verde_escuro button" value="Salvar"/>
             </form>
@@ -149,6 +149,7 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            {% if horario.usuario.id == request.user.id %}
                             <div class="ui two bottom attached centered icon black buttons">
                                 <a  href="/editar_horario/{{ horario.id }}" class="ui icon button">
                                     <i class="configure icon"></i>
@@ -157,6 +158,7 @@
                                     <i class="remove icon"></i>
                                 </a>
                             </div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                     {% endwith %}
