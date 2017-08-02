@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 from gestaoapp.models.edital import Edital
 from gestaoapp.models.usuario import Usuario
@@ -17,10 +18,10 @@ class Bolsa(models.Model):
     status = models.BooleanField(default=True)
     vinculos = models.ManyToManyField(Usuario, through='Vinculo', blank=True)
 
-    # def save(self, *args, **kwargs):
-    #
-    #     self.qtd_pagamento =
-    #     super(Bolsa, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        meses = ((self.dt_termino - self.dt_inicio).days) / 30
+        self.qtd_pagamento = meses
+        super(Bolsa, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.codigo
