@@ -4,7 +4,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from gestaoapp.models.curso import Curso
-# from gestaoapp.models.horario import Horario
 
 
 class Usuario(User):

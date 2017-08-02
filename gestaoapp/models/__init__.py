@@ -1,6 +1,5 @@
 from gestaoapp.models.artefato import Artefato
 from gestaoapp.models.atividade import Atividade
-from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.models.curso import Curso
 from gestaoapp.models.edital import Edital
 from gestaoapp.models.faseprojeto import FaseProjeto
@@ -14,5 +13,6 @@ from gestaoapp.models.tipoprojeto import TipoProjeto
 from gestaoapp.models.tiporecurso import TipoRecurso
 from gestaoapp.models.turno import Turno
 from gestaoapp.models.usuario import Usuario
+from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.models.vinculo import Vinculo
 

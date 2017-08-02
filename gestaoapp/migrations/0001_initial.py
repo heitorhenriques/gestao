@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import django.contrib.auth.models
-import django.core.validators
-from django.conf import settings
 from django.db import models, migrations
+from django.conf import settings
+import django.core.validators
+import django.contrib.auth.models
 
 
 class Migration(migrations.Migration):
@@ -32,6 +32,18 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Bolsa',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('codigo', models.CharField(max_length=255)),
+                ('valor', models.DecimalField(max_digits=8, decimal_places=2)),
+                ('dt_inicio', models.DateField()),
+                ('dt_termino', models.DateField()),
+                ('qtd_pagamento', models.IntegerField(default=0, null=True, blank=True)),
+                ('status', models.BooleanField(default=True)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Curso',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -42,13 +54,14 @@ class Migration(migrations.Migration):
             name='Edital',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('numero', models.IntegerField()),
+                ('numero', models.IntegerField(unique=True)),
                 ('orgao_concedente', models.CharField(max_length=255)),
                 ('dt_inicio', models.DateField()),
                 ('dt_termino', models.DateField()),
-                ('url_edital', models.URLField()),
-                ('verba', models.FloatField()),
-                ('qtd_bolsa', models.IntegerField()),
+                ('url_edital', models.URLField(null=True, blank=True)),
+                ('verba', models.FloatField(null=True, blank=True)),
+                ('qtd_bolsa', models.IntegerField(null=True, blank=True)),
+                ('pdf_edital', models.FileField(null=True, upload_to=b'', blank=True)),
             ],
         ),
         migrations.CreateModel(
@@ -56,12 +69,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('fase', models.CharField(max_length=255)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='HoraProjeto',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
             ],
         ),
         migrations.CreateModel(
@@ -91,7 +98,7 @@ class Migration(migrations.Migration):
                 ('cnpj', models.CharField(max_length=255)),
                 ('descricao', models.TextField()),
                 ('endereco', models.CharField(max_length=255)),
-                ('imagem', models.ImageField(upload_to=b'static/imagens/parceiro', verbose_name=b'Imagem')),
+                ('imagem', models.ImageField(upload_to=b'parceiro', verbose_name=b'Imagem')),
                 ('site', models.URLField(null=True, blank=True)),
             ],
         ),
@@ -99,11 +106,9 @@ class Migration(migrations.Migration):
             name='Projeto',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('tipo', models.CharField(blank=True, max_length=255, null=True,
-                                          choices=[(b'Pesquisa', b'Pesquisa'), (b'Extensao', b'Extens\xc3\xa3o'),
-                                                   (b'Ensino', b'Ensino'),
-                                                   (b'Pesquisa_Extensao', b'Pesquisa/Extens\xc3\xa3o')])),
+                ('tipo', models.CharField(blank=True, max_length=255, null=True, choices=[(b'Pesquisa', b'Pesquisa'), (b'Extensao', b'Extens\xc3\xa3o'), (b'Ensino', b'Ensino'), (b'Pesquisa_Extensao', b'Pesquisa/Extens\xc3\xa3o')])),
                 ('nome', models.CharField(max_length=255)),
+                ('imagem', models.ImageField(upload_to=b'projeto', verbose_name=b'Imagem')),
                 ('codigo', models.CharField(unique=True, max_length=255)),
                 ('duracao', models.CharField(max_length=255)),
                 ('data_inicio', models.DateField()),
@@ -157,15 +162,15 @@ class Migration(migrations.Migration):
                 ('vinculo_institucional', models.CharField(blank=True, max_length=255, null=True, choices=[(b'Aluno', b'Aluno'), (b'Professor', b'Professor')])),
                 ('email_opcional', models.EmailField(max_length=254, null=True, blank=True)),
                 ('matricula', models.CharField(unique=True, max_length=255)),
-                ('foto', models.ImageField(upload_to=b'static/imagens/', verbose_name=b'Imagem')),
+                ('foto', models.ImageField(upload_to=b'profile_images')),
                 ('carga_horaria', models.IntegerField(validators=[django.core.validators.MaxValueValidator(100), django.core.validators.MinValueValidator(1)])),
                 ('telefone1', models.CharField(max_length=11)),
                 ('telefone2', models.CharField(max_length=11, null=True, blank=True)),
                 ('verificacao', models.CharField(max_length=255, unique=True, null=True, blank=True)),
                 ('lattes', models.URLField(null=True, blank=True)),
                 ('desc', models.TextField()),
+                ('super_adm', models.BooleanField(default=False)),
                 ('curso', models.ForeignKey(blank=True, to='gestaoapp.Curso', null=True)),
-                ('dia', models.ManyToManyField(to='gestaoapp.Horario', blank=True)),
             ],
             options={
                 'abstract': False,
@@ -181,7 +186,11 @@ class Migration(migrations.Migration):
             name='Vinculo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('vinculo', models.CharField(max_length=255)),
+                ('status', models.BooleanField(default=True)),
+                ('dt_inicio', models.DateField(null=True, blank=True)),
+                ('dt_termino', models.DateField(null=True, blank=True)),
+                ('bolsa', models.ForeignKey(to='gestaoapp.Bolsa', null=True)),
+                ('usuario', models.ForeignKey(to='gestaoapp.Usuario', null=True)),
             ],
         ),
         migrations.AddField(
@@ -212,21 +221,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='projeto',
             name='parceiro',
-            field=models.ManyToManyField(to='gestaoapp.Parceiro'),
+            field=models.ManyToManyField(to='gestaoapp.Parceiro', blank=True),
         ),
         migrations.AddField(
-            model_name='horaprojeto',
-            name='hora_atribuida',
-            field=models.ManyToManyField(to='gestaoapp.Horario', blank=True),
-        ),
-        migrations.AddField(
-            model_name='horaprojeto',
-            name='projeto',
-            field=models.ForeignKey(to='gestaoapp.Projeto'),
-        ),
-        migrations.AddField(
-            model_name='horaprojeto',
+            model_name='horario',
             name='usuario',
             field=models.ForeignKey(to='gestaoapp.Usuario'),
+        ),
+        migrations.AddField(
+            model_name='bolsa',
+            name='edital',
+            field=models.ForeignKey(to='gestaoapp.Edital'),
         ),
     ]
