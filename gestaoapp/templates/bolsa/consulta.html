@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% block titulo %}Consulta de Bolsa{% endblock %}
+{% block conteudo%}
+
+<form method='POST' action='/consulta_bolsa/' class="ui form">
+ 	{% csrf_token %}
+ 	<h1 class=" ui header">Consulta bolsa</h1>
+
+{#     	<div class="ui action input">#}
+{#      		{{form.nome}}#}
+{#    	    <input type="submit" value="Pesquisar" class='icon search'>#}
+{#    	</div>#}
+</form>
+<table class="ui celled table">
+	<thead>
+		<tr>
+			<th>Codigo</th>
+			<th>Edital</th>
+            <th>Data de Inicio</th>
+            <th>Data de Termino</th>
+			{% if user.is_superuser %}
+				<th>Visualizar</th>
+				<th>Editar</th>
+			{% endif %}
+		</tr>
+	</thead>
+	<tbody>
+	{% for bolsa in bolsas %}
+		<tr>
+			<td>{{bolsa.codigo}}</td>
+			<td>{{bolsa.edital}}</td>
+            <td>{{bolsa.dt_inicio}}</td>
+            <td>{{bolsa.dt_termino}}</td>
+			{% if user.is_superuser %}
+				<td class="negative"><a href="../visualizar_bolsa/{{bolsa.id}}">Mais</a></td>
+				<td><a href="../editar_bolsa/{{bolsa.id}}"><i class="settings large icon"></a></td>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+{{bolsa.codigo}}
+{%endblock%}
+

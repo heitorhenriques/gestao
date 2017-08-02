@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block titulo %}     Visualizar Bolsa {% endblock %}
+{% block conteudo %}
+    {% if user.is_superuser %}
+
+        <div class="ui form">
+            <h2 class="ui header">Informações da Bolsa</h2>
+            <div class="ui segment form">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Codigo</label>
+                        {{ bolsa.codigo }}
+                    </div>
+                    <div class="field">
+                        <label>Edital</label>
+                        {{ bolsa.edital }}
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Data de Inicio</label>
+                        {{ bolsa.dt_inicio }}
+                    </div>
+                    <div class="field">
+                        <label>Data de Termino</label>
+                        {{ bolsa.dt_termino }}
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Quantidade de Pagamento</label>
+                        {{ bolsa.qt_pagamento }}
+                    </div>
+                    <div class="field">
+                        <label>Status</label>
+                        {{ bolsa.status }}
+                    </div>
+                </div>
+            </div>
+            <a href='/consulta_bolsa/'>
+                <button class='ui red button'>Voltar</button>
+            </a>
+            <a href='/editar_bolsa/{{ bolsa.id }}'>
+                <button class="ui button direita verde_escuro">Editar</button>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

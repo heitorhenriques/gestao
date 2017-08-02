@@ -97,6 +97,15 @@
                             {% endif %}
                         </div>
                     </div>
+                    <div class="field">
+                        <label>Status</label>
+                        {{ form.status }}
+                        {% if form.status.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.status.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
 
                     {#                    <div class="field">#}
                     {#                        <label>Quantidade de Pagamento</label>#}

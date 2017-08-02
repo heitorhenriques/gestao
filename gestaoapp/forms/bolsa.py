@@ -6,10 +6,10 @@ from gestaoapp.models import Bolsa
 class FormBolsa(forms.ModelForm):
     class Meta:
         model = Bolsa
-        exclude = ('vinculos', 'status')
+        exclude = ('vinculos', )
 
 
 class FormBolsaEdit(forms.ModelForm):
     class Meta:
         model = Bolsa
-        exclude = ('vinculos', 'status')
+        exclude = ('vinculos', )

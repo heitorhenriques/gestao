@@ -57,7 +57,7 @@ class ConsultaBolsa(LoginRequiredMixin, View):
     def post(self, request):
         form = Busca(request.POST)
         if form.is_valid():
-            bolsa = Bolsa.objects.filter(nome__icontains=form.cleaned_data['numero'])
+            bolsa = Bolsa.objects.filter(nome__icontains=form.cleaned_data['codigo'])
 
             return render(request, self.template, {'bolsas': bolsa, 'form': form})
         else:
