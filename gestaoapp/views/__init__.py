@@ -14,6 +14,7 @@ from gestaoapp.views.recurso import CadastroRecurso, ConsultaRecurso, Visualizar
 from gestaoapp.views.tiporecurso import CadastroTipoRecurso
 from gestaoapp.views.usuario import CadastroUsuario, ConsultaUsuario, VisualizarUsuario, AdministrarUsuario, \
     LiberarUsuario, BloquearUsuario, AdmOn, AdmOff
+from gestaoapp.views.vinculo import CadastroVinculo
 
 
 def sucesso(request):

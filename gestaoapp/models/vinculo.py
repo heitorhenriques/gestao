@@ -12,6 +12,3 @@ class Vinculo(models.Model):
     dt_termino = models.DateField(null=True, blank=True)
     bolsa = models.ForeignKey(Bolsa, null=True, on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE)
-
-    def __unicode__(self):
-        return self.nome

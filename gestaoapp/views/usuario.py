@@ -6,6 +6,7 @@ from gestaoapp.controls import TabelaHorarios
 from gestaoapp.forms.busca import Busca
 from gestaoapp.forms.usuario import FormUsuario, FormUsuarioEdit
 from gestaoapp.models import Horario
+from gestaoapp.models import Vinculo
 from gestaoapp.models.usuario import Usuario
 from gestaoapp.views.loginrequired import LoginRequiredMixin
 
@@ -100,7 +101,8 @@ class VisualizarUsuario(LoginRequiredMixin, View):
         if usuario_id:
             usuario = Usuario.objects.get(id=usuario_id)
             horarios = TabelaHorarios().get(usuario)
-            return render(request, self.template, {'usuario': usuario, 'horarios': horarios})
+            vinculos = Vinculo.objects.filter(usuario=usuario)
+            return render(request, self.template, {'usuario': usuario, 'horarios': horarios, 'vinculos': vinculos})
         else:
             return render(request, self.template, {})
 

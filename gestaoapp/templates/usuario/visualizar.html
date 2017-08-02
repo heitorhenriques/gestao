@@ -6,13 +6,13 @@
 		{% csrf_token %}
 		<div class="row">
 			<div class="three wide column"></div>
-			<div class="fifteen wide column">       
-				<div class="ui form">
-					<h2 class="ui header">
+			<div class="fifteen wide column">
+				<div class="ui segment form">
+
+                    <h2 class="ui dividing header">
 			            Informações do Usuário
 			        </h2>
-				</div>
-				<div class="ui segment form">
+
 					<div class="two fields">
 						<div class="field">
 							<label>Nome</label>
@@ -63,13 +63,31 @@
 							{{usuario.email_opcional}}
 						</div>
 					</div>
-					
-					<div class="field">
-						<label>Horário de Trabalho</label>
 
-                        {% include 'horario/tabela_horarios.html' %}
-					</div>
-				</div>	
+                    <h2 class="ui dividing header">
+                        Horário de Trabalho
+                    </h2>
+
+                    {% include 'horario/tabela_horarios.html' %}
+
+                    <h2 class="ui dividing header">
+                        Bolsas
+                    </h2>
+
+                    <a href="/vinculo/" class="ui azul_escuro left labeled icon button">
+                        <i class="star icon"></i>
+                        Vincular Bolsa
+                    </a>
+
+                    {% if vinculos %}
+                    <li class="ui celled list">
+                        {% for vinculo in vinculos %}
+                        <ul>{{ vinculo.bolsa.codigo }}</ul>
+                        {% endfor %}
+                    </li>
+                    {% endif %}
+				</div>
+
 				<a href='/consulta_usuario/'><button class='ui red button direita '>Voltar</button></a>
 			</div>
 		</div>	

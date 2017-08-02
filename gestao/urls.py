@@ -83,7 +83,8 @@ urlpatterns = [
     url(r'^consulta_bolsa/', ConsultaBolsa.as_view()),
     url(r'^visualizar_bolsa/(?P<bolsa_id>\d+)/$', VisualizarBolsa.as_view()),
 
-
+    url(r'^vinculo/', CadastroVinculo.as_view()),
+    #url(r'^editar_vinculo/', CadastroVinculo.as_view())
 
 ]
 if settings.DEBUG:
