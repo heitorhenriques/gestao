@@ -8,12 +8,26 @@
             <div class="header">{{ msg }}</div>
         </div>
     {% endif %}
-
     {% if form.errors %}
         <div class="ui error message">
             <i class="close icon"></i>
             <div class="header">Campos Obrigatorios</div>
             <ul class="list">
+                {% if form.usuario.errors %}
+                    <li> Usuario é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.bolsa.errors %}
+                    <li> Bolsa é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.status.errors %}
+                    <li> Status é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.dt_inicio.errors %}
+                    <li> Data de Inicio é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.dt_termino.errors %}
+                    <li> Data de Termino é um campo obrigatorio</li>
+                {% endif %}
 
             </ul>
         </div>
