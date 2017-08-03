@@ -108,9 +108,9 @@
         </a>
 
         {% if projeto.coordenador.id == request.user.id %}
-        <a href='/editar_projeto/{{ projeto.id }}'>
-            <button class="ui button direita verde_escuro">Editar</button>
-        </a>
+            <a href='/editar_projeto/{{ projeto.id }}'>
+                <button class="ui button direita verde_escuro">Editar</button>
+            </a>
         {% endif %}
     {% else %}
         <div class='ui centered grid'>

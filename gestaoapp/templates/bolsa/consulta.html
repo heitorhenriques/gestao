@@ -29,8 +29,8 @@
 		<tr>
 			<td>{{bolsa.codigo}}</td>
 			<td>{{bolsa.edital}}</td>
-            <td>{{bolsa.dt_inicio}}</td>
-            <td>{{bolsa.dt_termino}}</td>
+            <td>{{bolsa.dt_inicio|date:"d/m/Y" }}</td>
+            <td>{{bolsa.dt_termino|date:"d/m/Y" }}</td>
 			{% if user.is_superuser %}
 				<td class="negative"><a href="../visualizar_bolsa/{{bolsa.id}}">Mais</a></td>
 				<td><a href="../editar_bolsa/{{bolsa.id}}"><i class="settings large icon"></a></td>

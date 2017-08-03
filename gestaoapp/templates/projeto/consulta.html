@@ -31,7 +31,7 @@
                 <tr>
                     <td>{{ projeto.nome }}</td>
                     <td>{{ projeto.coordenador }}</td>
-                    <td>{{ projeto.data_inicio }}</td>
+                    <td>{{ projeto.data_inicio|date:"d/m/Y" }}</td>
                     <td>{{ projeto.data_fim }}</td>
                     {% if user.is_superuser %}
 
