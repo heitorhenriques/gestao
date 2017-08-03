@@ -5,6 +5,7 @@ from django.views.generic.base import View
 
 from gestaoapp.forms.bolsa import FormBolsa, FormBolsaEdit
 from gestaoapp.forms.busca import Busca
+from gestaoapp.models import Vinculo
 from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.views.loginrequired import LoginRequiredMixin
 
@@ -73,11 +74,11 @@ class VisualizarBolsa(LoginRequiredMixin, View):
 
         if bolsa_id:
             bolsa = Bolsa.objects.get(id=bolsa_id)
-
+            vinculos = Vinculo.objects.filter(bolsa=bolsa)
         else:
             return render(request, self.template, {})
 
-        return render(request, self.template, {'bolsa': bolsa})
+        return render(request, self.template, {'bolsa': bolsa, 'vinculos': vinculos})
 
     def post(self, request):
 

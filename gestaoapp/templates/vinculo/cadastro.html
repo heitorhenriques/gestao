@@ -19,39 +19,65 @@
         </div>
     {% endif %}
 
-{% if user.is_superuser %}
+    {% if user.is_superuser %}
+        <form method='POST'>
+            {% csrf_token %}
+            <h1 class="ui header">
+            {%if editar %}
+                Editar Vinculo
+            {% else %}
+                Cadastrar Vinculo
+            {%endif%}
+            </h1>
+            <div class="ui secondary segment">
+            <div class="ui form">
+                <div class="two fields field">
+                    <div class="field">
+                        <label>Data Início</label>
+                        <div class="ui input">
+                            <input type="date" id="dt_inicio" placeholder="dd/mm/aaaa" />
+                        </div>
+                    </div>
 
-	<form method='POST'>
-        {% csrf_token %}
-		<h1 class="ui header">
-        {%if editar %}
-            Editar Vinculo
-        {% else %}
-            Cadastrar Vinculo
-        {%endif%}
-        </h1>
-        <div class="ui secondary segment">
-		<div class="ui form">
-            <div class="field">
-                {{ form }}
+                    <div class="field">
+                        <label>Data Término</label>
+                        <div class="ui input">
+                            <input type="date" id="dt_termino" placeholder="dd/mm/aaaa" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Aluno</label>
+                    {{ form.usuario }}
+                </div>
+
+                <div class="field">
+                    <label>Bolsa</label>
+                    {{ form.bolsa }}
+                </div>
+
+                <div class="field">
+                    <label>Status</label>
+                    {{ form.status }}
+                </div>
             </div>
-		</div>
+            </div>
+                <input type="submit" value="Registrar Vinculo" class="ui submit button direita verde_escuro"/>
+        </form>
+        <a href='/consulta_edital/'><button class='ui red button'>Cancelar</button></a>
         </div>
-            <input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/>
-	</form>
-    <a href='/consulta_edital/'><button class='ui red button'>Cancelar</button></a>
-    </div>
-    {%else%}
-    <div class='ui centered grid'>
-        <div class='two column centered row'>
-            <div class='ui column centered'>
-                <div class='ui centered'>
-                    <h2 class='ui header centered'>Acesso bloqueado, somente administrador.</h2>
+        {%else%}
+        <div class='ui centered grid'>
+            <div class='two column centered row'>
+                <div class='ui column centered'>
+                    <div class='ui centered'>
+                        <h2 class='ui header centered'>Acesso bloqueado, somente administrador.</h2>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-{%endif%}
+    {%endif%}
 {%endblock%}
 
 
