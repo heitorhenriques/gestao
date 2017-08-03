@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block titulo %}Vincular Bolsa{% endblock %}
+{% block conteudo %}
+    {% if user.is_superuser %}
+    <h1 class="ui header">
+        <div class="content">
+            Vincular Bolsa
+            <div class="sub header">Preencha o formulário abaixo</div>
+        </div>
+    </h1>
+    <div class="ui segment">
+        <div class="ui dividing header">Informações da Bolsa</div>
+
+        <div class="ui form">
+            <div class="two fields">
+                <div class="field">
+                    <label>Codigo</label>
+                    {{ bolsa.codigo }}
+                </div>
+                <div class="field">
+                    <label>Edital</label>
+                    {{ bolsa.edital }}
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Data de Inicio</label>
+                    {{ bolsa.dt_inicio }}
+                </div>
+                <div class="field">
+                    <label>Data de Termino</label>
+                    {{ bolsa.dt_termino }}
+                </div>
+            </div>
+            <div class="three fields">
+                <div class="field">
+                    <label>Quantidade de Pagamento</label>
+                    {{ bolsa.qtd_pagamento }}
+                </div>
+                <div class="field">
+                    <label>Status</label>
+                    {{ bolsa.status }}
+                </div>
+                <div class="field">
+                    <label>Valor</label>
+                    {{ bolsa.valor}}
+                </div>
+            </div>
+        </div>
+
+        <div class="ui dividing header">Detalhes do Novo Vínculo</div>
+
+        {% if form %}
+        <form class="ui form" method="POST" action="/vincular_bolsa/{{ bolsa.id }}/">{% csrf_token %}
+
+            <div class="ui field">
+                <label>Data de Início</label>
+                <div class="ui input">
+                    <input type="date" name="dt_inicio" min="{{ bolsa.dt_inicio|date:"d/m/Y" }}">
+                </div>
+            </div>
+
+            <div class="ui field">
+                <label>Usuário</label>
+                {{ form.usuario }}
+            </div>
+
+            <div class="ui field">
+                <label>Status do Vínculo</label>
+                <div class="ui checkbox">
+                    {{ form.status }}
+                    <label>Ativo</label>
+                </div>
+            </div>
+
+            <input type="submit" class="ui verde_escuro button" value="Víncular">
+        </form>
+        {% endif %}
+
+    </div>
+    {% endif %}
+{% endblock %}

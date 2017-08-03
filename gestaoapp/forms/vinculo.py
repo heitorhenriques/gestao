@@ -10,3 +10,11 @@ class FormVinculo(forms.ModelForm):
         model = Vinculo
         fields = '__all__'
 
+class FormVinculoBolsa(forms.ModelForm):
+
+    dt_inicio = forms.DateField(label='dt_inicio')
+    status = forms.BooleanField(required=False)
+
+    class Meta:
+        model = Vinculo
+        fields = ['dt_inicio', 'usuario', 'status']

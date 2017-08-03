@@ -5,10 +5,10 @@ from django.views.generic.base import View
 
 from gestaoapp.forms.bolsa import FormBolsa, FormBolsaEdit
 from gestaoapp.forms.busca import Busca
+from gestaoapp.forms.vinculo import FormVinculoBolsa
 from gestaoapp.models import Vinculo
 from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.views.loginrequired import LoginRequiredMixin
-
 
 class CadastroBolsa(LoginRequiredMixin, View):
     template = 'bolsa/cadastro.html'
