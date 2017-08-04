@@ -50,9 +50,27 @@
 
         <div class="ui dividing header">Detalhes do Novo Vínculo</div>
 
+        {% if msg %}
+            <div class="ui {% if msg.status %}green{% else %}red{% endif %} message">
+                <span class="header">{% if msg.status %}Sucesso!{% else %}Falhou!{% endif %}</span>
+                {{ msg.texto }}
+            </div>
+            {% if msg.status %}
+            <a href="/visualizar_bolsa/{{ bolsa.id }}/" class="ui verde_escuro fluid button">
+                Continuar
+            </a>
+
+            <div class="ui divider"></div>
+            {% endif %}
+        {% else %}
+            <div class="ui blue message">
+                <span class="header">Atenção</span>
+                A criação de um novo vínculo irá <strong>desativar qualquer vínculo em vigência</strong>!
+            </div>
+        {% endif %}
+
         {% if form %}
         <form class="ui form" method="POST" action="/vincular_bolsa/{{ bolsa.id }}/">{% csrf_token %}
-
             <div class="ui field">
                 <label>Data de Início</label>
                 <div class="ui input">
@@ -73,7 +91,9 @@
                 </div>
             </div>
 
-            <input type="submit" class="ui verde_escuro button" value="Víncular">
+            <div class="ui divider"></div>
+            <a href="/visualizar_bolsa/{{ bolsa.id }}/" class="ui red button">Cancelar</a>
+            <input type="submit" class="ui right floated verde_escuro button" value="Víncular">
         </form>
         {% endif %}
 

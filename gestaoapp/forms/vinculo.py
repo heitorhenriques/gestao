@@ -13,7 +13,7 @@ class FormVinculo(forms.ModelForm):
 class FormVinculoBolsa(forms.ModelForm):
 
     dt_inicio = forms.DateField(label='dt_inicio')
-    status = forms.BooleanField(required=False)
+    status = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'checked': True}))
 
     class Meta:
         model = Vinculo

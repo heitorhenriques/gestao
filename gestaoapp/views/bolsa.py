@@ -74,7 +74,7 @@ class VisualizarBolsa(LoginRequiredMixin, View):
 
         if bolsa_id:
             bolsa = Bolsa.objects.get(id=bolsa_id)
-            vinculos = Vinculo.objects.filter(bolsa=bolsa)
+            vinculos = Vinculo.objects.filter(bolsa=bolsa).order_by('-dt_inicio')
         else:
             return render(request, self.template, {})
 
