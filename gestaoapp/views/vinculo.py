@@ -33,7 +33,8 @@ class CadastroVinculoBolsa(LoginRequiredMixin, View):
     def get(self, request, bolsa_id=None):
         if bolsa_id:
             bolsa = Bolsa.objects.get(pk=bolsa_id)
-            form = FormVinculoBolsa
+            form = FormVinculoBolsa(bolsa=bolsa)
+
             return render(request, self.template, {
                 'bolsa': bolsa,
                 'form': form

@@ -63,9 +63,14 @@
             <div class="ui divider"></div>
             {% endif %}
         {% else %}
-            <div class="ui blue message">
-                <span class="header">Atenção</span>
-                A criação de um novo vínculo irá <strong>desativar qualquer vínculo em vigência</strong>!
+            <div class="ui message">
+                <span class="header">Avisos</span>
+
+                <ul class="list">
+                    <li>A criação de um novo vínculo irá <strong>desativar qualquer vínculo em vigência</strong>!</li>
+                    <li>É preciso vincular os usuários aos projetos antes de vinculá-los às bolsas.
+                    <li><strong>Lembre-se:</strong> os projetos devem estar relacionados ao <a href="/visualizar_edital/{{ bolsa.edital.id }}/">edital desta bolsa</a>!</li></li>
+                </ul>
             </div>
         {% endif %}
 

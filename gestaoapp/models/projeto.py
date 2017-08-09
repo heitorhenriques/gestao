@@ -29,11 +29,11 @@ class Projeto(models.Model):
     data_inicio = models.DateField()
     data_fim = models.DateField()
     nucleo = models.ManyToManyField(Nucleo)
-    edital = models.ManyToManyField(Edital, blank=True)
+    edital = models.ManyToManyField(Edital, blank=True, related_name="editais_do_projeto")
     descricao = models.TextField()
     data_cadastro = models.DateField(auto_now=True)
     # situacao = models.ForeignKey(SituacaoProjeto, null=True, blank=True)
-    membro = models.ManyToManyField(Usuario, blank=True, related_name="Membros")
+    membro = models.ManyToManyField(Usuario, blank=True, related_name="membros")
     parceiro = models.ManyToManyField(Parceiro, blank=True)
 
     def __unicode__(self):
