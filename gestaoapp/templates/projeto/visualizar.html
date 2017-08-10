@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block titulo %}     Visualizar Projeto {% endblock %}
 {% block conteudo %}
-    {% if user.is_superuser %}
+
+    {% if membro in projeto.membro.all or user.is_superuser %}
 
         <div class="ui segment form">
         <h2 class="ui header">Informações do Projeto</h2>
@@ -57,23 +58,22 @@
                 {% endfor %}
             </div>
         </div>
-        <!-- <div class="two fields">
-		<div class="field">
-			<label>Situação</label>
-			{{projeto.situacao}}
-		</div>
-		<div class="field">
-			<label>Quantida de Bolsas</label>
-			{{projeto.qtd_bolsa}}
-		</div> 
-	</div>-->
+        {#            <!-- <div class="two fields">#}
+        {#		<div class="field">#}
+        {#			<label>Situação</label>#}
+        {#			{{projeto.situacao}}#}
+        {#		</div>#}
+        {#		<div class="field">#}
+        {#			<label>Quantida de Bolsas</label>#}
+        {#			{{projeto.qtd_bolsa}}#}
+        {#		</div> #}
+        {#	</div>-->#}
 
         <div class="field">
             <label>Parceiros</label>
             {% for parca in projeto.parceiro.all %}
                 {{ parca.nome }}<br>
             {% endfor %}
-
 
         </div>
         <div class="field">
@@ -82,7 +82,8 @@
         </div>
 
         {% if projeto.coordenador.id == request.user.id %}
-            <h2 class="ui header">Membros <a href='/editar_membro/{{ projeto.id }}'><i class="add user black icon"></i></a>
+            <h2 class="ui header">Membros <a href='/editar_membro/{{ projeto.id }}'><i
+                    class="add user black icon"></i></a>
             </h2>
         {% else %}
             <h2 class="ui header">Membros </h2>

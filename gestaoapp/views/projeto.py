@@ -97,11 +97,11 @@ class VisualizarProjeto(LoginRequiredMixin, View):
 
         if projeto_id:
             projeto = Projeto.objects.get(id=projeto_id)
-
+            membro = Usuario.objects.get(id=request.user.id)
         else:
             return render(request, self.template, {})
 
-        return render(request, self.template, {'projeto': projeto})
+        return render(request, self.template, {'projeto': projeto, 'membro':membro})
 
     def post(self, request):
 
