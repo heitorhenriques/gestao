@@ -11,7 +11,6 @@ class FormProjeto(forms.ModelForm):
         model = Projeto
         fields = "__all__"
 
-
 class FormProjetoEdit(forms.ModelForm):
     class Meta:
         model = Projeto

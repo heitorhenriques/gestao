@@ -32,10 +32,11 @@ class CadastroProjeto(LoginRequiredMixin, View):
             form = FormProjeto()
             coordenadores = Usuario.objects.filter(vinculo_institucional="Professor", is_active=True)
             membros = Usuario.objects.filter(is_active=True)
+            # teste = request.user.first_name
             editar = False
 
             return render(request, self.template,
-                          {'form': form, 'editar': editar, 'coordenadores': coordenadores, 'membros': membros})
+                          {'form': form, 'editar': editar,  'membros': membros, 'coordenadores':coordenadores})
 
     def post(self, request, projeto_id=None):
 
@@ -51,6 +52,12 @@ class CadastroProjeto(LoginRequiredMixin, View):
             user = form.save(request)
             if 'imagem' in request.FILES:
                 user.imagem = request.FILES['imagem']
+
+            # form = FormProjeto(request.POST)
+            # author = form.save(commit=False)
+            # author.coordenador = request.user.id
+            # author.save()
+
             user.save()
 
             msg = "Operação realizada com sucesso!"
@@ -101,7 +108,7 @@ class VisualizarProjeto(LoginRequiredMixin, View):
         else:
             return render(request, self.template, {})
 
-        return render(request, self.template, {'projeto': projeto, 'membro':membro})
+        return render(request, self.template, {'projeto': projeto, 'membro': membro})
 
     def post(self, request):
 

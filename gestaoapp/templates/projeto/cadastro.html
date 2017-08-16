@@ -54,7 +54,7 @@
             </ul>
         </div>
     {% endif %}
-
+    {{ teste }}
     {% if user.is_superuser %}
         <form method='POST' enctype="multipart/form-data" class="ui form">
             {% csrf_token %}
