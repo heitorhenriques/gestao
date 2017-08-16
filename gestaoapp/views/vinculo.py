@@ -34,10 +34,12 @@ class CadastroVinculoBolsa(LoginRequiredMixin, View):
         if bolsa_id:
             bolsa = Bolsa.objects.get(pk=bolsa_id)
             form = FormVinculoBolsa(bolsa=bolsa)
+            vinculo_atual = self.get_vinculo_atual(bolsa=bolsa)
 
             return render(request, self.template, {
                 'bolsa': bolsa,
-                'form': form
+                'form': form,
+                'vinculo_atual': vinculo_atual
             })
         return render(request, self.template, {})
 
@@ -46,11 +48,16 @@ class CadastroVinculoBolsa(LoginRequiredMixin, View):
         if bolsa_id:
             bolsa = Bolsa.objects.get(pk=bolsa_id)
             form = FormVinculoBolsa(data=request.POST)
-
+            vinculo_atual = self.get_vinculo_atual(bolsa=bolsa)
             if form.is_valid():
                 vinculo = form.save(commit=False)
                 vinculo.bolsa = bolsa
-                self.desativar_vinculos_atuais(dt_termino=vinculo.dt_inicio, bolsa=bolsa)
+
+                if vinculo_atual:
+                    dt_termino = request.POST.get('dt_termino_vinculo_atual')
+                    vinculo_atual.status = False
+                    vinculo_atual.dt_termino = dt_termino
+                    vinculo_atual.save()
                 vinculo.save()
                 msg = {'status': True, 'texto': 'Vínculo registrado com sucesso!'}
             else:
@@ -62,10 +69,8 @@ class CadastroVinculoBolsa(LoginRequiredMixin, View):
             })
         return render(request, self.template, {})
 
-    def desativar_vinculos_atuais(self, dt_termino, bolsa):
-        vinculos_ativos = Vinculo.objects.filter(status=True, bolsa=bolsa)
-        for v in vinculos_ativos:
-            v.status = False
-            if not v.dt_termino:
-                v.dt_termino = dt_termino
-            v.save()
+    def get_vinculo_atual(self, bolsa):
+        try:
+            return Vinculo.objects.get(bolsa=bolsa, status=True)
+        except:
+            return None

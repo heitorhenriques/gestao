@@ -8,6 +8,20 @@
             <div class="sub header">Preencha o formulário abaixo</div>
         </div>
     </h1>
+
+    {% if msg %}
+    <div class="ui {% if msg.status %}green{% else %}error{% endif %} message">
+        <span class="header">{% if msg.status %}Sucesso!{% else %}Falhou!{% endif %}</span>
+        {{ msg.texto }}
+    </div>
+        {% if msg.status %}
+        <a href="/visualizar_bolsa/{{ bolsa.id }}/" class="ui verde_escuro fluid button">
+            Continuar
+        </a>
+        <div class="ui divider"></div>
+        {% endif %}
+    {% endif %}
+
     <div class="ui segment">
         <div class="ui dividing header">Informações da Bolsa</div>
 
@@ -48,21 +62,30 @@
             </div>
         </div>
 
-        <div class="ui dividing header">Detalhes do Novo Vínculo</div>
+        {% if form %}
+        <form class="ui form" method="POST" action="/vincular_bolsa/{{ bolsa.id }}/">{% csrf_token %}
 
-        {% if msg %}
-            <div class="ui {% if msg.status %}green{% else %}red{% endif %} message">
-                <span class="header">{% if msg.status %}Sucesso!{% else %}Falhou!{% endif %}</span>
-                {{ msg.texto }}
+            {% if vinculo_atual %}
+            <div class="ui dividing header">Detalhes do Vínculo Atual</div>
+
+            <div class="ui message">
+                <div class="header">Atenção</div>
+                <ul class="list">
+                    <li>Esta bolsa já possui um vínculo ativo com o usuário <a href="/visualizar_usuario/{{ vinculo_atual.usuario.id }}"><strong>{{ vinculo_atual.usuario.first_name }} {{ vinculo_atual.usuario.last_name }}</strong></a>!</li>
+                    <li>No campo abaixo determine a data de término do vínculo deste usuário.</li>
+                <ul>
             </div>
-            {% if msg.status %}
-            <a href="/visualizar_bolsa/{{ bolsa.id }}/" class="ui verde_escuro fluid button">
-                Continuar
-            </a>
 
-            <div class="ui divider"></div>
+            <div class="ui field">
+                <label>Data de Término do Vínculo Atual</label>
+                <div class="ui input">
+                    <input type="date" name="dt_termino_vinculo_atual" min="{{ bolsa.dt_inicio|date:"d/m/Y" }}" max="{{ bolsa.dt_termino|date:"d/m/Y" }}" placeholder="dd/mm/aaaa" required="required">
+                </div>
+            </div>
             {% endif %}
-        {% else %}
+
+            <div class="ui dividing header">Detalhes do Novo Vínculo</div>
+
             <div class="ui message">
                 <span class="header">Avisos</span>
 
@@ -72,14 +95,11 @@
                     <li><strong>Lembre-se:</strong> os projetos devem estar relacionados ao <a href="/visualizar_edital/{{ bolsa.edital.id }}/">edital desta bolsa</a>!</li></li>
                 </ul>
             </div>
-        {% endif %}
 
-        {% if form %}
-        <form class="ui form" method="POST" action="/vincular_bolsa/{{ bolsa.id }}/">{% csrf_token %}
             <div class="ui field">
                 <label>Data de Início</label>
                 <div class="ui input">
-                    <input type="date" name="dt_inicio" min="{{ bolsa.dt_inicio|date:"d/m/Y" }}">
+                    <input type="date" name="dt_inicio" min="{{ bolsa.dt_inicio|date:"d/m/Y" }}" placeholder="dd/mm/aaaa">
                 </div>
             </div>
 
