@@ -9,10 +9,12 @@ class FormEdital(forms.ModelForm):
 
     class Meta:
         model = Edital
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ('responsavel_cadastro',)
 
 
 class FormEditalEdit(forms.ModelForm):
     class Meta:
         model = Edital
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ('responsavel_cadastro',)

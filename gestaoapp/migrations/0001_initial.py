@@ -41,6 +41,7 @@ class Migration(migrations.Migration):
                 ('dt_termino', models.DateField()),
                 ('qtd_pagamento', models.IntegerField(default=0, null=True, blank=True)),
                 ('status', models.BooleanField(default=True)),
+                ('data_hora_cadastro', models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
@@ -48,6 +49,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('curso', models.CharField(max_length=255)),
+                ('data_hora_cadastro', models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
@@ -62,6 +64,7 @@ class Migration(migrations.Migration):
                 ('verba', models.FloatField(null=True, blank=True)),
                 ('qtd_bolsa', models.IntegerField(null=True, blank=True)),
                 ('pdf_edital', models.FileField(null=True, upload_to=b'', blank=True)),
+                ('data_hora_cadastro', models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
@@ -88,6 +91,7 @@ class Migration(migrations.Migration):
                 ('nome', models.CharField(max_length=255)),
                 ('sigla', models.CharField(max_length=5)),
                 ('descricao', models.TextField()),
+                ('data_hora_cadastro', models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
@@ -100,6 +104,7 @@ class Migration(migrations.Migration):
                 ('endereco', models.CharField(max_length=255)),
                 ('imagem', models.ImageField(upload_to=b'parceiro', verbose_name=b'Imagem')),
                 ('site', models.URLField(null=True, blank=True)),
+                ('data_hora_cadastro', models.DateTimeField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
@@ -110,11 +115,11 @@ class Migration(migrations.Migration):
                 ('nome', models.CharField(max_length=255)),
                 ('imagem', models.ImageField(upload_to=b'projeto', verbose_name=b'Imagem')),
                 ('codigo', models.CharField(unique=True, max_length=255)),
+                ('data_hora_cadastro', models.DateTimeField(auto_now=True)),
                 ('duracao', models.CharField(max_length=255)),
                 ('data_inicio', models.DateField()),
                 ('data_fim', models.DateField()),
                 ('descricao', models.TextField()),
-                ('data_cadastro', models.DateField(auto_now=True)),
             ],
         ),
         migrations.CreateModel(
@@ -206,12 +211,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='projeto',
             name='edital',
-            field=models.ManyToManyField(to='gestaoapp.Edital', blank=True),
+            field=models.ManyToManyField(related_name='editais_do_projeto', to='gestaoapp.Edital', blank=True),
         ),
         migrations.AddField(
             model_name='projeto',
             name='membro',
-            field=models.ManyToManyField(related_name='Membros', to='gestaoapp.Usuario', blank=True),
+            field=models.ManyToManyField(related_name='membros', to='gestaoapp.Usuario', blank=True),
         ),
         migrations.AddField(
             model_name='projeto',
@@ -224,13 +229,43 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(to='gestaoapp.Parceiro', blank=True),
         ),
         migrations.AddField(
+            model_name='projeto',
+            name='responsavel_cadastro',
+            field=models.ForeignKey(related_name='coordenador_criador', to='gestaoapp.Usuario'),
+        ),
+        migrations.AddField(
+            model_name='parceiro',
+            name='responsavel_cadastro',
+            field=models.ForeignKey(to='gestaoapp.Usuario'),
+        ),
+        migrations.AddField(
+            model_name='nucleo',
+            name='responsavel_cadastro',
+            field=models.ForeignKey(to='gestaoapp.Usuario'),
+        ),
+        migrations.AddField(
             model_name='horario',
             name='usuario',
+            field=models.ForeignKey(to='gestaoapp.Usuario'),
+        ),
+        migrations.AddField(
+            model_name='edital',
+            name='responsavel_cadastro',
             field=models.ForeignKey(to='gestaoapp.Usuario'),
         ),
         migrations.AddField(
             model_name='bolsa',
             name='edital',
             field=models.ForeignKey(to='gestaoapp.Edital'),
+        ),
+        migrations.AddField(
+            model_name='bolsa',
+            name='responsavel_cadastro',
+            field=models.ForeignKey(related_name='responsavel', to='gestaoapp.Usuario'),
+        ),
+        migrations.AddField(
+            model_name='bolsa',
+            name='vinculos',
+            field=models.ManyToManyField(to='gestaoapp.Usuario', through='gestaoapp.Vinculo', blank=True),
         ),
     ]

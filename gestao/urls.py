@@ -87,6 +87,10 @@ urlpatterns = [
     url(r'^vincular_bolsa/(?P<bolsa_id>\d+)/$', CadastroVinculoBolsa.as_view()),
     #url(r'^editar_vinculo/', CadastroVinculo.as_view())
 
+    url(r'^log_cadastro/', LogCadastro.as_view()),
+
+
+
 ]
 if settings.DEBUG:
     urlpatterns += patterns(

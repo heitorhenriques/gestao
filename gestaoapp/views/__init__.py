@@ -15,20 +15,23 @@ from gestaoapp.views.tiporecurso import CadastroTipoRecurso
 from gestaoapp.views.usuario import CadastroUsuario, ConsultaUsuario, VisualizarUsuario, AdministrarUsuario, \
     LiberarUsuario, BloquearUsuario, AdmOn, AdmOff
 from gestaoapp.views.vinculo import CadastroVinculo, CadastroVinculoBolsa
+from gestaoapp.views.logcadastro import LogCadastro
 
 
 def sucesso(request):
-	return render(request, 'usuario/aguarde_liberacao.html')
+    return render(request, 'usuario/aguarde_liberacao.html')
+
 
 def cadastro_liberado(request):
-	return render(request, 'usuario/cadastro_liberado.html')
+    return render(request, 'usuario/cadastro_liberado.html')
 
 
 # def home(request):
 # 	return render(request, 'home/index.html')
 
 def cadastro_sucesso(request):
-	return render(request, 'sucesso.html')
+    return render(request, 'sucesso.html')
+
 
 def hora_invalida(request):
-	return render(request, 'horario/invalida.html')
+    return render(request, 'horario/invalida.html')

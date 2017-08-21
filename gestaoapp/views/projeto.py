@@ -7,6 +7,7 @@ from gestaoapp.forms.projeto import FormProjeto, FormProjetoEdit
 from gestaoapp.forms.projeto_membro import FormProjetoMembro
 from gestaoapp.models.projeto import Projeto
 from gestaoapp.models.usuario import Usuario
+from django.contrib.auth.models import User
 from gestaoapp.views.loginrequired import LoginRequiredMixin
 
 
@@ -36,7 +37,7 @@ class CadastroProjeto(LoginRequiredMixin, View):
             editar = False
 
             return render(request, self.template,
-                          {'form': form, 'editar': editar,  'membros': membros, 'coordenadores':coordenadores})
+                          {'form': form, 'editar': editar, 'membros': membros, 'coordenadores': coordenadores})
 
     def post(self, request, projeto_id=None):
 
@@ -47,16 +48,15 @@ class CadastroProjeto(LoginRequiredMixin, View):
             form = FormProjeto(request.POST, request.FILES)
 
         if form.is_valid():
-            # form.save(request)
+            post = form.save(commit=False)
+            post.responsavel_cadastro = User.objects.get(pk=request.user.id)
+            post.save()
+
+            form.save(request)
 
             user = form.save(request)
             if 'imagem' in request.FILES:
                 user.imagem = request.FILES['imagem']
-
-            # form = FormProjeto(request.POST)
-            # author = form.save(commit=False)
-            # author.coordenador = request.user.id
-            # author.save()
 
             user.save()
 

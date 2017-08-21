@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.views.generic.base import View
+from django.contrib.auth.models import User
+
 
 from gestaoapp.forms.busca import Busca
 from gestaoapp.forms.edital import FormEdital, FormEditalEdit
@@ -32,6 +34,9 @@ class CadastroEdital(LoginRequiredMixin, View):
             form = FormEdital(request.POST)
 
         if form.is_valid():
+            post = form.save(commit=False)
+            post.responsavel_cadastro = User.objects.get(pk=request.user.id)
+            post.save()
             form.save(request)
             msg = "Operação realizada com sucesso!"
 

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block titulo %}Log de Cadastros{% endblock %}
+{% block conteudo %}
+
+    <h1 class="ui header">Log de Cadastro </h1>
+
+
+
+    {% for projeto in projetos %}
+        <div class="ui secondary segment">
+            {{ projeto.nome }}<br>
+            {{ projeto.responsavel_cadastro.first_name }} {{ projeto.responsavel_cadastro.last_name }} <br>
+            {{ projeto.responsavel_cadastro.username }} <br>
+            {{ projeto.data_hora_cadastro }}<br>
+            <br>
+
+        </div>
+    {% endfor %}
+
+    {% for nucleo in nucleos %}
+        <div class="ui secondary segment">
+            {{ nucleo.nome }}<br>
+            {{ nucleo.responsavel_cadastro.first_name }} {{ nucleo.responsavel_cadastro.last_name }} <br>
+            {{ nucleo.responsavel_cadastro.username }} <br>
+            {{ nucleo.data_hora_cadastro }}<br>
+            <br>
+
+        </div>
+    {% endfor %}
+
+    {% for edital in editals %}
+        <div class="ui secondary segment">
+            {{ edital.numero }}<br>
+            {{ edital.responsavel_cadastro.first_name }} {{ edital.responsavel_cadastro.last_name }} <br>
+            {{ edital.responsavel_cadastro.username }} <br>
+            {{ edital.data_hora_cadastro }}<br>
+            <br>
+
+        </div>
+    {% endfor %}
+
+    {% for curso in cursos %}
+        <div class="ui secondary segment">
+            {{ curso.curso }}<br>
+            {{ curso.responsavel_cadastro.first_name }} {{ curso.responsavel_cadastro.last_name }} <br>
+            {{ curso.responsavel_cadastro.username }} <br>
+            {{ curso.data_hora_cadastro }}<br>
+            <br>
+
+        </div>
+    {% endfor %}
+
+ {% for bolsa in bolsas %}
+        <div class="ui secondary segment">
+            {{ bolsa.curso }}<br>
+            {{ bolsa.responsavel_cadastro.first_name }} {{ bolsa.responsavel_cadastro.last_name }} <br>
+            {{ bolsa.responsavel_cadastro.username }} <br>
+            {{ bolsa.data_hora_cadastro }}<br>
+            <br>
+
+        </div>
+    {% endfor %}
+
+ {% for parceiro in parceiros %}
+        <div class="ui secondary segment">
+            {{ parceiro.curso }}<br>
+            {{ parceiro.responsavel_cadastro.first_name }} {{ parceiro.responsavel_cadastro.last_name }} <br>
+            {{ parceiro.responsavel_cadastro.username }} <br>
+            {{ parceiro.data_hora_cadastro }}<br>
+            <br>
+
+        </div>
+    {% endfor %}
+
+
+{% endblock %}

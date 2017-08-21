@@ -2,12 +2,14 @@
 
 from django.shortcuts import render
 from django.views.generic.base import View
+from django.contrib.auth.models import User
 
 from gestaoapp.forms.bolsa import FormBolsa, FormBolsaEdit
 from gestaoapp.forms.busca import Busca
 from gestaoapp.forms.vinculo import FormVinculoBolsa
 from gestaoapp.models import Vinculo
 from gestaoapp.models.bolsa import Bolsa
+from gestaoapp.models.usuario import Usuario
 from gestaoapp.views.loginrequired import LoginRequiredMixin
 
 class CadastroBolsa(LoginRequiredMixin, View):
@@ -34,6 +36,10 @@ class CadastroBolsa(LoginRequiredMixin, View):
             form = FormBolsa(request.POST)
 
         if form.is_valid():
+            post = form.save(commit=False)
+            post.responsavel_cadastro = User.objects.get(pk=request.user.id)
+            post.save()
+
             form.save(request)
             msg = "Operação realizada com sucesso!"
 

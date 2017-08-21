@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
 
 from gestaoapp.models import Projeto
 from gestaoapp.models.edital import Edital
@@ -19,6 +20,8 @@ class Bolsa(models.Model):
     qtd_pagamento = models.IntegerField(default=0, null=True, blank=True)
     status = models.BooleanField(default=True)
     vinculos = models.ManyToManyField(Usuario, through='Vinculo', blank=True)
+    data_hora_cadastro = models.DateTimeField(auto_now=True)
+    responsavel_cadastro = models.ForeignKey(User, related_name='responsavel')
 
     def save(self, *args, **kwargs):
         meses = ((self.dt_termino - self.dt_inicio).days) / 30

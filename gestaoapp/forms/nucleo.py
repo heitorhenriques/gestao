@@ -6,10 +6,12 @@ from gestaoapp.models import Nucleo
 class FormNucleo(forms.ModelForm):
     class Meta:
         model = Nucleo
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ('responsavel_cadastro',)
 
 
 class FormNucleoEdit(forms.ModelForm):
     class Meta:
         model = Nucleo
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ('responsavel_cadastro',)

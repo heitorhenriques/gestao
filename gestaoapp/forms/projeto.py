@@ -9,9 +9,11 @@ class FormProjeto(forms.ModelForm):
 
     class Meta:
         model = Projeto
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ('responsavel_cadastro',)
 
 class FormProjetoEdit(forms.ModelForm):
     class Meta:
         model = Projeto
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ('responsavel_cadastro',)

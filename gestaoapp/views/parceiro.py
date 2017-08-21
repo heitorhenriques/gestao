@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.views.generic.base import View
+from django.contrib.auth.models import User
 
 from gestaoapp.forms.busca import Busca
 from gestaoapp.forms.parceiro import FormParceiro, FormParceiroEdit
@@ -33,6 +34,10 @@ class CadastroParceiro(LoginRequiredMixin, View):
 
         if form.is_valid():
             # form.save(request)
+
+            post = form.save(commit=False)
+            post.responsavel_cadastro = User.objects.get(pk=request.user.id)
+            post.save()
 
             user = form.save(commit=False)
             if 'imagem' in request.FILES:
