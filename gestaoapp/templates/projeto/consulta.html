@@ -32,7 +32,7 @@
                     <td>{{ projeto.nome }}</td>
                     <td>{{ projeto.coordenador }}</td>
                     <td>{{ projeto.data_inicio|date:"d/m/Y" }}</td>
-                    <td>{{ projeto.data_fim }}</td>
+                    <td>{{ projeto.data_fim |date:"d/m/Y" }}</td>
                     {% if user.is_superuser %}
 
                         <td><a href="../visualizar_projeto/{{ projeto.id }}">Mais</a></td>

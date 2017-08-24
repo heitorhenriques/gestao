@@ -37,7 +37,9 @@ class CadastroBolsa(LoginRequiredMixin, View):
 
         if form.is_valid():
             post = form.save(commit=False)
+
             post.responsavel_cadastro = User.objects.get(pk=request.user.id)
+            post.responsavel_gerencia = User.objects.get(pk=request.user.id)
             post.save()
 
             form.save(request)

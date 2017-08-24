@@ -21,7 +21,8 @@ class Bolsa(models.Model):
     status = models.BooleanField(default=True)
     vinculos = models.ManyToManyField(Usuario, through='Vinculo', blank=True)
     data_hora_cadastro = models.DateTimeField(auto_now=True)
-    responsavel_cadastro = models.ForeignKey(User, related_name='responsavel')
+    responsavel_cadastro = models.ForeignKey(User, related_name= 'responsavel')
+    responsavel_gerencia = models.ForeignKey(Usuario, related_name= 'responsavel_gerencia')
 
     def save(self, *args, **kwargs):
         meses = ((self.dt_termino - self.dt_inicio).days) / 30
