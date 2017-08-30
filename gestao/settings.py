@@ -89,7 +89,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -111,3 +111,55 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Absolute path to the media direc
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s' #You may need to specify the timezone here. For example: %(asctime)s CST [%(levelname)s] %(name)s: %(message)s
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'null': {
+            'level':'DEBUG',
+            'class':'django.utils.log.NullHandler',
+        },
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler'
+        },
+        'default': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            #'filename': 'app.log',  Make sure that this path exists, change as necessary
+            'filename': '/home/flamarion/projetos-django/gestao/app.log',
+            'maxBytes': 1024*1024*5, # 5 MB
+            'backupCount': 5,
+            'formatter':'standard',
+        }
+    },
+    'loggers': {
+        'django.db': {
+            'handlers': ['default'],
+            'level': 'DEBUG', # Set this to ERROR on production hosts since the database logs are very verbose
+            'propagate': False, 
+        },
+        '': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+
+        'django.request': {
+            'handlers': ['default'],
+            'level': 'DEBUG', # Set this to ERROR on production hosts if you want to avoid lots of warnings for 404 file-not-found notices
+            'propagate': False,
+        },
+    }
+}
