@@ -138,7 +138,7 @@ LOGGING = {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
             #'filename': 'app.log',  Make sure that this path exists, change as necessary
-            'filename': '/home/flamarion/projetos-django/gestao/app.log',
+            'filename': 'gestao.log',
             'maxBytes': 1024*1024*5, # 5 MB
             'backupCount': 5,
             'formatter':'standard',

@@ -16,4 +16,5 @@ from gestaoapp.models.turno import Turno
 # from gestaoapp.models.usuario import Usuario
 from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.models.vinculo import Vinculo
+from gestaoapp.models.coordenacao import Coordenacao
 
