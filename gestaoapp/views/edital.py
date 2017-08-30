@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 from gestaoapp.forms.busca import Busca
 from gestaoapp.forms.edital import FormEdital, FormEditalEdit
+from gestaoapp.models import Bolsa
 from gestaoapp.models.edital import Edital
 from gestaoapp.views.loginrequired import LoginRequiredMixin
 
@@ -77,12 +78,15 @@ class VisualizarEdital(LoginRequiredMixin, View):
 
         if edital_id:
             edital = Edital.objects.get(id=edital_id)
-
+            qtdade_bolsas = self.get_qtdade_bolsas_utilizadas(edital.id)
         else:
             return render(request, self.template, {})
 
-        return render(request, self.template, {'edital': edital})
+        return render(request, self.template, {'edital': edital, 'qtdade_bolsas': qtdade_bolsas})
 
     def post(self, request):
 
         return render(request, self.template)
+
+    def get_qtdade_bolsas_utilizadas(self, id_edital):
+        return Bolsa.objects.filter(edital=id_edital).count()
