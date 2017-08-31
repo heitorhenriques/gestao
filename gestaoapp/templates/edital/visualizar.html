@@ -23,7 +23,7 @@
 				</div>
 				<div class="field">
 					<label>Quantidade de Bolsa</label>
-					{{ qtdade_bolsas }}/{{edital.qtd_bolsa}}
+					{{edital.qtd_bolsa}}
 				</div>
 			</div>
 			<div class="two fields">
@@ -37,6 +37,58 @@
 				</div>
 			</div>
 		</div>
+
+        {% if edital.qtd_bolsa > 0 %}
+        <div class="ui segment">
+            <h2 class="ui header">
+                Bolsas
+                <div class="sub header">
+                    {{ bolsas_cadastradas|length }} bolsas cadastradas de {{ edital.qtd_bolsa }} previstas no edital
+                </div>
+            </h2>
+
+            <table class="ui celled table">
+                <thead>
+                    <tr>
+                        <th colspan="2">Código</th>
+                        <th>Valor</th>
+                        <th>Ativa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bolsa in bolsas_cadastradas %}
+                    <tr>
+                        <td class="left aligned collapsing">
+                            <a href="/editar_bolsa/{{bolsa.id}}" class="ui icon azul_escuro button"><i class="configure icon"></i></a>
+                            <a href="/visualizar_bolsa/{{bolsa.id}}" class="ui icon azul_escuro button"><i class="unhide icon"></i></a>
+                        </td>
+                        <td>{{ bolsa.codigo }}</td>
+                        <td class="right aligned collapsing">R$ {{ bolsa.valor }}</td>
+                        <td class="right aligned collapsing">
+                            {% if bolsa.status == True %}
+                            <i class="checkmark green large icon"></i>
+                            {% else %}
+                            <i class="remove icone_red large icon"></i>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if bolsas_cadastradas|length < edital.qtd_bolsa %}
+            <a href="/bolsa/" class="ui fluid azul_escuro right labeled icon button">
+                Cadastrar Bolsas
+                <i class="plus icon"></i>
+            </a>
+            {% else %}
+            <div class="ui message">
+                <span class="header">Atenção</span>
+                Todas as <strong>{{ edital.qtd_bolsa }} bolsas previstas</strong> já foram cadastradas para esse edital!
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
 		<a href='/consulta_edital/'><button class='ui red button'>Voltar</button></a>
 		<a href='/editar_edital/{{edital.id}}'><button class="ui button direita verde_escuro">Editar</button></a>
 	</div> 	
