@@ -21,10 +21,11 @@ from gestaoapp.views.logcadastro import LogCadastro
 def sucesso(request):
     return render(request, 'usuario/aguarde_liberacao.html')
 
-
 def cadastro_liberado(request):
     return render(request, 'usuario/cadastro_liberado.html')
 
+def cadastros(request):
+    return render(request, 'mobile/cadastro.html')
 
 # def home(request):
 # 	return render(request, 'home/index.html')

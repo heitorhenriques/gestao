@@ -51,11 +51,11 @@
                             <a class="item" href="/consulta_projeto"><i class="search icon branco"></i>Consulta</a>
                         </div>
                     </div>
-                    <div class="ui dropdown item">Horarios<i class="dropdown icon"></i>
-                        <div class="menu">
-                            <a class="item" href="/horario"><i class='ui icon newspaper'></i>Cadastro</a>
-                        </div>
-                    </div>
+                    {#                    <div class="ui dropdown item">Horarios<i class="dropdown icon"></i>#}
+                    {#                        <div class="menu">#}
+                    {#                            <a class="item" href="/horario"><i class='ui icon newspaper'></i>Cadastro</a>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
                     <div class="ui dropdown item">Nucleo<i class="dropdown icon"></i>
                         <div class="menu">
                             {% if user.is_superuser %}
@@ -119,79 +119,200 @@
                             <a class="item" href="/editar_usuario/{{ request.user.id }}"><i class='setting icon'></i>Editar
                                 Usuário</a>
                             <a class="item" href="/alterar_senha/"><i class='setting icon'></i>Alterar Senha</a>
+                            <a class="item" href="/horario"><i class="add square icon"></i> Cadastro Horario</a>
                             <a class="item" href="/logout"><i class='ui icon sign out'></i>Sair</a>
                         </div>
                     </div>
                 </nav>
             </div>
 
+            {#            <div class="mobile tablet only row">#}
+            {#                <nav class="ui large menu ">#}
+            {#                    <div class="ui dropdown item"><i class="content icon"></i><i class="dropdown icon"></i>#}
+            {#                        <div class="menu">#}
+            {#                            <div class="ui divider"></div>#}
+            {#                            <a class="ui header" href="/home"><i class="home icon"></i>Home</a>#}
+            {#                            <div class="ui divider"></div>#}
+            {#                            <a class="ui header"><i class="user icon"></i>{{ request.user.first_name }}</a>#}
+            {#                            <a class="item" href="/horario"><i class="add square icon"></i> Cadastro Horario</a>#}
+            {#                            <a class="item" href="/editar_usuario/{{ request.user.id }}"><i class='setting icon'></i>Editar#}
+            {#                                Usuário</a>#}
+            {#                            <a class="item" href="/alterar_senha/"><i class='setting icon'></i>Alterar Senha</a>#}
+            {#                            <div class="ui divider"></div>#}
+            {#                            <div class="ui header">Usuario</div>#}
+            {#                            {% if user.is_superuser %}#}
+            {#                                <a class="item" href="/usuario"><i class='ui icon newspaper'></i>Cadastro</a>#}
+            {#                            {% endif %}#}
+            {#                            <a class="item" href="/consulta_usuario"><i class="search icon branco"></i>Consulta</a>#}
+            {#                            {% if user.is_superuser %}#}
+            {#                                <a class="item" href="/desbloquear_usuario"><i class="search icon branco"></i>Desbolquear#}
+            {#                                    Usuario</a>#}
+            {#                            {% endif %}#}
+            {#                            <div class="ui divider"></div>#}
+            {#                            <div class="ui header">Projetos</div>#}
+            {#                            {% if user.is_superuser %}#}
+            {#                                <a class="item" href="/projeto"><i class='ui icon newspaper'></i>Cadastro</a>#}
+            {#                            {% endif %}#}
+            {#                            <a class="item" href="/consulta_projeto"><i class="search icon branco"></i>Consulta</a>#}
+            {#                            <div class="ui divider"></div>#}
+            {#                            <div class="ui header">Horario</div>#}
+            {#                            <a class="item" href="/horario"><i class='ui icon newspaper'></i>Cadastro</a>#}
+            {#                            <div class="ui divider"></div>#}
+            {#                            <div class="ui header">Nucleo</div>#}
+            {#                            {% if user.is_superuser %}#}
+            {#                                <a class="item" href="/nucleo"><i class='ui icon newspaper'></i>Cadastro</a>#}
+            {#                            {% endif %}#}
+            {#                            <a class="item" href="/consulta_nucleo"><i class="search icon branco"></i>Consulta</a>#}
+            {#                            <div class="ui divider"></div>#}
+            {#                            <div class="ui header">Edital</div>#}
+            {#                            {% if user.is_superuser %}#}
+            {#                                <a class="item" href="/edital"><i class='ui icon newspaper'></i>Cadastro</a>#}
+            {#                            {% endif %}#}
+            {#                            <a class="item" href="/consulta_edital"><i class="search icon branco"></i>Consulta</a>#}
+            {#                            <div class="ui divider"></div>#}
+            {#                            <div class="ui header">Parceiro</div>#}
+            {#                            {% if user.is_superuser %}#}
+            {#                                <a class="item" href="/parceiro"><i class='ui icon newspaper'></i>Cadastro</a>#}
+            {#                            {% endif %}#}
+            {#                            <a class="item" href="/consulta_parceiro"><i class="search icon branco"></i>Consulta</a>#}
+            {#                            <div class="ui divider"></div>#}
+            {#                            {% if user.is_superuser %}#}
+            {#                                <div class="ui header">Curso</div>#}
+            {#                                <a class="item" href="/curso"><i class='ui icon newspaper'></i>Cadastro de Curso</a>#}
+            {#                                <a class="item" href="/consulta_curso"><i class='search icon branco'></i>Consulta de#}
+            {#                                    Curso</a>#}
+            {#                            {% endif %}#}
+            {#                            <div class="ui divider"></div>#}
+            {#                            {% if user.is_superuser %}#}
+            {#                                <div class="ui header">Bolsa</div>#}
+            {#                                <a class="item" href="/bolsa"><i class='ui icon newspaper'></i>Cadastro de Bolsa</a>#}
+            {#                                <a class="item" href="/consulta_bolsa"><i class='search icon branco'></i>Consulta#}
+            {#                                    de#}
+            {#                                    Bolsa</a>#}
+            {#                            {% endif %}#}
+            {##}
+            {#                            <div class="ui divider"></div>#}
+            {#                            {% if user.is_superuser %}#}
+            {#                                <div class="ui header">Relatorios</div>#}
+            {#                                <a class="item" href="/log_cadastro"><i class='search icon branco'></i>Log de#}
+            {#                                    Cadastro</a>#}
+            {#                            {% endif %}#}
+            {##}
+            {#                            <div class="ui divider"></div>#}
+            {#                            <a class="ui header" href="/logout"><i class="sign out icon"></i>Logout</a>#}
+            {#                            <div class="ui divider"></div>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </nav>#}
+            {#            </div>#}
 
+            {#            <div class="mobile tablet only row">#}
+            {#                <div class="ui large menu">#}
+            {#                    <div class="ui dropdown item"><i class="content icon"></i><i class="dropdown icon"></i>#}
+            {#                        <div class=" ui accordion menu">#}
+            {#                            <div class=" item">#}
+            {#                                <a class="title"><i class="dropdown icon" </a>#}
+            {#                                <a class="item" href="projeto">Cadastro Projeto</a>#}
+            {#                                <a class="item" href="consulta_projeto">Consulta Projeto</a>#}
+            {##}
+            {#                            </div>#}
+            {##}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </div>#}
 
             <div class="mobile tablet only row">
                 <nav class="ui large menu ">
-                    <div class="ui dropdown item"><i class="content icon"></i><i class="dropdown icon"></i>
-                        <div class="menu">
+                    <div class="ui large dropdown item"><i class="content icon"></i><i class="dropdown icon"></i>
+                        <div class="ui vertical accordion menu">
+                            {#                            <a class="item" href="/horario"><i class="add square icon"></i> Cadastro Horario</a>#}
+                            {#                            <a class="item" href="/editar_usuario/{{ request.user.id }}"><i class='setting icon'></i>Editar#}
+                            {#                                Usuário</a>#}
+                            {#                            <a class="item" href="/alterar_senha/"><i class='setting icon'></i>Alterar Senha</a>#}
+                            <div class="item large">
+                                <a class="title" href="/home"></i> Home </a>
+                            </div>
                             <div class="ui divider"></div>
-                            <a class="ui header" href="/home"><i class="home icon"></i>Home</a>
+                            <div class="item">
+                                <a class="title"><i class="dropdown icon"></i>{{ request.user.first_name }} </a>
+                                <div class="content">
+                                    <div class="ui form">
+                                        <div class="grouped fields">
+                                            <div class="field">
+                                                <a class="item" href="/horario"><i class="add square icon"></i> Cadastro
+                                                    Horario</a>
+                                            </div>
+                                            <div class="field">
+                                                <a class="item" href="/editar_usuario/{{ request.user.id }}"><i
+                                                        class='setting icon'></i>Editar Usuário</a>
+                                            </div>
+                                            <div class="field">
+                                                <a class="item" href="/alterar_senha/"><i class='setting icon'></i>Alterar
+                                                    Senha</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="ui divider"></div>
-
-
-                            <a class="ui header"><i class="user icon"></i>{{ request.user.first_name }}</a>
-                            <a class="item" href="/editar_usuario/{{ request.user.id }}"><i class='setting icon'></i>Editar
-                                Usuário</a>
-                            <a class="item" href="/alterar_senha/"><i class='setting icon'></i>Alterar Senha</a>
+                            <div class="item ">
+                                <a class="active large title"><i class="dropdown icon"></i> Projeto </a>
+                                <div class="active content">
+                                    <div class="ui form">
+                                        <div class="grouped fields">
+                                            <div class="field">
+                                                {% if user.is_superuser %}
+                                                    <a class="item" href="/projeto"><i class='ui icon newspaper'></i>Cadastro</a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="field">
+                                                <a class="item" href="/consulta_projeto"><i
+                                                        class="search icon branco"></i>Consulta</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="ui divider"></div>
-                            <div class="ui header">Usuario</div>
-                            {% if user.is_superuser %}
-                                <a class="item" href="/usuario"><i class='ui icon newspaper'></i>Cadastro</a>
-                            {% endif %}
-                            <a class="item" href="/consulta_usuario"><i class="search icon branco"></i>Consulta</a>
-                            {% if user.is_superuser %}
-                                <a class="item" href="/desbloquear_usuario"><i class="search icon branco"></i>Desbolquear
-                                    Usuario</a>
-                            {% endif %}
-                            <div class="ui divider"></div>
-                            <div class="ui header">Projetos</div>
-                            {% if user.is_superuser %}
-                                <a class="item" href="/projeto"><i class='ui icon newspaper'></i>Cadastro</a>
-                            {% endif %}
-                            <a class="item" href="/consulta_projeto"><i class="search icon branco"></i>Consulta</a>
-                            <div class="ui divider"></div>
-                            <div class="ui header">Horario</div>
-                            <a class="item" href="/horario"><i class='ui icon newspaper'></i>Cadastro</a>
-                            <div class="ui divider"></div>
-                            <div class="ui header">Nucleo</div>
-                            {% if user.is_superuser %}
-                                <a class="item" href="/nucleo"><i class='ui icon newspaper'></i>Cadastro</a>
-                            {% endif %}
-                            <a class="item" href="/consulta_nucleo"><i class="search icon branco"></i>Consulta</a>
-                            <div class="ui divider"></div>
-                            <div class="ui header">Edital</div>
-                            {% if user.is_superuser %}
-                                <a class="item" href="/edital"><i class='ui icon newspaper'></i>Cadastro</a>
-                            {% endif %}
-                            <a class="item" href="/consulta_edital"><i class="search icon branco"></i>Consulta</a>
-                            <div class="ui divider"></div>
-                            <div class="ui header">Parceiro</div>
-                            {% if user.is_superuser %}
-                                <a class="item" href="/parceiro"><i class='ui icon newspaper'></i>Cadastro</a>
-                            {% endif %}
-                            <a class="item" href="/consulta_parceiro"><i class="search icon branco"></i>Consulta</a>
-                            <div class="ui divider"></div>
-                            {% if user.is_superuser %}
-                                <div class="ui header">Curso</div>
-                                <a class="item" href="/curso"><i class='ui icon newspaper'></i>Cadastro de Curso</a>
-                                <a class="item" href="/consulta_curso"><i class='search icon branco'></i>Consulta de
-                                    Curso</a>
-                            {% endif %}
-
-                            <div class="ui divider"></div>
-                            <a class="ui header" href="/logout"><i class="sign out icon"></i>Logout</a>
-                            <div class="ui divider"></div>
+                            <div class="item">
+                                <a class="title"><i class="dropdown icon"></i> Cores </a>
+                                <div class="content">
+                                    <div class="ui form">
+                                        <div class="grouped fields">
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                    <input type="checkbox" name="small">
+                                                    <label>Vermelho</label>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                    <input type="checkbox" name="medium">
+                                                    <label>Laranja</label>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                    <input type="checkbox" name="large">
+                                                    <label>Verde</label>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="ui checkbox">
+                                                    <input type="checkbox" name="x-large">
+                                                    <label>Azul</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </nav>
             </div>
+
         {% endif %}
     </div>
 </header>
@@ -225,6 +346,13 @@
     $('.dropdown')
         .dropdown()
     ;
+    $('.ui.accordion')
+        .accordion()
+    ;
+    $('.ui.sidebar')
+        .sidebar('toggle')
+    ;
 </script>
+
 </body>
 </html>
