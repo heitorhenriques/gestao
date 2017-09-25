@@ -80,7 +80,17 @@
                     <div class="two fields">
                         <div class="field">
                             <label>Data de Inicio</label>
-                            {{ form.dt_inicio }}
+                            {#                            {{ form.dt_inicio }}#}
+                            {#                            {% if form.dt_inicio.errors %}#}
+                            {#                                <div class="ui red pointing label">#}
+                            {#                                    {{ form.dt_inicio.errors }}#}
+                            {#                                </div>#}
+                            {#                            {% endif %}#}
+                            {% if editar %}
+                                {{ form.dt_inicio }}
+                            {% else %}
+                                <input type="date" name="dt_inicio">
+                            {% endif %}
                             {% if form.dt_inicio.errors %}
                                 <div class="ui red pointing label">
                                     {{ form.dt_inicio.errors }}
@@ -89,9 +99,20 @@
                         </div>
                         <div class="field">
                             <label>Data de Termino</label>
-                            {{ form.dt_termino }}
+                            {#                            {{ form.dt_termino }}#}
+                            {#                            {% if form.dt_termino.errors %}#}
+                            {#                                <div class="ui red pointing label">#}
+                            {#                                    {{ form.dt_termino.errors }}#}
+                            {#                                </div>#}
+                            {#                            {% endif %}#}
+                            {% if editar %}
+                                {{ form.dt_termino }}
+                            {% else %}
+                                <input type="date" name="dt_termino">
+                            {% endif %}
+
                             {% if form.dt_termino.errors %}
-                                <div class="ui red pointing label">
+                                <div class="ui red poidt_terminonting label">
                                     {{ form.dt_termino.errors }}
                                 </div>
                             {% endif %}
