@@ -277,8 +277,8 @@
                             </div>
                             <div class="ui divider"></div>
                             <div class="item ">
-                                <a class="active large title"><i class="dropdown icon"></i> Projeto </a>
-                                <div class="active content">
+                                <a class="title"><i class="dropdown icon"></i> Projeto </a>
+                                <div class=" content">
                                     <div class="grouped fields">
                                         <div class="field">
                                             {% if user.is_superuser %}
@@ -342,8 +342,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="ui divider"></div>
                             {% if user.is_superuser %}
+                                <div class="ui divider"></div>
                                 <div class="item">
                                     <a class="title"><i class="dropdown icon"></i> Curso </a>
                                     <div class="content">
@@ -368,8 +368,8 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            <div class="ui divider"></div>
                             {% if user.is_superuser %}
+                                <div class="ui divider"></div>
                                 <div class="item">
                                     <a class="title"><i class="dropdown icon"></i> Bolsa </a>
                                     <div class="content">
@@ -388,8 +388,8 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            <div class="ui divider"></div>
                             {% if user.is_superuser %}
+                                <div class="ui divider"></div>
                                 <div class="item">
                                     <a class="title"><i class="dropdown icon"></i> Relatorios </a>
                                     <div class="content">
@@ -403,6 +403,10 @@
                                     </div>
                                 </div>
                             {% endif %}
+                            <div class="ui divider"></div>
+                            <div class="item large">
+                                <a class="title" href="/logout">Logout</a>
+                            </div>
                         </div>
                     </div>
                 </nav>

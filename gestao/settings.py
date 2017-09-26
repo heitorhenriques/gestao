@@ -82,7 +82,7 @@ DATABASES = {
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-#
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
