@@ -8,7 +8,7 @@
         <div class="field">
             <div class="ui action input">
                 {{ form.nome }}
-                <input type="submit" value="Pesquisar" class='icon search'>
+                <input type="submit" value="Pesquisar" class='icon large search'>
             </div>
         </div>
     </form>
@@ -35,9 +35,9 @@
                     <td>{{ projeto.data_fim |date:"d/m/Y" }}</td>
                     {% if user.is_superuser %}
 
-                        <td><a href="../visualizar_projeto/{{ projeto.id }}">Mais</a></td>
+                        <td><a href="../visualizar_projeto/{{ projeto.id }}"><i class="unhide large icon"></i></a></td>
                         {% if projeto.coordenador.id == request.user.id or usuario.super_adm %}
-                            <td><a href="../editar_projeto/{{ projeto.id }}"><i class="settings large icon"></i></a>
+                            <td><a href="../editar_projeto/{{ projeto.id }}"><i class="configure large icon"></i></a>
                             </td>
                         {% else %}
                             <td></td>

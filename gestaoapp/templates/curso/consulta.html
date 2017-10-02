@@ -35,7 +35,7 @@
                 <td>{{ curso.curso }}</td>
 
                 {% if user.is_superuser %}
-                    <td><a href="/editar_curso/{{ curso.id }}"><i class="settings large icon"></i></a></td>
+                    <td><a href="/editar_curso/{{ curso.id }}"><i class="configure large icon"></i></a></td>
                 {% endif %}
                 </tr>
             {% endfor %}

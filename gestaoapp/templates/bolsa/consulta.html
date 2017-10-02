@@ -32,8 +32,8 @@
             <td>{{bolsa.dt_inicio|date:"d/m/Y" }}</td>
             <td>{{bolsa.dt_termino|date:"d/m/Y" }}</td>
 			{% if user.is_superuser %}
-				<td class="negative"><a href="../visualizar_bolsa/{{bolsa.id}}">Mais</a></td>
-				<td><a href="../editar_bolsa/{{bolsa.id}}"><i class="settings large icon"></a></td>
+				<td class="negative"><a href="../visualizar_bolsa/{{bolsa.id}}"><i class="unhide large icon"></i></a></td>
+				<td><a href="../editar_bolsa/{{bolsa.id}}"><i class="configure large icon"></i></a></td>
 			{% endif %}
 		</tr>
 	{% endfor %}

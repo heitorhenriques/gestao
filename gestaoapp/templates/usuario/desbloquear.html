@@ -18,9 +18,9 @@
                 <thead>
                 <tr>
                     <th>Nome/Usuario</th>
-                    <th>Status</th>
-                    <th>Administrador</th>
                     <th>Acesso</th>
+                    <th>Administrador</th>
+                    <th>Adicionar/Remover Acesso</th>
                     <th>Administrador</th>
                 </tr>
                 </thead>
@@ -37,9 +37,11 @@
                         </td>
 
                         {% if usuario.is_active %}
-                            <td class="center aligned"><i class="checkmark green large icon"></i></td>
+{#                            <td class="center aligned"><i class="checkmark green large icon"></i></td>#}
+                            <td class="center aligned"><i class="large unlock icon"></i></td>
                         {% else %}
-                            <td class="center aligned"><i class="remove icone_red large icon"></i></td>
+{#                            <td class="center aligned"><i class="remove icone_red large icon"></i></td>#}
+                            <td class="center aligned"><i class="large lock alternate icon"></i></td>
                         {% endif %}
                         {% if usuario.is_superuser %}
                             <td class="center aligned"><i class="checkmark green large icon"></i></td>
