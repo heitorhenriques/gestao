@@ -71,15 +71,16 @@ urlpatterns = [
     url(r'^edital/', CadastroEdital.as_view()),
     url(r'^editar_edital/(?P<edital_id>\d+)/$', CadastroEdital.as_view()),
     url(r'^consulta_edital/', ConsultaEdital.as_view()),
-    url(r'^visualizar_edital/(?P<edital_id>\d+)/$', VisualizarEdital.as_view()),
+    url(r'^visualizar_edital/(?P<edital_id>\d+)/$', VisualizarEdital.as_view(), name='visualizar_edital'),
     
     url(r'^parceiro/', CadastroParceiro.as_view()),
     url(r'^editar_parceiro/(?P<parceiro_id>\d+)/$', CadastroParceiro.as_view()),
     url(r'^consulta_parceiro/', ConsultaParceiro.as_view()),
     url(r'^visualizar_parceiro/(?P<parceiro_id>\d+)/$', VisualizarParceiro.as_view()),
 
-    url(r'^bolsa/', CadastroBolsa.as_view()),
+    url(r'^bolsa/$', CadastroBolsa.as_view()),
     url(r'^editar_bolsa/(?P<bolsa_id>\d+)/$', CadastroBolsa.as_view()),
+    url(r'^bolsa/edital/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='bolsa_por_edital'),
     url(r'^consulta_bolsa/', ConsultaBolsa.as_view()),
     url(r'^visualizar_bolsa/(?P<bolsa_id>\d+)/$', VisualizarBolsa.as_view()),
 

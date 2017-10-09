@@ -3,11 +3,13 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
-from gestaoapp.forms.bolsa import FormBolsa, FormBolsaEdit
+from gestaoapp.forms.bolsa import FormBolsa, FormBolsaEdit, FormBolsaPorEdital
 from gestaoapp.forms.busca import Busca
 from gestaoapp.forms.vinculo import FormVinculoBolsa
-from gestaoapp.models import Vinculo
+from gestaoapp.models import Vinculo, Edital
 from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.models.usuario import Usuario
 from gestaoapp.views.loginrequired import LoginRequiredMixin
@@ -15,7 +17,9 @@ from gestaoapp.views.loginrequired import LoginRequiredMixin
 class CadastroBolsa(LoginRequiredMixin, View):
     template = 'bolsa/cadastro.html'
 
-    def get(self, request, bolsa_id=None):
+    def get(self, request, bolsa_id=None, edital_id=None):
+
+        context_dict = {}
 
         if bolsa_id:
             bolsa = Bolsa.objects.get(id=bolsa_id)
@@ -25,9 +29,23 @@ class CadastroBolsa(LoginRequiredMixin, View):
             form = FormBolsa()
             editar = False
 
-        return render(request, self.template, {'form': form, 'editar': editar})
+        if edital_id:
+            edital = get_edital(edital_id)
+            if edital:
+                qtd_bolsa_cadastradas = quantidade_bolsas(edital_id)
+                context_dict['edital'] = edital
+                context_dict['qtd_bolsa_cadastradas'] = qtd_bolsa_cadastradas
+                if qtd_bolsa_cadastradas >= edital.qtd_bolsa:
+                    return HttpResponseRedirect(reverse('visualizar_edital', kwargs={'edital_id': edital_id}))
 
-    def post(self, request, bolsa_id=None):
+        context_dict['form'] = form
+        context_dict['editar'] = editar
+
+        return render(request, self.template, context_dict)
+
+    def post(self, request, bolsa_id=None, edital_id=None):
+
+        context_dict = {}
 
         if bolsa_id:
             bolsa = Bolsa.objects.get(id=bolsa_id)
@@ -35,21 +53,29 @@ class CadastroBolsa(LoginRequiredMixin, View):
         else:
             form = FormBolsa(request.POST)
 
+        if edital_id:
+            edital = get_edital(edital_id)
+            if edital:
+                qtd_bolsa_cadastradas = quantidade_bolsas(edital_id)
+                context_dict['edital'] = edital
+                context_dict['qtd_bolsa_cadastradas'] = qtd_bolsa_cadastradas
+                if qtd_bolsa_cadastradas >= edital.qtd_bolsa:
+                    return HttpResponseRedirect(reverse('visualizar_edital', kwargs={'edital_id': edital_id}))
+
+
         if form.is_valid():
             post = form.save(commit=False)
             post.responsavel_cadastro = User.objects.get(pk=request.user.id)
             post.responsavel_gerencia = Usuario.objects.get(pk=request.user.id)
             post.save()
 
-            #form.save(request)
             msg = "Operação realizada com sucesso!"
+            context_dict['msg'] = msg
+
             form = FormBolsa()
 
-            return render(request, self.template, {'form': form, 'msg': msg})
-            # return redirect('/cadastro_sucesso')
-
-        else:
-            return render(request, self.template, {'form': form})
+        context_dict['form'] = form
+        return render(request, self.template, context_dict)
 
 class ConsultaBolsa(LoginRequiredMixin, View):
     template = 'bolsa/consulta.html'
@@ -88,3 +114,12 @@ class VisualizarBolsa(LoginRequiredMixin, View):
     def post(self, request):
 
         return render(request, self.template)
+
+def get_edital(edital_id):
+    try:
+        return Edital.objects.get(pk=edital_id)
+    except:
+        return None
+
+def quantidade_bolsas(edital_id):
+    return Bolsa.objects.filter(edital=edital_id).count()

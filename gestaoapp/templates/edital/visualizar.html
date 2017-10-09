@@ -77,7 +77,7 @@
             </table>
 
             {% if bolsas_cadastradas|length < edital.qtd_bolsa %}
-            <a href="/bolsa/" class="ui fluid azul_escuro right labeled icon button">
+            <a href="{% url 'bolsa_por_edital' edital.id %}" class="ui fluid azul_escuro right labeled icon button">
                 Cadastrar Bolsas
                 <i class="plus icon"></i>
             </a>

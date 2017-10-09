@@ -36,7 +36,12 @@
         </div>
     {% endif %}
     {% if user.is_superuser %}
-
+        {% if qtd_bolsa_cadastradas >= edital.qtd_bolsa %}
+        <div class="ui error message">
+            <header class="header">Cadastro de Bolsa Bloqueado!</header>
+            O número de bolsas para o edital {{ edital.numero }} já foi totalmente satisfeito!
+        </div>
+        {% else %}
         <form method='POST'>
             {% csrf_token %}
             <h1 class="ui header">
@@ -46,6 +51,11 @@
                     Cadastro de Bolsa
                 {% endif %}
             </h1>
+            {% if edital %}
+            <div class="ui large message">
+                Cadastrando bolsa para o edital <a href="/visualizar_edital/{{ edital.id }}/"><strong>{{ edital.numero }}</strong></a> de <strong>{{ edital.orgao_concedente }}</strong>
+            </div>
+            {% endif %}
             <div class="ui secondary segment">
                 <div class="ui form">
                     <div class="field">
@@ -67,15 +77,22 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="field">
+                        <div class="{% if edital %}disabled{% endif %} field">
                             <label>Edital</label>
+                            {% if edital %}
+                            <select name="edital">
+                                <option value="{{ edital.id }}" selected="selected">{{ edital.numero }}</option>
+                            </select>
+                            {% else %}
                             {{ form.edital }}
                             {% if form.edital.errors %}
                                 <div class="ui red pointing label">
                                     {{ form.edital.errors }}
                                 </div>
                             {% endif %}
+                            {% endif %}
                         </div>
+
                     </div>
                     <div class="two fields">
                         <div class="field">
@@ -145,6 +162,7 @@
             <button class='ui red button'>Cancelar</button>
         </a>
         </div>
+        {% endif %}
     {% else %}
         <div class='ui centered grid'>
             <div class='two column centered row'>
@@ -156,8 +174,4 @@
             </div>
         </div>
     {% endif %}
-
-
-
-
 {% endblock %}
