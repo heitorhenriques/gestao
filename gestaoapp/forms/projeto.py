@@ -10,10 +10,10 @@ class FormProjeto(forms.ModelForm):
     class Meta:
         model = Projeto
         # fields = "__all__"
-        exclude = ('responsavel_cadastro',)
+        exclude = ('responsavel_cadastro', 'coordenador')
 
 class FormProjetoEdit(forms.ModelForm):
     class Meta:
         model = Projeto
         # fields = "__all__"
-        exclude = ('responsavel_cadastro',)
+        exclude = ('responsavel_cadastro', 'coordenador')

@@ -5,6 +5,7 @@ from django.views.generic.base import View
 from gestaoapp.forms.busca import Busca
 from gestaoapp.forms.projeto import FormProjeto, FormProjetoEdit
 from gestaoapp.forms.projeto_membro import FormProjetoMembro
+from gestaoapp.models import Coordenacao
 from gestaoapp.models.projeto import Projeto
 from gestaoapp.models.usuario import Usuario
 from django.contrib.auth.models import User
@@ -48,11 +49,13 @@ class CadastroProjeto(LoginRequiredMixin, View):
             form = FormProjeto(request.POST, request.FILES)
 
         if form.is_valid():
-            post = form.save(commit=False)
-            post.responsavel_cadastro = User.objects.get(pk=request.user.id)
-            post.save()
+            projeto = form.save(commit=False)
 
-            form.save(request)
+            usuario = Usuario.objects.get(pk=request.user.id)
+            projeto.responsavel_cadastro = User.objects.get(pk=request.user.id)
+            projeto.save()
+            projeto.coordenacao = self.save_coordenacao(usuario, projeto)
+            projeto.save()
 
             user = form.save(request)
             if 'imagem' in request.FILES:
@@ -74,6 +77,14 @@ class CadastroProjeto(LoginRequiredMixin, View):
 
             return render(request, self.template, {'form': form})
 
+    def save_coordenacao(self, coordenador, projeto):
+        coordenacao = Coordenacao(
+            coordenador=coordenador,
+            projeto=projeto,
+            dt_inicio=projeto.data_inicio
+        )
+        coordenacao.save()
+        return coordenador
 
 class ConsultaProjeto(LoginRequiredMixin, View):
     template = 'projeto/consulta.html'

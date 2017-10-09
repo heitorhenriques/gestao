@@ -12,9 +12,11 @@ class Home(View):
 
     def get(self, request):
         if request.user.is_authenticated():
+
             projeto_membro = Projeto.objects.filter(membro=request.user.id)
             projeto_coordenador = Projeto.objects.filter(coordenador=request.user.id)
 
             return render(request, self.template, {'projeto_membro': projeto_membro, 'projeto_coordenador': projeto_coordenador})
+            # return render(request, self.template, {})
         else:
             return HttpResponseRedirect('/login/')

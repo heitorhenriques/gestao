@@ -72,6 +72,14 @@
 
                     {% include 'horario/tabela_horarios.html' %}
 
+                    {% if usuario.id == request.user.id %}
+                    <a href="{% url 'horario' %}" class="ui azul_escuro left labeled icon button">
+                        <i class="plus icon"></i>
+                        Cadastro de horários
+                    </a>
+                    {% endif %}
+
+                    {% if usuario.vinculo_institucional == 'Aluno' %}
                     <h2 class="ui dividing header">
                         Bolsas
                     </h2>
@@ -80,6 +88,7 @@
                         <i class="star icon"></i>
                         Víncular Bolsa
                     </a>
+                    {% endif %}
 
                     {% if vinculos %}
                     <li class="ui celled list">

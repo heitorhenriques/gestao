@@ -108,20 +108,20 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="field">
-                    <label>Coordenador *</label>
-                    <select id="id_coordenador" name="coordenador">
-                        {% if editar %}
-                            <option value="{{ coordenador.id }}"
-                                    selected="selected">{{ coordenador.first_name }} {{ coordenador.last_name }}</option>
-                        {% else %}
-                            <option value="" selected="selected">---------</option>
-                        {% endif %}
-                        {% for coordenador in coordenadores %}
-                            <option value="{{ coordenador.id }}">{{ coordenador.first_name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+{#                <div class="field">#}
+{#                    <label>Coordenador *</label>#}
+{#                    <select id="id_coordenador" name="coordenador">#}
+{#                        {% if editar %}#}
+{#                            <option value="{{ coordenador.id }}"#}
+{#                                    selected="selected">{{ coordenador.first_name }} {{ coordenador.last_name }}</option>#}
+{#                        {% else %}#}
+{#                            <option value="" selected="selected">---------</option>#}
+{#                        {% endif %}#}
+{#                        {% for coordenador in coordenadores %}#}
+{#                            <option value="{{ coordenador.id }}">{{ coordenador.first_name }}</option>#}
+{#                        {% endfor %}#}
+{#                    </select>#}
+{#                </div>#}
                 <label class="campo-obrigatorio">(Ex. 6 = 6 meses)</label>
                 <div class="three fields">
                     <div class="field">

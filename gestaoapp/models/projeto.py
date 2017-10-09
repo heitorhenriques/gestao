@@ -26,7 +26,7 @@ class Projeto(models.Model):
     codigo = models.CharField(max_length=255, unique=True)
     # tipo = models.ForeignKey(TipoProjeto)
     data_hora_cadastro = models.DateTimeField(auto_now=True)
-    responsavel_cadastro = models.ForeignKey(User, related_name= "coordenador_criador", )
+    responsavel_cadastro = models.ForeignKey(User, related_name="coordenador_criador", )
     # coordenador = models.ForeignKey(Usuario, related_name="coordenador")
     coordenador = models.ManyToManyField(Usuario, through='Coordenacao', blank=True)
     duracao = models.CharField(max_length=255)

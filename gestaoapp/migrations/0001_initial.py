@@ -2,15 +2,16 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import django.contrib.auth.models
 from django.conf import settings
 import django.core.validators
-import django.contrib.auth.models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '0006_require_contenttypes_0002'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -42,6 +43,15 @@ class Migration(migrations.Migration):
                 ('qtd_pagamento', models.IntegerField(default=0, null=True, blank=True)),
                 ('status', models.BooleanField(default=True)),
                 ('data_hora_cadastro', models.DateTimeField(auto_now=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Coordenacao',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('status', models.BooleanField(default=True)),
+                ('dt_inicio', models.DateField(null=True, blank=True)),
+                ('dt_termino', models.DateField(null=True, blank=True)),
             ],
         ),
         migrations.CreateModel(
@@ -206,7 +216,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='projeto',
             name='coordenador',
-            field=models.ForeignKey(related_name='coordenador', to='gestaoapp.Usuario'),
+            field=models.ManyToManyField(to='gestaoapp.Usuario', through='gestaoapp.Coordenacao', blank=True),
         ),
         migrations.AddField(
             model_name='projeto',
@@ -231,17 +241,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='projeto',
             name='responsavel_cadastro',
-            field=models.ForeignKey(related_name='coordenador_criador', to='gestaoapp.Usuario'),
+            field=models.ForeignKey(related_name='coordenador_criador', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='parceiro',
             name='responsavel_cadastro',
-            field=models.ForeignKey(to='gestaoapp.Usuario'),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='nucleo',
             name='responsavel_cadastro',
-            field=models.ForeignKey(to='gestaoapp.Usuario'),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='horario',
@@ -251,7 +261,22 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='edital',
             name='responsavel_cadastro',
-            field=models.ForeignKey(to='gestaoapp.Usuario'),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
+        ),
+        migrations.AddField(
+            model_name='curso',
+            name='responsavel_cadastro',
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
+        ),
+        migrations.AddField(
+            model_name='coordenacao',
+            name='coordenador',
+            field=models.ForeignKey(to='gestaoapp.Usuario', null=True),
+        ),
+        migrations.AddField(
+            model_name='coordenacao',
+            name='projeto',
+            field=models.ForeignKey(to='gestaoapp.Projeto', null=True),
         ),
         migrations.AddField(
             model_name='bolsa',
@@ -261,7 +286,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='bolsa',
             name='responsavel_cadastro',
-            field=models.ForeignKey(related_name='responsavel', to='gestaoapp.Usuario'),
+            field=models.ForeignKey(related_name='responsavel', to=settings.AUTH_USER_MODEL),
+        ),
+        migrations.AddField(
+            model_name='bolsa',
+            name='responsavel_gerencia',
+            field=models.ForeignKey(related_name='responsavel_gerencia', to='gestaoapp.Usuario'),
         ),
         migrations.AddField(
             model_name='bolsa',
