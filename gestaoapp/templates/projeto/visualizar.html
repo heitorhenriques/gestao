@@ -2,7 +2,7 @@
 {% block titulo %}     Visualizar Projeto {% endblock %}
 {% block conteudo %}
 
-    {% if membro in projeto.membro.all or user.is_superuser %}
+    {% if request.user in projeto.membro.all or user.is_superuser %}
 
         <div class="ui segment form">
         <h2 class="ui header">Informações do Projeto</h2>
@@ -22,7 +22,7 @@
         </div>
         <div class="field">
             <label>Coordenador</label>
-            {{ projeto.coordenador }}
+            {{ coordenacao.coordenador.get_full_name }}
         </div>
         <div class="two fields">
             <div class="field">
@@ -58,16 +58,6 @@
                 {% endfor %}
             </div>
         </div>
-        {#            <!-- <div class="two fields">#}
-        {#		<div class="field">#}
-        {#			<label>Situação</label>#}
-        {#			{{projeto.situacao}}#}
-        {#		</div>#}
-        {#		<div class="field">#}
-        {#			<label>Quantida de Bolsas</label>#}
-        {#			{{projeto.qtd_bolsa}}#}
-        {#		</div> #}
-        {#	</div>-->#}
 
         <div class="field">
             <label>Parceiros</label>
@@ -109,10 +99,10 @@
             <button class='ui red button'>Voltar</button>
         </a>
 
-        {% if projeto.coordenador.id == request.user.id %}
-            <a href='/editar_projeto/{{ projeto.id }}'>
-                <button class="ui button direita verde_escuro">Editar</button>
-            </a>
+        {% if coordenacao.coordenador.id == request.user.id or request.user.is_superuser %}
+        <a href='/editar_projeto/{{ projeto.id }}'>
+            <button class="ui button direita verde_escuro">Editar</button>
+        </a>
         {% endif %}
     {% else %}
         <div class='ui centered grid'>

@@ -17,7 +17,6 @@
             <thead>
             <tr>
                 <th>Nome</th>
-                <th>Coordenador do Projeto</th>
                 <th>Data de Inicio</th>
                 <th>Data de Finalização</th>
                 {% if user.is_superuser %}
@@ -30,7 +29,6 @@
             {% for projeto in projetos %}
                 <tr>
                     <td>{{ projeto.nome }}</td>
-                    <td>{{ projeto.coordenador }}</td>
                     <td>{{ projeto.data_inicio|date:"d/m/Y" }}</td>
                     <td>{{ projeto.data_fim |date:"d/m/Y" }}</td>
                     {% if user.is_superuser %}

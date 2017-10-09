@@ -20,6 +20,10 @@ class CadastroProjeto(LoginRequiredMixin, View):
         if projeto_id:
             nome = Projeto.objects.get(id=projeto_id)
             form = FormProjetoEdit(instance=nome)
+
+            projeto = Projeto.objects.get(pk=projeto_id)
+            usuario = Usuario.objects.get(pk=request.user.id)
+
             coordenadores = Usuario.objects.filter(vinculo_institucional="Professor", is_active=True)
             coordenador = nome.coordenador
             inicio = nome.data_inicio
@@ -27,6 +31,9 @@ class CadastroProjeto(LoginRequiredMixin, View):
             membros = Usuario.objects.filter(is_active=True)
             membro = nome.membro
             editar = True
+
+            is_coordenador(usuario=usuario, projeto=projeto)
+
             return render(request, self.template,
                           {'form': form, 'editar': editar, 'coordenadores': coordenadores, 'membro': membro,
                            'membros': membros, 'coordenador': coordenador, 'inicio': inicio, 'termino': termino})
@@ -36,7 +43,6 @@ class CadastroProjeto(LoginRequiredMixin, View):
             membros = Usuario.objects.filter(is_active=True)
             # teste = request.user.first_name
             editar = False
-
             return render(request, self.template,
                           {'form': form, 'editar': editar, 'membros': membros, 'coordenadores': coordenadores})
 
@@ -54,13 +60,14 @@ class CadastroProjeto(LoginRequiredMixin, View):
             usuario = Usuario.objects.get(pk=request.user.id)
             projeto.responsavel_cadastro = User.objects.get(pk=request.user.id)
             projeto.save()
-            projeto.coordenacao = self.save_coordenacao(usuario, projeto)
-            projeto.save()
+
+            if not projeto_id:
+                projeto.coordenacao = self.registrar_coordenacao(usuario, projeto)
+                projeto.save()
 
             user = form.save(request)
             if 'imagem' in request.FILES:
                 user.imagem = request.FILES['imagem']
-
             user.save()
 
             msg = "Operação realizada com sucesso!"
@@ -77,7 +84,7 @@ class CadastroProjeto(LoginRequiredMixin, View):
 
             return render(request, self.template, {'form': form})
 
-    def save_coordenacao(self, coordenador, projeto):
+    def registrar_coordenacao(self, coordenador, projeto):
         coordenacao = Coordenacao(
             coordenador=coordenador,
             projeto=projeto,
@@ -115,11 +122,12 @@ class VisualizarProjeto(LoginRequiredMixin, View):
 
         if projeto_id:
             projeto = Projeto.objects.get(id=projeto_id)
-            membro = Usuario.objects.get(id=request.user.id)
+            # membro = Usuario.objects.get(id=request.user.id)
+            coordenacao = Coordenacao.objects.get(projeto=projeto, status=True)
         else:
             return render(request, self.template, {})
 
-        return render(request, self.template, {'projeto': projeto, 'membro': membro})
+        return render(request, self.template, {'projeto': projeto, 'coordenacao': coordenacao})
 
     def post(self, request):
 
@@ -157,3 +165,8 @@ class AddMembro(LoginRequiredMixin, View):
             return redirect('/cadastro_sucesso')
         else:
             return render(request, self.template, {'form': form})
+
+def is_coordenador(usuario, projeto):
+    if Coordenacao.objects.filter(coordenador=usuario, projeto=projeto, status=True).count() > 0:
+        return True
+    return False
