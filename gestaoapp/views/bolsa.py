@@ -14,6 +14,7 @@ from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.models.usuario import Usuario
 from gestaoapp.views.loginrequired import LoginRequiredMixin
 
+
 class CadastroBolsa(LoginRequiredMixin, View):
     template = 'bolsa/cadastro.html'
 
@@ -62,7 +63,6 @@ class CadastroBolsa(LoginRequiredMixin, View):
                 if qtd_bolsa_cadastradas >= edital.qtd_bolsa:
                     return HttpResponseRedirect(reverse('visualizar_edital', kwargs={'edital_id': edital_id}))
 
-
         if form.is_valid():
             post = form.save(commit=False)
             post.responsavel_cadastro = User.objects.get(pk=request.user.id)
@@ -82,9 +82,15 @@ class ConsultaBolsa(LoginRequiredMixin, View):
 
     def get(self, request):
         form = Busca()
-        bolsa = Bolsa.objects.all()
-
-        return render(request, self.template, {'bolsas': bolsa, "form": form})
+        usuario = Usuario.objects.get(pk=request.user)
+        if usuario.super_adm == 1:
+            bolsa = Bolsa.objects.all()
+            return render(request, self.template,
+                          {'bolsas': bolsa, "form": form, "usuario": usuario})
+        else:
+            bolsa = Bolsa.objects.filter(responsavel_gerencia=request.user.id)
+            return render(request, self.template,
+                          {'bolsas': bolsa, "form": form, "usuario": usuario})
 
     def post(self, request):
         form = Busca(request.POST)
@@ -96,7 +102,6 @@ class ConsultaBolsa(LoginRequiredMixin, View):
             form = Busca(request.POST)
             bolsa = Bolsa.objects.all()
         return render(request, self.template, {'bolsas': bolsa, "form": form})
-
 
 class VisualizarBolsa(LoginRequiredMixin, View):
     template = "bolsa/visualizar.html"
@@ -115,11 +120,13 @@ class VisualizarBolsa(LoginRequiredMixin, View):
 
         return render(request, self.template)
 
+
 def get_edital(edital_id):
     try:
         return Edital.objects.get(pk=edital_id)
     except:
         return None
+
 
 def quantidade_bolsas(edital_id):
     return Bolsa.objects.filter(edital=edital_id).count()
