@@ -11,35 +11,53 @@
         {#    	    <input type="submit" value="Pesquisar" class='icon search'>#}
         {#    	</div>#}
     </form>
-        <table class="ui celled table">
-            <thead>
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>Codigo</th>
+            <th>Edital</th>
+            <th>Data de Inicio</th>
+            <th>Data de Termino</th>
+            <th>Bolsista</th>
+            {% if user.is_superuser %}
+                <th>Visualizar</th>
+                <th>Editar</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for bolsa in bolsas %}
             <tr>
-                <th>Codigo</th>
-                <th>Edital</th>
-                <th>Data de Inicio</th>
-                <th>Data de Termino</th>
+                <td>{{ bolsa.codigo }}</td>
+                <td>{{ bolsa.edital }}</td>
+                <td>{{ bolsa.dt_inicio|date:"d/m/Y" }}</td>
+                <td>{{ bolsa.dt_termino|date:"d/m/Y" }}</td>
+                <td>
+                {% if bolsa.vinculos.all %}
+                    {% for bolsista in bolsa.vinculos.all %}
+                        {{ bolsista }}
+                    {% endfor %}
+                {% else %}
+
+                {% endif %}
+{#                {% for bolsista in bolsa.vinculos.all %}#}
+{#                    <td>{{ bolsista }}</td>#}
+{#                    {%  if bolsista.usuario == None %}#}
+{#                        <td> aaaa </td>#}
+{#                    {% else %}#}
+{#                        <td> {{ bolsista }}</td>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+                </td>
                 {% if user.is_superuser %}
-                    <th>Visualizar</th>
-                    <th>Editar</th>
+                    <td class="negative"><a href="../visualizar_bolsa/{{ bolsa.id }}"><i
+                            class="unhide large icon"></i></a>
+                    </td>
+                    <td><a href="../editar_bolsa/{{ bolsa.id }}"><i class="configure large icon"></i></a></td>
                 {% endif %}
             </tr>
-            </thead>
-            <tbody>
-            {% for bolsa in bolsas %}
-                <tr>
-                    <td>{{ bolsa.codigo }}</td>
-                    <td>{{ bolsa.edital }}</td>
-                    <td>{{ bolsa.dt_inicio|date:"d/m/Y" }}</td>
-                    <td>{{ bolsa.dt_termino|date:"d/m/Y" }}</td>
-                    {% if user.is_superuser %}
-                        <td class="negative"><a href="../visualizar_bolsa/{{ bolsa.id }}"><i
-                                class="unhide large icon"></i></a>
-                        </td>
-                        <td><a href="../editar_bolsa/{{ bolsa.id }}"><i class="configure large icon"></i></a></td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 

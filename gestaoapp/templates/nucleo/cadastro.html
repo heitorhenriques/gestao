@@ -28,7 +28,7 @@
         </div>
     {% endif %}
 
-{% if user.is_superuser %}
+{% if user.is_superuser and usuario.super_adm%}
 	<form method='POST' enctype=" multipart/form-data" class="ui form">
         {% csrf_token %}           
         <h1 class="ui header">

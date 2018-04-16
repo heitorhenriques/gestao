@@ -33,8 +33,13 @@
                             {% if user.is_superuser %}
                                 <a class="item" href="/usuario"><i class='ui icon newspaper'></i>Cadastro</a>
                                 <a class="item" href="/consulta_usuario"><i class="search icon branco"></i>Consulta</a>
-                                <a class="item" href="/desbloquear_usuario"><i class=" lock big icon branco"></i>Desbolquear
-                                    Usuario</a>
+                                {% if usuario %}
+                                    {% if usuario.super_adm %}
+                                        <a class="item" href="/desbloquear_usuario"><i
+                                                class=" lock big icon branco"></i>Desbolquear
+                                            Usuario</a>
+                                    {% endif %}
+                                {% endif %}
                             {% endif %}
                             {% if user.is_superuser %}
                             {% else %}
@@ -58,8 +63,10 @@
                     {#                    </div>#}
                     <div class="ui dropdown item">Nucleo<i class="dropdown icon"></i>
                         <div class="menu">
-                            {% if user.is_superuser %}
-                                <a class="item" href="/nucleo"><i class='ui icon newspaper'></i>Cadastro</a>
+                            {% if usuario %}
+                                {% if usuario.super_adm %}
+                                    <a class="item" href="/nucleo"><i class='ui icon newspaper'></i>Cadastro</a>
+                                {% endif %}
                             {% endif %}
                             <a class="item" href="/consulta_nucleo"><i class="search icon branco"></i>Consulta</a>
                         </div>
@@ -86,33 +93,26 @@
                                 <a class="item" href="/curso"><i class='ui icon newspaper'></i>Cadastro de Curso</a>
                                 <a class="item" href="/consulta_curso"><i class='search icon branco'></i>Consulta de
                                     Curso</a>
-
                             </div>
                         </div>
                     {% endif %}
-
                     {% if user.is_superuser %}
                         <div class="ui dropdown item">Bolsa<i class="dropdown icon"></i>
                             <div class="menu">
                                 <a class="item" href="/bolsa"><i class='ui icon newspaper'></i>Cadastro de Bolsa</a>
                                 <a class="item" href="/consulta_bolsa"><i class='search icon branco'></i>Consulta de
                                     Bolsa</a>
-
                             </div>
                         </div>
                     {% endif %}
-
                     {% if user.is_superuser %}
                         <div class="ui dropdown item">Relatorios<i class="dropdown icon"></i>
                             <div class="menu">
                                 <a class="item" href="/log_cadastro"><i class='search icon branco'></i>Log de
                                     Cadastro</a>
-
                             </div>
                         </div>
                     {% endif %}
-
-
                     <div class="ui dropdown item right floated"><i class="user icon"></i>
                         {{ request.user.first_name }} <i class="dropdown icon"></i>
                         <div class="menu">
@@ -125,7 +125,6 @@
                     </div>
                 </nav>
             </div>
-
             {#            <div class="mobile tablet only row">#}
             {#                <nav class="ui large menu ">#}
             {#                    <div class="ui dropdown item"><i class="content icon"></i><i class="dropdown icon"></i>#}
@@ -263,13 +262,17 @@
                                         <div class="field">
                                             <a class="item" href="/consulta_usuario"><i class="search icon branco"></i>Consulta</a>
                                         </div>
-                                        <div class="field">
-                                            {% if user.is_superuser %}
-                                                <a class="item" href="/desbloquear_usuario"><i
-                                                        class="search icon branco"></i>Desbolquear
-                                                    Usuario</a>
+                                        {% if usuario %}
+                                            {% if usuario.super_adm %}
+                                                <div class="field">
+                                                    {% if user.is_superuser %}
+                                                        <a class="item" href="/desbloquear_usuario"><i
+                                                                class="search icon branco"></i>Desbolquear
+                                                            Usuario</a>
+                                                    {% endif %}
+                                                </div>
                                             {% endif %}
-                                        </div>
+                                        {% endif %}
                                         <div class="field">
                                         </div>
                                     </div>
@@ -298,11 +301,13 @@
                                 <a class="title"><i class="dropdown icon"></i> Nucleo </a>
                                 <div class="content">
                                     <div class="grouped fields">
-                                        <div class="field">
-                                            {% if user.is_superuser %}
-                                                <a class="item" href="/nucleo"><i class='ui icon newspaper'></i>Cadastro</a>
+                                        {% if usuario %}
+                                            {% if usuario.super_adm %}
+                                                <div class="field">
+                                                    <a class="item" href="/nucleo"><i class='ui icon newspaper'></i>Cadastro</a>
+                                                </div>
                                             {% endif %}
-                                        </div>
+                                        {% endif %}
                                         <div class="field">
                                             <a class="item" href="/consulta_nucleo"><i class="search icon branco"></i>Consulta</a>
                                         </div>

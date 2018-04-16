@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from gestaoapp.forms.busca import Busca
 from gestaoapp.forms.nucleo import FormNucleo, FormNucleoEdit
 from gestaoapp.models.nucleo import Nucleo
+from gestaoapp.models.usuario import Usuario
 from gestaoapp.views.loginrequired import LoginRequiredMixin
 
 
@@ -13,6 +14,7 @@ class CadastroNucleo(LoginRequiredMixin, View):
     template = 'nucleo/cadastro.html'
 
     def get(self, request, nucleo_id=None):
+        usuario = Usuario.objects.get(pk=request.user)
 
         if nucleo_id:
             nome = Nucleo.objects.get(id=nucleo_id)
@@ -22,7 +24,7 @@ class CadastroNucleo(LoginRequiredMixin, View):
             form = FormNucleo()
             editar = False
 
-        return render(request, self.template, {'form': form, 'editar': editar})
+        return render(request, self.template, {'form': form, 'editar': editar, 'usuario':usuario})
 
     def post(self, request, nucleo_id=None):
 
@@ -31,6 +33,7 @@ class CadastroNucleo(LoginRequiredMixin, View):
             form = FormNucleoEdit(instance=nome, data=request.POST)
         else:
             form = FormNucleo(request.POST)
+
 
         if form.is_valid():
 
