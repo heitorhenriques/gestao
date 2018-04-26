@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -82,8 +82,8 @@ class ConsultaBolsa(LoginRequiredMixin, View):
 
     def get(self, request):
         form = Busca()
-        usuario = Usuario.objects.get(pk=request.user)
-        if usuario.super_adm == 1:
+        usuario = Usuario.objects.filter(pk=request.user.id)
+        if 1== 1:
             bolsa = Bolsa.objects.all()
             return render(request, self.template,
                           {'bolsas': bolsa, "form": form, "usuario": usuario})
@@ -130,3 +130,17 @@ def get_edital(edital_id):
 
 def quantidade_bolsas(edital_id):
     return Bolsa.objects.filter(edital=edital_id).count()
+
+def EditarBolsa(request,bolsa_id):
+    data = {}
+    bolsa = Bolsa.objects.get(id=bolsa_id)
+    form = FormBolsa(request.POST or None, instance=bolsa)
+
+    if form.is_valid():
+        form.save()
+        return redirect('consultar_bolsa')
+
+    data['form'] = form
+    data['bolsa'] = bolsa
+
+    return render(request,"bolsa/editar.html", data)

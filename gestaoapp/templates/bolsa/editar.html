@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block titulo %}Editar Bolsa{% endblock %}
+{% block conteudo %}
+    <form action="" method="post">{% csrf_token %}
+        <label for="">Data de Termino</label>
+    {{ form.dt_termino }}
+        <input type="submit">
+    </form>
+{% endblock %}

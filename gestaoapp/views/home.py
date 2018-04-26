@@ -13,7 +13,7 @@ class Home(View):
 
     def get(self, request):
         if request.user.is_authenticated():
-            usuario = Usuario.objects.get(pk=request.user)
+            usuario = Usuario.objects.filter(pk=request.user.id)
             projeto_membro = Projeto.objects.filter(membro=request.user.id)
             projeto_coordenador = Projeto.objects.filter(coordenador=request.user.id)
 

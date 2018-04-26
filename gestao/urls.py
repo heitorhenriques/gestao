@@ -3,6 +3,7 @@ from django.conf.urls import include, url, patterns
 from django.contrib import admin
 
 from gestaoapp.views import *
+from gestaoapp.views.bolsa import EditarBolsa
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -79,9 +80,9 @@ urlpatterns = [
     url(r'^visualizar_parceiro/(?P<parceiro_id>\d+)/$', VisualizarParceiro.as_view()),
 
     url(r'^bolsa/$', CadastroBolsa.as_view()),
-    url(r'^editar_bolsa/(?P<bolsa_id>\d+)/$', CadastroBolsa.as_view()),
+    url(r'^editar_bolsa/(?P<bolsa_id>\d+)/$', EditarBolsa, name='editar_bolsa'),
     url(r'^bolsa/edital/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='bolsa_por_edital'),
-    url(r'^consulta_bolsa/', ConsultaBolsa.as_view()),
+    url(r'^consulta_bolsa/', ConsultaBolsa.as_view(), name='consultar_bolsa'),
     url(r'^visualizar_bolsa/(?P<bolsa_id>\d+)/$', VisualizarBolsa.as_view()),
 
     url(r'^vinculo/', CadastroVinculo.as_view()),
