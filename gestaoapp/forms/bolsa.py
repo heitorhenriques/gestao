@@ -30,6 +30,10 @@ class FormBolsaPorEdital(forms.ModelForm):
         exclude = ('vinculos', 'responsavel_cadastro', 'responsavel_gerencia')
 
 class FormBolsaEdit(forms.ModelForm):
+    dt_termino = forms.DateField(label='dt_terminio')
+
     class Meta:
         model = Bolsa
+        widgets = {'dt_inicio' : forms.HiddenInput,
+                   'codigo' : forms.HiddenInput}
         exclude = ('vinculos','responsavel_cadastro', 'responsavel_gerencia', )

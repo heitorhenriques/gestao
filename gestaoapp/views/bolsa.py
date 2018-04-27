@@ -77,13 +77,14 @@ class CadastroBolsa(LoginRequiredMixin, View):
         context_dict['form'] = form
         return render(request, self.template, context_dict)
 
+
 class ConsultaBolsa(LoginRequiredMixin, View):
     template = 'bolsa/consulta.html'
 
     def get(self, request):
         form = Busca()
         usuario = Usuario.objects.filter(pk=request.user.id)
-        if 1== 1:
+        if 1 == 1:
             bolsa = Bolsa.objects.all()
             return render(request, self.template,
                           {'bolsas': bolsa, "form": form, "usuario": usuario})
@@ -102,6 +103,7 @@ class ConsultaBolsa(LoginRequiredMixin, View):
             form = Busca(request.POST)
             bolsa = Bolsa.objects.all()
         return render(request, self.template, {'bolsas': bolsa, "form": form})
+
 
 class VisualizarBolsa(LoginRequiredMixin, View):
     template = "bolsa/visualizar.html"
@@ -131,16 +133,31 @@ def get_edital(edital_id):
 def quantidade_bolsas(edital_id):
     return Bolsa.objects.filter(edital=edital_id).count()
 
-def EditarBolsa(request,bolsa_id):
-    data = {}
-    bolsa = Bolsa.objects.get(id=bolsa_id)
-    form = FormBolsa(request.POST or None, instance=bolsa)
 
-    if form.is_valid():
-        form.save()
-        return redirect('consultar_bolsa')
+class  EditarBolsa(LoginRequiredMixin,View):
+    template = 'bolsa/editar.html'
+    def get(self,request,bolsa_id=None):
+        context_dict = {}
+        if bolsa_id:
+            bolsa = Bolsa.objects.get(id=bolsa_id)
+            form = FormBolsaEdit(instance=bolsa)
+            context_dict['bolsa'] = bolsa
+            context_dict['form'] = form
+            return render(request, self.template, context_dict)
 
-    data['form'] = form
-    data['bolsa'] = bolsa
+    def post(self,request,bolsa_id=None):
+        context_dict = {}
+        form = FormBolsaEdit(request.POST)
+        if form.is_valid():
+            post = form.save()
+            post.save()
+            msg = 'tudo certo'
+            HttpResponseRedirect('consultar_bolsa')
+        else:
+            bolsa = Bolsa.objects.get(id=bolsa_id)
+            form = FormBolsaEdit(instance=bolsa)
+            msg = 'algo deu errado'
 
-    return render(request,"bolsa/editar.html", data)
+        context_dict['msg'] = msg
+        context_dict['form'] = form
+        return render(request,self.template,context_dict)
