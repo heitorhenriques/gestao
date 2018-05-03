@@ -87,7 +87,7 @@ urlpatterns = [
 
     url(r'^vinculo/', CadastroVinculo.as_view()),
     url(r'^vincular_bolsa/(?P<bolsa_id>\d+)/$', CadastroVinculoBolsa.as_view()),
-    url(r'^editar_vinculo/(?P<vinculo_id>\d+)', vinculo.EditarVinculo, name='editar_vinculo'),
+    url(r'^editar_vinculo/(?P<vinculo_id>\d+)', CadastroVinculo.as_view(), name='editar_vinculo'),
 
     url(r'^log_cadastro/', LogCadastro.as_view()),
     url(r'^cadastros/', cadastros),
