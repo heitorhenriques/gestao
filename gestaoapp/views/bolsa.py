@@ -131,33 +131,6 @@ def get_edital(edital_id):
 
 
 def quantidade_bolsas(edital_id):
-    return Bolsa.objects.filter(edital=edital_id).count()
+    return Bolsa.objects.filter(edital=edital_id.count())
 
 
-class  EditarBolsa(LoginRequiredMixin,View):
-    template = 'bolsa/editar.html'
-    def get(self,request,bolsa_id=None):
-        context_dict = {}
-        if bolsa_id:
-            bolsa = Bolsa.objects.get(id=bolsa_id)
-            form = FormBolsaEdit(instance=bolsa)
-            context_dict['bolsa'] = bolsa
-            context_dict['form'] = form
-            return render(request, self.template, context_dict)
-
-    def post(self,request,bolsa_id=None):
-        context_dict = {}
-        form = FormBolsaEdit(request.POST)
-        if form.is_valid():
-            post = form.save()
-            post.save()
-            msg = 'tudo certo'
-            HttpResponseRedirect('consultar_bolsa')
-        else:
-            bolsa = Bolsa.objects.get(id=bolsa_id)
-            form = FormBolsaEdit(instance=bolsa)
-            msg = 'algo deu errado'
-
-        context_dict['msg'] = msg
-        context_dict['form'] = form
-        return render(request,self.template,context_dict)

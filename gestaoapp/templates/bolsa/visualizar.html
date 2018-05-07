@@ -80,10 +80,10 @@
                                         <i class="remove icone_red large icon"></i>
                                     {% endif %}
                                 </td>
-                                <td>{{ bolsa.dt_inicio|date:"d/m/Y" }}</td>
-                                <td>{{ bolsa.dt_termino|date:"d/m/Y" }}</td>
+                                <td>{{ vinculo.dt_inicio|date:"d/m/Y" }}</td>
+                                <td>{{ vinculo.dt_termino|date:"d/m/Y" }}</td>
                                 <td>
-                                    <a href="{% url 'editar_bolsa' bolsa.id %}">Editar</a>
+                                    <a href="{% url 'editar_vinculo' vinculo.id %}">Editar</a>
                                 </td>
                             </tr>
                         {% endfor %}

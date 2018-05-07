@@ -12,8 +12,12 @@ class CadastroVinculo(LoginRequiredMixin, View):
 
     template = 'vinculo/cadastro.html'
 
-    def get(self, request):
-        form = FormVinculo()
+    def get(self, request,vinculo_id=None):
+        if vinculo_id:
+            vinculo = Vinculo.objects.get(id=vinculo_id)
+            form = FormVinculo(instance=vinculo)
+        else:
+            form = FormVinculo()
         return render(request, self.template, {
             'form': form
         })
@@ -74,3 +78,4 @@ class CadastroVinculoBolsa(LoginRequiredMixin, View):
             return Vinculo.objects.get(bolsa=bolsa, status=True)
         except:
             return None
+
