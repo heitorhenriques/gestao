@@ -36,12 +36,6 @@
         </div>
     {% endif %}
     {% if user.is_superuser %}
-        {% if qtd_bolsa_cadastradas >= edital.qtd_bolsa %}
-        <div class="ui error message">
-            <header class="header">Cadastro de Bolsa Bloqueado!</header>
-            O número de bolsas para o edital {{ edital.numero }} já foi totalmente satisfeito!
-        </div>
-        {% else %}
         <form method='POST'>
             {% csrf_token %}
             <h1 class="ui header">
@@ -162,7 +156,6 @@
             <button class='ui red button'>Cancelar</button>
         </a>
         </div>
-        {% endif %}
     {% else %}
         <div class='ui centered grid'>
             <div class='two column centered row'>

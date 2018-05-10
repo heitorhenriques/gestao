@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-{% block titulo %} Cadastro de Vinculo{% endblock %}
+{% block titulo %}Vinculo{% endblock %}
 {% block conteudo%}
 
     {% if msg %}
@@ -49,14 +49,22 @@
                     <div class="field">
                         <label>Data Início</label>
                         <div class="ui input">
-                            <input type="date" id="dt_inicio" placeholder="dd/mm/aaaa" />
+                            {% if vinculo.dt_inicio %}
+                                {{ form.dt_inicio }}
+                            {% else %}
+                                <input type="date" name="dt_inicio" placeholder="dd/mm/YYYY">
+                            {% endif %}
                         </div>
                     </div>
 
                     <div class="field">
                         <label>Data Término</label>
                         <div class="ui input">
-                            <input type="date" id="dt_termino" placeholder="dd/mm/aaaa" />
+                            {% if vinculo.dt_termino %}
+                                {{ form.dt_termino }}
+                            {% else %}
+                                <input type="date" name="dt_termino" placeholder="dd/mm/YYYY">
+                            {% endif %}
                         </div>
                     </div>
                 </div>

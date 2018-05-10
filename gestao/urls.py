@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
-
 from gestaoapp.views import *
+from gestaoapp.views import vinculo
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -82,11 +82,17 @@ urlpatterns = [
     url(r'^editar_bolsa/(?P<bolsa_id>\d+)/$', CadastroBolsa.as_view()),
     url(r'^bolsa/edital/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='bolsa_por_edital'),
     url(r'^consulta_bolsa/', ConsultaBolsa.as_view()),
+    url(r'^editar_bolsa/(?P<bolsa_id>\d+)/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='editar_bolsa'),
+    url(r'^editar_bolsa/(?P<bolsa_id>\d+)/$', CadastroBolsa.as_view(), name='editar_bolsa'),
+    url(r'^bolsa/edital/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='bolsa_por_edital'),
+    url(r'^consulta_bolsa/', ConsultaBolsa.as_view(), name='consultar_bolsa'),
     url(r'^visualizar_bolsa/(?P<bolsa_id>\d+)/$', VisualizarBolsa.as_view()),
 
     url(r'^vinculo/', CadastroVinculo.as_view()),
     url(r'^vincular_bolsa/(?P<bolsa_id>\d+)/$', CadastroVinculoBolsa.as_view()),
     #url(r'^editar_vinculo/', CadastroVinculo.as_view())
+    url(r'^editar_vinculo/(?P<vinculo_id>\d+)/$', CadastroVinculo.as_view(), name='editar_vinculo'),
+    url(r'^editar_vinculo/(?P<vinculo_id>\d+)', CadastroVinculo.as_view(), name='editar_vinculo'),
 
     url(r'^log_cadastro/', LogCadastro.as_view()),
     url(r'^cadastros/', cadastros),

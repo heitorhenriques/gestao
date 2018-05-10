@@ -12,18 +12,32 @@ class CadastroVinculo(LoginRequiredMixin, View):
 
     template = 'vinculo/cadastro.html'
 
-    def get(self, request):
-        form = FormVinculo()
+    def get(self, request, vinculo_id):
+        if vinculo_id:
+            vinculo = Vinculo.objects.get(pk=vinculo_id)
+            form = FormVinculo(instance=vinculo)
+            editar = True
+        else:
+             form = FormVinculo()
+             editar = False
+             vinculo = None
+
         return render(request, self.template, {
-            'form': form
+            'form': form,
+            'editar' : editar,
+            'vinculo' : vinculo,
         })
 
     def post(self, request):
         form = FormVinculo(data=request.POST)
         if form.is_valid():
             form.save()
+            msg = 'Operação realizada com sucesso'
+        else:
+            msg = 'Algo deu errado'
         return render(request, self.template, {
-            'form': form
+            'form': form,
+            'msg' : msg
         })
 
 class CadastroVinculoBolsa(LoginRequiredMixin, View):
@@ -74,3 +88,18 @@ class CadastroVinculoBolsa(LoginRequiredMixin, View):
             return Vinculo.objects.get(bolsa=bolsa, status=True)
         except:
             return None
+
+
+def EditarVinculo(request,vinculo_id):
+
+        data = {}
+        vinculo = Vinculo.objects.get(id=vinculo_id)
+        form = FormVinculo(request.POST, instance=vinculo)
+
+        if form.is_valid():
+            form.save()
+            return redirect('consultar_bolsa')
+
+        data['form'] = form
+
+        return render(request, "vinculo/editar.html", data)
