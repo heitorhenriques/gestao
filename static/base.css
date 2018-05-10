@@ -1,0 +1,178 @@
+/********************Definições gerais*************************/
+
+.centro {
+    padding-left: 8% !important;
+}
+
+.direita {
+    float: right;
+}
+
+.ui.grid {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.cabecalho {
+    min-height: 16% !important;
+    color: #005e83 !important;
+}
+
+.cabecalho .grid {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.corpo {
+    min-height: 64.9% !important;
+}
+
+.rodape {
+    min-height: 11% !important;
+}
+
+article {
+    margin: 0 !important;
+}
+
+input.icon.search {
+    background-color: #005e83 !important;
+    color: #fff !important;
+    font-weight: bold !important;
+}
+
+a.title{
+    color: #fff !important;
+    font-weight: bold !important;
+}
+
+/********************Definições cores*************************/
+.red {
+    background-color: #B63333 !important;
+}
+
+.verde_escuro {
+    background: #005e83 !important;
+    color: #FFFFFF !important;
+}
+
+.icone_red {
+    color: #B63333;
+}
+
+/********************Definições menu*************************/
+/***** COMEÇA NOVO MENU*******/
+.ui.menu {
+    width: 100% !important;
+    background-color: #005e83 !important;
+}
+
+.ui.menu > .item {
+    color: #FFF !important;
+}
+
+.ui.menu .ui.dropdown.item .menu .item:not(.filtered) {
+    color: #FFF !important;
+}
+
+.menu.transition.visible {
+    background-color: #005e83 !important;
+}
+
+/*****FIM MENU NOVO*******/
+
+/********************Definições de form*************************/
+
+label {
+    font-size: 1.125em !important;
+}
+
+input {
+    border-color: #005E83 !important;
+}
+
+select {
+    border-color: #005E83 !important;
+}
+
+input:active, input:focus {
+    background-color: rgba(0, 94, 131, 0.2) !important
+}
+
+input.verde_escuro {
+    background-color: #2E9447 !important;
+}
+
+.azul_escuro {
+    background: #005e83 !important;
+    color: #FFFFFF !important;
+}
+
+.azul_escuro:hover {
+    background-color: #257fa3 !important;
+}
+
+.verde {
+    background-color: #2E9447 !important;
+}
+
+.errorlist {
+    padding: 8px !important;
+    margin: 0 !important;
+
+}
+
+.errorlist li {
+    list-style: none;
+
+}
+
+.button.atividade {
+    margin-top: -30px !important;
+}
+
+/********************Definições de qualquer coisa*************************/
+
+.ui.pointing.label {
+    font-size: 100%;
+    padding: 0%;
+}
+
+#icone {
+    margin-top: 2% !important;
+}
+
+/********************Definições da Pagina de Projeto*************************/
+
+.bloco-divisao {
+    background: #EDECDE !important;
+    padding: 10px 20px 20px 20px;
+    margin-bottom: 20px;
+
+}
+
+.campo-obrigatorio {
+    color: #E80C0C !important;
+    font-size: 90% !important;
+    font-weight: none !important;
+}
+
+.top_td {
+    vertical-align: baseline;
+}
+
+.horario_card {
+    border: 2px solid #000000 !important;
+}
+
+.laranja_fabrica {
+    border-color: #f59a5d !important;
+}
+
+.verde_fabrica {
+    border-color: #289191 !important;
+}
+
+.vermelho_fabrica {
+    border-color: #d94e4e !important;
+}

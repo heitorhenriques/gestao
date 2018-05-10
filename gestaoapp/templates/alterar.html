@@ -1,0 +1,11 @@
+<form method='POST' >
+	{% csrf_token %}
+
+
+	{{form}}
+
+	{{form.errors}}
+
+	<input type='submit' value='Enviar'>
+
+</form>

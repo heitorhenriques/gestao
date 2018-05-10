@@ -1,0 +1,1 @@
+from gestaoapp.controls.tabela_horarios import TabelaHorarios

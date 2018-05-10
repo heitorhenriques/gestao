@@ -1,0 +1,14 @@
+				{% for usuario in usuarios %}
+					    <tr>	 
+						   	<td>{{ usuario.first_name }} {{ usuario.last_name }} </td>
+						   	<td>{{usuario.is_active}}</td>
+						   	<td>{{usuario.username}}</td>
+						   	<td>{{usuario.verificado}}</td>
+						   	<td>{{usuario.verificacao}}</td>
+						   	{% for data in usuario.dia.all %}
+ 								<td>{{ data.data}}
+ 								{{data.hora_inicio}}
+ 								{{data.hora_fim}}</td>
+							{% endfor %}
+					    </tr>
+			    		{% endfor %}

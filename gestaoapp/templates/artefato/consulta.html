@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+{% block titulo %}Consulta de Artefato{% endblock %}
+{% block conteudo%} 
+
+<form method='POST' action='/consulta_artefato/' class="ui form">
+ 	{% csrf_token %}
+ 	<h1 class=" ui header">Consulta Artefato</h1>
+
+ 	<div class="ui action input">
+  		{{form.nome}}
+	    	<input type="submit" value="Pesquisar" class='icon search'>
+	</div>
+</form>
+<table class="ui celled table">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>Descrição</th>
+			{% if user.is_superuser %}
+				<th>Visualizar</th>
+				<th>Editar</th>
+			{% endif %}
+		</tr>	
+	</thead>
+	<tbody>
+	{% for artefato in artefatos %}
+		<tr>
+			<td>{{artefato.nome}}</td>
+			<td>{{artefato.descricao}}</td>
+			{% if user.is_superuser %}
+				<td class="negative"><a href="../visualizar_artefato/{{artefato.id}}">Mais</a></td>
+				<td><a href="../editar_artefato/{{artefato.id}}"><i class="settings large icon"></a></td>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{%endblock%}

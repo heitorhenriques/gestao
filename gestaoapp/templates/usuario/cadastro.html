@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Cadastro de Usuário{% endblock %}
+{% block conteudo %}
+
+    {% if msg %}
+        <div class="ui success message">
+            <i class="close icon"></i>
+            <div class="header">{{ msg }}</div>
+        </div>
+        <a href="/home/" class="ui fluid azul_escuro right labeled icon button">
+            Continuar
+            <i class="arrow right icon"></i>
+        </a>
+    {% endif %}
+
+    {% if form.errors %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">Campos Obrigatorios</div>
+            <ul class="list">
+                {% if form.matricula.errors %}
+                    <li> Matricula é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.carga_horaria.errors %}
+                    <li> Carga Horario é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.telefone.errors %}
+                    <li> Telefone é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.username.errors %}
+                    <li> Usuario é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.password.errors %}
+                    <li> Senha é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.confirma_senha.errors %}
+                    <li> Confirmar Senha é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.desc.errors %}
+                    <li> Descrição é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.foto.errors %}
+                    <li> Foto é um campo obrigatorio</li>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method='POST' enctype="multipart/form-data" class="ui form">
+        {% csrf_token %}
+        <h1 class="ui header">
+            {% if editar %}
+                Editar Usuário
+            {% else %}
+                Cadastro de Usuário
+            {% endif %}</h1>
+        <div class="ui secondary segment">
+            <div class="campo-obrigatorio">(* Campos Obrigatorios)</div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Nome *</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.first_name.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label>Sobrenome *</label>
+                    {{ form.last_name }}
+                    {% if form.first_name.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.first_name.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="three fields tres">
+                <div class="field vinculo">
+                    <label>Vínculo Institucional *</label>
+                    {{ form.vinculo_institucional }}
+                    {% if form.periodo.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.periodo.errors }}
+                        </div>
+                    {% endif %}
+                    <!-- 	    <select class="vinculo" >
+                          <option value='null'> Selecione </option>
+                          <option value='Aluno'> Aluno </option>
+                          <option value='Professor'> Professor </option>
+                      </select> -->
+                </div>
+                <div class="field curso">
+                    <label>Curso *</label>
+                    {{ form.curso }}
+                    {% if form.curso.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.curso.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="field periodo">
+                    <label>Período *</label>
+                    {{ form.periodo }}
+                    {% if form.periodo.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.periodo.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label class="matricula">Matrícula *</label>
+                    {{ form.matricula }}
+                    {% if form.matricula.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.matricula.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label>Carga Horária *</label>
+                    {{ form.carga_horaria }}
+                    {% if form.carga_horaria.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.carga_horaria.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>E-mail *</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.email.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label>E-mail Opcional</label>
+                    {{ form.email_opcional }}
+                    {% if form.email_opcional.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.email_opcional.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Telefone 1 *</label>
+                    {{ form.telefone1 }}
+                    {% if form.telefone1.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.telefone1.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label>Telefone 2</label>
+                    {{ form.telefone2 }}
+                    {% if form.telefone2.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.telefone2.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if editar %}
+
+            {% else %}
+                <div class="three fields">
+                    <div class="field">
+                        <label>Usuário *</label>
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.username.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="field">
+                        <label>Senha *</label>
+
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.password.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="field">
+                        <label>Confirmar Senha *</label>
+                        {{ form.confirma_senha }}
+                        {% if form.confirma_senha.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.confirma_senha.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="three fields">
+                    <div class="field">
+                    </div>
+                    <div class="field">
+                        <div class="campo-obrigatorio">(Minimo de 8 digitos, letras e numeros)</div>
+                    </div>
+                    <div class="field">
+                    </div>
+                </div>
+            {% endif %}
+            <div class="field">
+                <label>Curriculo Lattes </label>
+                {{ form.lattes }}
+                {% if form.lattes.errors %}
+                    <div class="ui red pointing label">
+                        {{ form.lattes.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="field">
+                <label>Descrição *</label>
+                {{ form.desc }}
+                {% if form.desc.errors %}
+                    <div class="ui red pointing label">
+                        {{ form.desc.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="field">
+                <label>Foto *</label>
+                {{ form.foto }}
+                {% if form.foto.errors %}
+                    <div class="ui red pointing label">
+                        {{ form.foto.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <input type="submit" value="Enviar" class="ui submit green right floated button"/>
+    </form>
+    <a href='/horario/'>
+        <button class='ui red button'>Cancelar</button>
+    </a>
+{% endblock %}

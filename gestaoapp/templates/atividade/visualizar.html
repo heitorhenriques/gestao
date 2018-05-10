@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% block titulo %} 	 Visualizar Atividade {% endblock %}
+{% block conteudo %}
+{% if user.is_superuser %}
+     
+	<div class="ui form">
+		<h2 class="ui header">Informações de Atividade</h2>
+		<div class="ui segment">
+			<div class="two fields">
+				<div class="field">
+					<label>Nome</label>
+					{{atividade.nome}}
+				</div>
+				<div class="field">
+					<label>Descrição</label>
+					{{atividade.descricao}}
+				</div>
+			</div>
+			<div class="field">
+				<label>Artefato</label>
+				{% for artefato in atividade.artefato.all %} 
+					{{artefato.nome}}
+				{%endfor%}
+			</div>
+		</div> 
+		<a href='/consulta_atividade/'><button class='ui red button'>Voltar</button></a>
+		<a href='/editar_atividade/{{atividade.id}}'><button class="ui button direita verde_escuro">Editar</button></a>
+	</div>	
+{%endif%}
+{% endblock %}

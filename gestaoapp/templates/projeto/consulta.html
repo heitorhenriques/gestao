@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block titulo %}Consulta de Projeto{% endblock %}
+{% block conteudo %}
+
+    <form method='POST' action='/consulta_projeto/' class="ui form">
+        {% csrf_token %}
+        <h1 class="ui header">Consulta Projeto</h1>
+        <div class="field">
+            <div class="ui action input">
+                {{ form.nome }}
+                <input type="submit" value="Pesquisar" class='icon large search'>
+            </div>
+        </div>
+    </form>
+    <div class="ui secondary segment">
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Coordenador</th>
+                <th>Data de Inicio</th>
+                <th>Data de Finalização</th>
+                {% if user.is_superuser %}
+                    <th>Visualizar</th>
+                    <th>Editar</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for projeto in projetos %}
+                <tr>
+                    <td>{{ projeto.nome }}</td>
+                    {% for coord in projeto.coordenador.all %}
+                        <td>{{ coord }}</td>
+                    {% endfor %}
+                    <td>{{ projeto.data_inicio|date:"d/m/Y" }}</td>
+                    <td>{{ projeto.data_fim |date:"d/m/Y" }}</td>
+
+                    {% if user.is_superuser %}
+
+                        <td><a href="../visualizar_projeto/{{ projeto.id }}"><i class="unhide large icon"></i></a></td>
+
+                        {% for coord in projeto.coordenador.all %}
+                            {% if coord.id == request.user.id or usuario.super_adm %}
+                                <td><a href="../editar_projeto/{{ projeto.id }}"><i
+                                        class="configure large icon"></i></a>
+                                </td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% for coord in projeto.coordenador.all %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ projeto.coordenador.id }}
+    </div>
+
+{% endblock %}

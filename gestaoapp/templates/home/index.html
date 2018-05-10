@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block titulo %} home {% endblock %}
+{% block conteudo %}
+    <div class='ui centered grid'>
+        <div class='two column centered row'>
+            <div class='ui column centered'>
+                <div class='ui centered'>
+                    <h2 class='ui header centered'>
+                        Bem vindo,
+                        {% if request.user.is_authenticated %}{{ request.user.first_name }}{% endif %}!
+                        <div class="sub header">
+                            Ao sistema de gestão de projetos!
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if projeto_membro %}
+        <h1 class="ui header">Projetos</h1>
+    {% endif %}
+    <div class="ui three link cards">
+        {% for projeto in projeto_membro %}
+
+            <div class="ui card">
+                <div class="image">
+                    <img src="{{ projeto.imagem.url }}">
+                </div>
+                <div class="content">
+                    <a href="/visualizar_projeto/{{ projeto.id }}" class="header">{{ projeto.nome }}</a>
+                    <div class="description">{{ projeto.descricao }}</div>
+                </div>
+                <div class="extra content">
+                    <a><i class="user icon"></i>{{ projeto.membro.all|length }} Membros </a>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {#                        {{ projeto.nome }}#}
+    {#                        {{ projeto.parceiro.nome }}#}
+    {#                        {{ projeto.cnpj }}#}
+    {##}
+    {#                        {% for p in projeto.parceiro.all %}#}
+    {#                            {{ p.nome }}#}
+    {#                        {% endfor %}#}
+
+
+    {% if projeto_coordenador %}
+        <h1 class="ui header">Coordenador</h1>
+    {% endif %}
+    <div class="ui three link cards">
+        {% for projeto in projeto_coordenador %}
+            <div class="ui card">
+                <div class="image">
+                    <img src="{{ projeto.imagem.url }}">
+                </div>
+                <div class="content">
+                    <a href="/visualizar_projeto/{{ projeto.id }}" class="header">{{ projeto.nome }}</a>
+                    <div class="description">{{ projeto.descricao }}</div>
+                </div>
+                <div class="extra content">
+                    <a><i class="user icon"></i>{{ projeto.membro.all|length }} Membros </a>
+
+                </div>
+            </div>
+
+            {#                        {{ projeto.nome }}#}
+            {#                        {{ projeto.parceiro.nome }}#}
+            {#                        {{ projeto.cnpj }}#}
+            {##}
+            {#                        {% for p in projeto.parceiro.all %}#}
+            {#                            {{ p.nome }}#}
+            {#                        {% endfor %}#}
+
+        {% endfor %}
+    </div>
+    {{ projeto_coodenador }}
+
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block titulo %}Vincular Bolsa{% endblock %}
+{% block conteudo %}
+    {% if user.is_superuser %}
+    <h1 class="ui header">
+        <div class="content">
+            Vincular Bolsa
+            <div class="sub header">Preencha o formulário abaixo</div>
+        </div>
+    </h1>
+
+    {% if msg %}
+    <div class="ui {% if msg.status %}green{% else %}error{% endif %} message">
+        <span class="header">{% if msg.status %}Sucesso!{% else %}Falhou!{% endif %}</span>
+        {{ msg.texto }}
+    </div>
+        {% if msg.status %}
+        <a href="/visualizar_bolsa/{{ bolsa.id }}/" class="ui verde_escuro fluid button">
+            Continuar
+        </a>
+        <div class="ui divider"></div>
+        {% endif %}
+    {% endif %}
+
+    <div class="ui segment">
+        <div class="ui dividing header">Informações da Bolsa</div>
+
+        <div class="ui form">
+            <div class="two fields">
+                <div class="field">
+                    <label>Codigo</label>
+                    {{ bolsa.codigo }}
+                </div>
+                <div class="field">
+                    <label>Edital</label>
+                    {{ bolsa.edital }}
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Data de Inicio</label>
+                    {{ bolsa.dt_inicio }}
+                </div>
+                <div class="field">
+                    <label>Data de Termino</label>
+                    {{ bolsa.dt_termino }}
+                </div>
+            </div>
+            <div class="three fields">
+                <div class="field">
+                    <label>Quantidade de Pagamento</label>
+                    {{ bolsa.qtd_pagamento }}
+                </div>
+                <div class="field">
+                    <label>Status</label>
+                    {{ bolsa.status }}
+                </div>
+                <div class="field">
+                    <label>Valor</label>
+                    {{ bolsa.valor}}
+                </div>
+            </div>
+        </div>
+
+        {% if form %}
+        <form class="ui form" method="POST" action="/vincular_bolsa/{{ bolsa.id }}/">{% csrf_token %}
+
+            {% if vinculo_atual %}
+            <div class="ui dividing header">Detalhes do Vínculo Atual</div>
+
+            <div class="ui message">
+                <div class="header">Atenção</div>
+                <ul class="list">
+                    <li>Esta bolsa já possui um vínculo ativo com o usuário <a href="/visualizar_usuario/{{ vinculo_atual.usuario.id }}"><strong>{{ vinculo_atual.usuario.first_name }} {{ vinculo_atual.usuario.last_name }}</strong></a>!</li>
+                    <li>No campo abaixo determine a data de término do vínculo deste usuário.</li>
+                <ul>
+            </div>
+
+            <div class="ui field">
+                <label>Data de Término do Vínculo Atual</label>
+                <div class="ui input">
+                    <input type="date" name="dt_termino_vinculo_atual" min="{{ bolsa.dt_inicio|date:"d/m/Y" }}" max="{{ bolsa.dt_termino|date:"d/m/Y" }}" placeholder="dd/mm/aaaa" required="required">
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="ui dividing header">Detalhes do Novo Vínculo</div>
+
+            <div class="ui message">
+                <span class="header">Avisos</span>
+
+                <ul class="list">
+                    <li>A criação de um novo vínculo irá <strong>desativar qualquer vínculo em vigência</strong>!</li>
+                    <li>É preciso vincular os usuários aos projetos antes de vinculá-los às bolsas.
+                    <li><strong>Lembre-se:</strong> os projetos devem estar relacionados ao <a href="/visualizar_edital/{{ bolsa.edital.id }}/">edital desta bolsa</a>!</li></li>
+                </ul>
+            </div>
+
+            <div class="ui field">
+                <label>Data de Início</label>
+                <div class="ui input">
+                    <input type="date" name="dt_inicio" min="{{ bolsa.dt_inicio|date:"d/m/Y" }}" placeholder="dd/mm/aaaa">
+                </div>
+            </div>
+
+            <div class="ui field">
+                <label>Usuário</label>
+                {{ form.usuario }}
+            </div>
+
+            <div class="ui field">
+                <label>Status do Vínculo</label>
+                <div class="ui checkbox">
+                    {{ form.status }}
+                    <label>Ativo</label>
+                </div>
+            </div>
+
+            <div class="ui divider"></div>
+            <a href="/visualizar_bolsa/{{ bolsa.id }}/" class="ui red button">Cancelar</a>
+            <input type="submit" class="ui right floated verde_escuro button" value="Víncular">
+        </form>
+        {% endif %}
+
+    </div>
+    {% endif %}
+{% endblock %}

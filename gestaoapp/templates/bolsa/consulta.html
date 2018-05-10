@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block titulo %}Consulta de Bolsa{% endblock %}
+{% block conteudo %}
+
+    <form method='POST' action='/consulta_bolsa/' class="ui form">
+        {% csrf_token %}
+        <h1 class=" ui header">Consulta bolsa</h1>
+
+        {#     	<div class="ui action input">#}
+        {#      		{{form.nome}}#}
+        {#    	    <input type="submit" value="Pesquisar" class='icon search'>#}
+        {#    	</div>#}
+    </form>
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>Codigo</th>
+            <th>Edital</th>
+            <th>Data de Inicio</th>
+            <th>Data de Termino</th>
+            <th>Bolsista</th>
+            {% if user.is_superuser %}
+                <th>Visualizar</th>
+                <th>Editar</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for bolsa in bolsas %}
+            <tr>
+                <td>{{ bolsa.codigo }}</td>
+                <td>{{ bolsa.edital }}</td>
+                <td>{{ bolsa.dt_inicio|date:"d/m/Y" }}</td>
+                <td>{{ bolsa.dt_termino|date:"d/m/Y" }}</td>
+                <td>
+                {% if bolsa.vinculos.all %}
+                    {% for bolsista in bolsa.vinculos.all %}
+                        {{ bolsista }}
+                    {% endfor %}
+                {% else %}
+
+                {% endif %}
+{#                {% for bolsista in bolsa.vinculos.all %}#}
+{#                    <td>{{ bolsista }}</td>#}
+{#                    {%  if bolsista.usuario == None %}#}
+{#                        <td> aaaa </td>#}
+{#                    {% else %}#}
+{#                        <td> {{ bolsista }}</td>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+                </td>
+                {% if user.is_superuser %}
+                    <td class="negative"><a href="../visualizar_bolsa/{{ bolsa.id }}"><i
+                            class="unhide large icon"></i></a>
+                    </td>
+                    <td><a href="{% url 'editar_bolsa' bolsa.id bolsa.edital.id %}"><i class="configure large icon"></i></a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

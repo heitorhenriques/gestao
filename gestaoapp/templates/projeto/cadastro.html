@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% block titulo %} Cadastro de Projeto{% endblock %}
+{% block conteudo %}
+
+    {% if msg %}
+        <div class="ui success message">
+            <i class="close icon"></i>
+            <div class="header">{{ msg }}</div>
+        </div>
+    {% endif %}
+
+    {% if form.errors %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">Campos Obrigatorios</div>
+            <ul class="list">
+                {% if form.nome.errors %}
+                    <li> Nome é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.imagem.errors %}
+                    <li> Imagem é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.codigo.errors %}
+                    <li> Codigo é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.tipo.errors %}
+                    <li> Tipo de Projeto é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.duracao.errors %}
+                    <li> Duração do Projeto é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.data_inicio.errors %}
+                    <li> Data de inicio de Projeto é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.data_fim.errors %}
+                    <li> Data de termino do Projeto é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.nucleo.errors %}
+                    <li> Nucleo é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.edital.errors %}
+                    <li> Edital é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.parceiro.errors %}
+                    <li> Parceiro é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.descricao.errors %}
+                    <li> Descrição é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.membros.errors %}
+                    <li> Membros é um campo obrigatorio</li>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+    {{ teste }}
+    {% if user.is_superuser %}
+        <form method='POST' enctype="multipart/form-data" class="ui form">
+            {% csrf_token %}
+            <h1 class="ui header">
+                {% if editar %}
+                    Editar Projeto
+                {% else %}
+                    Cadastro de Projeto
+                {% endif %}
+            </h1>
+            <div class="ui secondary segment">
+                <h3> Identificação do Projeto </h3>
+                <div class="campo-obrigatorio">(* Campos Obrigatorios)</div>
+                <div class="field">
+                    <label>Nome *</label>
+                    {{ form.nome }}
+                    {% if form.nome.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.nome.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label>Imagem *</label>
+                    {{ form.imagem }}
+                    {% if form.imagem.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.imagem.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="two fields">
+
+                    <div class="field">
+                        <label>Código *</label>
+                        {{ form.codigo }}
+                        {% if form.codigo.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.codigo.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="field">
+                        <label>Tipo *</label>
+                        {{ form.tipo }}
+                        {% if form.tipo.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.tipo.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+{#                <div class="field">#}
+{#                    <label>Coordenador *</label>#}
+{#                    <select id="id_coordenador" name="coordenador">#}
+{#                        {% if editar %}#}
+{#                            <option value="{{ coordenador.id }}"#}
+{#                                    selected="selected">{{ coordenador.first_name }} {{ coordenador.last_name }}</option>#}
+{#                        {% else %}#}
+{#                            <option value="" selected="selected">---------</option>#}
+{#                        {% endif %}#}
+{#                        {% for coordenador in coordenadores %}#}
+{#                            <option value="{{ coordenador.id }}">{{ coordenador.first_name }}</option>#}
+{#                        {% endfor %}#}
+{#                    </select>#}
+{#                </div>#}
+                <label class="campo-obrigatorio">(Ex. 6 = 6 meses)</label>
+                <div class="three fields">
+                    <div class="field">
+                        <label>Duração *</label>
+                        {{ form.duracao }}
+                        {% if form.duracao.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.duracao.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="field">
+                        <label>Data de Início *</label>
+
+                        {% if editar %}
+                            {{ form.data_inicio }}
+                        {% else %}
+                            <input type="date" name="data_inicio">
+                        {% endif %}
+
+                        {% if form.data_inicio.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.data_inicio.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="field">
+                        <label>Data de Término *</label>
+
+                        {% if editar %}
+                            {{ form.data_fim }}
+                        {% else %}
+                            <input type="date" name="data_fim">
+                        {% endif %}
+
+                        {% if form.data_fim.errors %}
+                            <div class="ui red red pointing label">
+                                {{ form.data_fim.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Núcleo *</label>
+                        {{ form.nucleo }}
+                        {% if form.nucleo.errors %}
+                            <div class="ui red red pointing label">
+                                {{ form.nucleo.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="field">
+                        <label>Edital</label>
+                        {{ form.edital }}
+                        {% if form.edital.errors %}
+                            <div class="ui red red pointing label">
+                                {{ form.edital.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Parceiro</label>
+                    {{ form.parceiro }}
+                    {% if form.parceiro.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.parceiro.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label>Descrição *</label>
+                    {{ form.descricao }}
+                    {% if form.descricao.errors %}
+                        <div class="ui red pointing label">
+                            {{ form.descricao.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <h3> Membros do Projeto </h3>
+                <div class="field">
+                    <label>Membros</label>
+                    {{ form.membro }}
+                    {% if form.membro.errors %}
+                        <div class="ui red red pointing label">
+                            {{ form.membro.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!--<div class="field">
+                <label>Membros *</label>
+                <select multiple id="id_membro" name="membro">
+                    {% for mem in membros %}
+                        <option value="{{mem.id}}" selected="selected">{{mem.first_name}}</option>
+                    {% endfor %}
+                </select>
+            </div> -->
+            </div>
+            <input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/>
+        </form>
+        <a href='/consulta_projeto/'>
+            <button class="ui button red">Cancelar</button>
+        </a>
+    {% else %}
+        <div class='ui centered grid'>
+            <div class='two column centered row'>
+                <div class='ui column centered'>
+                    <div class='ui centered'>
+                        <h2 class='ui header centered'>Acesso bloqueado, somente administrador.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

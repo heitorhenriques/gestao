@@ -1,0 +1,1 @@
+/home/aluno/gestao/gestao/wsgi.py

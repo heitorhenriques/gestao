@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block titulo %}Consulta de Projeto{% endblock %}
+{% block conteudo %}
+
+    <form method='POST' action='/consulta_curso/' class="ui form">
+        {% csrf_token %}
+        <h1 class="ui header">Consulta Curso</h1>
+        <div class="field">
+
+            {#        <div class="ui action input">#}
+            {#            {{form.nome}}#}
+            {#            <input type="text" placeholder="Search...">#}
+            {#            <button class="ui icon button">#}
+            {#            <i class="search icon"></i>#}
+            {#            </button>#}
+            {#        </div>#}
+
+            {#            <div class="ui action input">#}
+            {#                {{ form.nome }}#}
+            {#                <input type="submit" value="Pesquisar" class='icon search'>#}
+            {#            </div>#}
+        </div>
+    </form>
+    <div class="ui secondary segment">
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Nome do Curso</th>
+                <th>Editar</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for curso in cursos %}
+                <tr></tr>
+                <td>{{ curso.curso }}</td>
+
+                {% if user.is_superuser %}
+                    <td><a href="/editar_curso/{{ curso.id }}"><i class="configure large icon"></i></a></td>
+                {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

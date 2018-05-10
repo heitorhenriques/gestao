@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block titulo %}     Visualizar Projeto {% endblock %}
+{% block conteudo %}
+
+    {% if request.user in projeto.membro.all or user.is_superuser %}
+
+        <div class="ui segment form">
+        <h2 class="ui header">Informações do Projeto</h2>
+        <div class="field">
+            <label>Nome</label>
+            {{ projeto.nome }}
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>Codigo</label>
+                {{ projeto.codigo }}
+            </div>
+            <div class="field">
+                <label>Tipo</label>
+                {{ projeto.tipo }}
+            </div>
+        </div>
+        <div class="field">
+            <label>Coordenador</label>
+            {{ coordenacao.coordenador.get_full_name }}
+
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>Duração</label>
+                {{ projeto.duracao }}
+            </div>
+            <div class="field">
+                <label>Data de Cadastro</label>
+                {{ projeto.data_cadastro }}
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>Data de Inicio</label>
+                {{ projeto.data_inicio }}
+            </div>
+            <div class="field">
+                <label>Data de Fim</label>
+                {{ projeto.data_fim }}
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>Edital</label>
+                {% for edital in projeto.edital.all %}
+                    {{ edital.numero }}
+                {% endfor %}
+            </div>
+            <div class="field">
+                <label>Núcleo</label>
+                {% for nucleo in projeto.nucleo.all %}
+                    {{ nucleo.nome }}<br>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Parceiros</label>
+            {% for parca in projeto.parceiro.all %}
+                {{ parca.nome }}<br>
+            {% endfor %}
+
+        </div>
+        <div class="field">
+            <label>Descrição</label>
+            {{ projeto.descricao }}
+        </div>
+
+        {% if projeto.coordenador.id == request.user.id %}
+            <h2 class="ui header">Membros <a href='/editar_membro/{{ projeto.id }}'><i
+                    class="add user black icon"></i></a>
+            </h2>
+        {% else %}
+            <h2 class="ui header">Membros </h2>
+        {% endif %}
+        <div class="field">
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Vinculo</th>
+                </tr>
+                </thead>
+                {% for membros in projeto.membro.all %}
+                    <tbody>
+                    <td>{{ membros.first_name }} {{ membros.last_name }}</td>
+                    <td>{{ membros.vinculo_institucional }} </td>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+
+        <a href='/consulta_projeto/'>
+            <button class='ui red button'>Voltar</button>
+        </a>
+        {% for coord in projeto.coordenador.all %}
+
+            {% if coord.id == request.user.id or usuario.super_adm %}
+                <a href='/editar_projeto/{{ projeto.id }}'>
+                    <button class="ui button direita verde_escuro">Editar</button>
+                </a>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div class='ui centered grid'>
+            <div class='two column centered row'>
+                <div class='ui column centered'>
+                    <div class='ui centered'>
+                        <h2 class='ui header centered'>Acesso bloqueado, somente administrador.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

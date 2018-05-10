@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load get_dict_item %}
+{% block titulo %} Cadastro de Horário{% endblock %}
+{% block conteudo %}
+
+    {% if msg %}
+        <div class="ui success message">
+            <i class="close icon"></i>
+            <div class="header">{{ msg }}</div>
+        </div>
+    {% endif %}
+
+    {% if msg1 %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">{{ msg1 }}</div>
+        </div>
+    {% endif %}
+
+    {% if form.errors %}
+        <div class="ui error message">
+            <i class="close icon"></i>
+            <div class="header">Campos Obrigatorios</div>
+            <ul class="list">
+                {% if form.data.errors %}
+                    <li> Data é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.turno.errors %}
+                    <li> Turno é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.hora_inicio.errors %}
+                    <li> Hora de inicio é um campo obrigatorio</li>
+                {% endif %}
+                {% if form.hora_fim.errors %}
+                    <li> Hora de termino é um campo obrigatorio</li>
+                {% endif %}
+
+            </ul>
+        </div>
+    {% endif %}
+        <div class="ui segment">
+            <h2 class="ui header">
+                {% if edit == True %}
+                 Editar Horário
+                {% else %}
+                Cadastrar Horário
+                {% endif %}
+                <div class="sub header">
+                    Preencha o formulário abaixo
+                </div>
+            </h2>
+            <form method="POST" action="" class="ui form">{% csrf_token %}
+                <div class="fields">
+                    <div class="five wide field">
+                        <label>Dia da semana</label>
+                        {{ form.data }}
+                        {% if form.data.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.data.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="five wide field">
+                        <label>Turno</label>
+                        {{ form.turno }}
+                        {% if form.turno.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.turno.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="three wide field">
+                        <label>Entrada</label>
+                        {% if editar %}
+                            {{ form.hora_inicio }}
+                        {% else %}
+                            <input type="time" name="hora_inicio">
+                        {% endif %}
+
+                        {% if form.hora_inicio.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.hora_inicio.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="three wide field">
+                        <label>Saída</label>
+
+                        {% if editar %}
+                            {{ form.hora_fim }}
+                        {% else %}
+                            <input type="time" name="hora_fim">
+                        {% endif %}
+
+                        {% if form.hora_fim.errors %}
+                            <div class="ui red pointing label">
+                                {{ form.hora_fim.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <a href="/horario/" class="ui left labeled icon azul_escuro button"><i class="plus icon"></i>Cadastrar</a>
+                <input type="reset" class="ui button" value="Limpar"/>
+                <input type="submit" class="ui right floated verde_escuro button" value="Salvar"/>
+            </form>
+        </div>
+        {% include 'horario/tabela_horarios.html' %}
+    </div>
+{% endblock %}
