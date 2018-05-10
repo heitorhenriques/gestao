@@ -12,7 +12,6 @@ class CadastroVinculo(LoginRequiredMixin, View):
 
     template = 'vinculo/cadastro.html'
 
-<<<<<<< HEAD
     def get(self, request, vinculo_id):
         if vinculo_id:
             vinculo = Vinculo.objects.get(pk=vinculo_id)
@@ -22,19 +21,13 @@ class CadastroVinculo(LoginRequiredMixin, View):
              form = FormVinculo()
              editar = False
              vinculo = None
-=======
-    def get(self, request,vinculo_id=None):
-        if vinculo_id:
-            vinculo = Vinculo.objects.get(id=vinculo_id)
-            form = FormVinculo(instance=vinculo)
-        else:
-            form = FormVinculo()
->>>>>>> 9093c1af3455418a6067b0926236238452c86455
+
         return render(request, self.template, {
             'form': form,
             'editar' : editar,
             'vinculo' : vinculo,
         })
+
     def post(self, request):
         form = FormVinculo(data=request.POST)
         if form.is_valid():
