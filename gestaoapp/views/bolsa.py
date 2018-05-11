@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views.generic.base import View
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -84,6 +87,7 @@ class ConsultaBolsa(LoginRequiredMixin, View):
         form = Busca()
         usuario = Usuario.objects.get(pk=request.user.id)
         if usuario.super_adm == 1:
+            usuario = Usuario.objects.filter(pk=request.user.id)
             bolsa = Bolsa.objects.all()
             return render(request, self.template,
                           {'bolsas': bolsa, "form": form, "usuario": usuario})

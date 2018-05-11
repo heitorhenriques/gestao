@@ -36,12 +36,18 @@
         </div>
     {% endif %}
     {% if user.is_superuser %}
-        {% if editar %}
-        {% else %}
-              {% if qtd_bolsa_cadastradas >= edital.qtd_bolsa %}
-            <div class="ui error message">
-                <header class="header">Cadastro de Bolsa Bloqueado!</header>
-                O número de bolsas para o edital {{ edital.numero }} já foi totalmente satisfeito!
+        <form method='POST'>
+            {% csrf_token %}
+            <h1 class="ui header">
+                {% if editar %}
+                    Editar Bolsa
+                {% else %}
+                    Cadastro de Bolsa
+                {% endif %}
+            </h1>
+            {% if edital %}
+            <div class="ui large message">
+                Cadastrando bolsa para o edital <a href="/visualizar_edital/{{ edital.id }}/"><strong>{{ edital.numero }}</strong></a> de <strong>{{ edital.orgao_concedente }}</strong>
             </div>
             {% else %}
 
@@ -167,7 +173,12 @@
             </a>
             </div>
             {% endif %}
-        {% endif %}
+            <input type="submit" value="Enviar" class="ui submit button direita verde_escuro"/>
+        </form>
+        <a href='/consulta_edital/'>
+            <button class='ui red button'>Cancelar</button>
+        </a>
+        </div>
     {% else %}
         <div class='ui centered grid'>
             <div class='two column centered row'>
