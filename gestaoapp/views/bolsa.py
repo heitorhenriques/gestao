@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, redirect
-from django.views.generic.base import View
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-
-from gestaoapp.forms.bolsa import FormBolsa, FormBolsaEdit, FormBolsaPorEdital
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.views.generic.base import View
+from django.db.models import Count
+from gestaoapp.forms.bolsa import FormBolsa, FormBolsaEdit
 from gestaoapp.forms.busca import Busca
-from gestaoapp.forms.vinculo import FormVinculoBolsa
 from gestaoapp.models import Vinculo, Edital
 from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.models.usuario import Usuario
@@ -83,8 +82,8 @@ class ConsultaBolsa(LoginRequiredMixin, View):
 
     def get(self, request):
         form = Busca()
-        usuario = Usuario.objects.filter(pk=request.user.id)
-        if 1 == 1:
+        usuario = Usuario.objects.get(pk=request.user.id)
+        if usuario.super_adm == 1:
             bolsa = Bolsa.objects.all()
             return render(request, self.template,
                           {'bolsas': bolsa, "form": form, "usuario": usuario})
@@ -131,6 +130,6 @@ def get_edital(edital_id):
 
 
 def quantidade_bolsas(edital_id):
-    return Bolsa.objects.filter(edital=edital_id.count())
+    return Bolsa.objects.filter(edital=edital_id).count()
 
 

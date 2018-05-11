@@ -80,7 +80,7 @@ urlpatterns = [
     url(r'^visualizar_parceiro/(?P<parceiro_id>\d+)/$', VisualizarParceiro.as_view()),
 
     url(r'^bolsa/$', CadastroBolsa.as_view()),
-    url(r'^editar_bolsa/(?P<bolsa_id>\d+)/$', CadastroBolsa.as_view(), name='editar_bolsa'),
+    url(r'^editar_bolsa/(?P<bolsa_id>\d+)/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='editar_bolsa'),
     url(r'^bolsa/edital/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='bolsa_por_edital'),
     url(r'^consulta_bolsa/', ConsultaBolsa.as_view(), name='consultar_bolsa'),
     url(r'^visualizar_bolsa/(?P<bolsa_id>\d+)/$', VisualizarBolsa.as_view()),

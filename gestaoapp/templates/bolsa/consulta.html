@@ -53,7 +53,7 @@
                     <td class="negative"><a href="../visualizar_bolsa/{{ bolsa.id }}"><i
                             class="unhide large icon"></i></a>
                     </td>
-                    <td><a href="{% url 'editar_bolsa' bolsa.id %}"><i class="configure large icon"></i></a></td>
+                    <td><a href="{% url 'editar_bolsa' bolsa.id bolsa.edital.id %}"><i class="configure large icon"></i></a></td>
                 {% endif %}
             </tr>
         {% endfor %}
