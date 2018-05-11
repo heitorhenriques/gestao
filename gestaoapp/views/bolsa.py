@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
-from django.shortcuts import render, redirect
-from django.views.generic.base import View
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect

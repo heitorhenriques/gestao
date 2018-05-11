@@ -81,23 +81,17 @@ urlpatterns = [
     url(r'^bolsa/$', CadastroBolsa.as_view()),
     url(r'^editar_bolsa/(?P<bolsa_id>\d+)/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='editar_bolsa'),
     url(r'^bolsa/edital/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='bolsa_por_edital'),
-<<<<<<< HEAD
-=======
+
     url(r'^consulta_bolsa/', ConsultaBolsa.as_view()),
     url(r'^editar_bolsa/(?P<bolsa_id>\d+)/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='editar_bolsa'),
-    url(r'^editar_bolsa/(?P<bolsa_id>\d+)/$', CadastroBolsa.as_view(), name='editar_bolsa'),
     url(r'^bolsa/edital/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='bolsa_por_edital'),
->>>>>>> a814f5415da9f060acec81bf0961ef5499647d61
     url(r'^consulta_bolsa/', ConsultaBolsa.as_view(), name='consultar_bolsa'),
     url(r'^visualizar_bolsa/(?P<bolsa_id>\d+)/$', VisualizarBolsa.as_view()),
 
     url(r'^vinculo/', CadastroVinculo.as_view()),
     url(r'^vincular_bolsa/(?P<bolsa_id>\d+)/$', CadastroVinculoBolsa.as_view()),
-<<<<<<< HEAD
-=======
-    #url(r'^editar_vinculo/', CadastroVinculo.as_view())
+
     url(r'^editar_vinculo/(?P<vinculo_id>\d+)/$', CadastroVinculo.as_view(), name='editar_vinculo'),
->>>>>>> a814f5415da9f060acec81bf0961ef5499647d61
     url(r'^editar_vinculo/(?P<vinculo_id>\d+)', CadastroVinculo.as_view(), name='editar_vinculo'),
 
     url(r'^log_cadastro/', LogCadastro.as_view()),
