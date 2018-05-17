@@ -3,7 +3,6 @@ from django.db import models
 
 from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.models.usuario import Usuario
-from gestaoapp.models.pagamentos import Pagamentos
 
 
 class Vinculo(models.Model):

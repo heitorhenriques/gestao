@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.base import View
-from django.db.models import Count
 from gestaoapp.forms.bolsa import FormBolsa, FormBolsaEdit
 from gestaoapp.forms.busca import Busca
 from gestaoapp.models import Vinculo, Edital
