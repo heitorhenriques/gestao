@@ -9,6 +9,7 @@ from gestaoapp.forms.pagamento import FormPagamento
 
 class CadastroPagamento(LoginRequiredMixin,View):
     template = 'pagamentos/cadastro.html'
+
     def get(self,request,pagamento_id=None):
 
         context_dict = {}
@@ -50,3 +51,11 @@ class CadastroPagamento(LoginRequiredMixin,View):
 
         return render(request,self.template,context_dict)
 
+
+class ConsultaPagamento(LoginRequiredMixin, View):
+    template = 'pagamentos/consulta.html'
+
+    def get(self,request):
+        pagamentos = Pagamentos.objects.all()
+
+        return render(request, self.template, {'pagamentos': pagamentos})

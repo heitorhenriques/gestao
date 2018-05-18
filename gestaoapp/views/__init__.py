@@ -16,6 +16,7 @@ from gestaoapp.views.usuario import CadastroUsuario, ConsultaUsuario, Visualizar
     LiberarUsuario, BloquearUsuario, AdmOn, AdmOff
 from gestaoapp.views.vinculo import CadastroVinculo, CadastroVinculoBolsa
 from gestaoapp.views.logcadastro import LogCadastro
+from gestaoapp.views.pagamentos import CadastroPagamento, ConsultaPagamento
 
 
 def sucesso(request):

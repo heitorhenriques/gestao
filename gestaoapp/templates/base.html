@@ -87,6 +87,11 @@
                             <a class="item" href="/consulta_parceiro"><i class="search icon branco"></i>Consulta</a>
                         </div>
                     </div>
+                    <div class="ui dropdown item">Pagamentos<i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="{% url 'consultar_pagamento' %}"><i class="search icon branco"></i>Consulta</a>
+                        </div>
+                    </div>
                     {% if user.is_superuser %}
                         <div class="ui dropdown item">Curso<i class="dropdown icon"></i>
                             <div class="menu">
@@ -120,7 +125,7 @@
                                 Usuário</a>
                             <a class="item" href="/alterar_senha/"><i class="configure icon"></i>Alterar Senha</a>
                             <a class="item" href="/horario"><i class="add square icon"></i> Cadastro Horario</a>
-                            <a class="item" href="#"><i class="add square icon"></i>Cadastrar Pagamento</a>
+                            <a class="item" href="{% url 'cadastrar_pagamento' %}"><i class="add square icon"></i> Cadastrar Pagamento</a>
                             <a class="item" href="/logout"><i class='ui icon sign out'></i>Sair</a>
                         </div>
                     </div>
