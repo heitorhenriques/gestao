@@ -2,6 +2,7 @@
 {% block titulo %}Consulta de Bolsa{% endblock %}
 {% block conteudo %}
 
+
     <table class="ui celled table">
         <thead>
         <tr>
@@ -12,15 +13,10 @@
         <tbody>
         {% for pagamento in pagamentos %}
             <tr>
-                {% if pagamento.vinculo.all %}
-                    {% for vinculo in pagamento.vinculo.all %}
-                        <td>{{ vinculo }}</td>
-                    {% endfor %}
-                {% endif %}
+                <td>{{ pagamento.vinculo }}</td>
                 <td>{{ pagamento.dt_pagamento|date:"d/m/Y" }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
 {% endblock %}

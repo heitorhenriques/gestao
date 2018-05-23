@@ -49,7 +49,7 @@ class CadastroPagamento(LoginRequiredMixin,View):
 
         context_dict['form'] = form
 
-        return render(request,self.template,context_dict)
+        return render(request, self.template, context_dict)
 
 
 class ConsultaPagamento(LoginRequiredMixin, View):
