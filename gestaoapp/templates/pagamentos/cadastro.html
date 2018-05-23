@@ -2,11 +2,14 @@
 {% block titulo %} Cadastro de Bolsa{% endblock %}
 {% block conteudo %}
 
-    <form action="" method="post">{% csrf_token %}
+    <form action="" method="post">
+        {% csrf_token %}
         {% if editar %}
             {{ form.dt_pagamento }}
         {% else %}
-            <input type="date" placeholder="dd/mm/YY">
+{#            {{ form.dt_pagamento }}#}
+
+            <input id="id_dt_pagamento" name="dt_pagamento" type="date" placeholder="dd/mm/YY">
         {% endif %}
         {{ form.vinculo }}
         <input type="submit">

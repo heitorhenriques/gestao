@@ -3,10 +3,10 @@
 from django.db import models
 from gestaoapp.models.vinculo import Vinculo
 
-class Pagamentos(models.Model):
 
+class Pagamentos(models.Model):
     dt_pagamento = models.DateField(null=True, blank=True)
     vinculo = models.ForeignKey(Vinculo)
 
     def __str__(self):
-        return self.dt_pagamento
+        return ('%s %s %s' % (self.dt_pagamento, self.vinculo, self.vinculo.bolsa))

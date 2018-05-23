@@ -49,8 +49,8 @@ class Migration(migrations.Migration):
             name='Coordenacao',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('dt_inicio', models.DateField(null=True, auto_created=True, blank=True)),
                 ('status', models.BooleanField(default=True)),
-                ('dt_inicio', models.DateField(null=True, blank=True)),
                 ('dt_termino', models.DateField(null=True, blank=True)),
             ],
         ),
@@ -102,6 +102,13 @@ class Migration(migrations.Migration):
                 ('sigla', models.CharField(max_length=5)),
                 ('descricao', models.TextField()),
                 ('data_hora_cadastro', models.DateTimeField(auto_now=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Pagamentos',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('dt_pagamento', models.DateField(null=True, blank=True)),
             ],
         ),
         migrations.CreateModel(
@@ -247,6 +254,11 @@ class Migration(migrations.Migration):
             model_name='parceiro',
             name='responsavel_cadastro',
             field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
+        ),
+        migrations.AddField(
+            model_name='pagamentos',
+            name='vinculo',
+            field=models.ForeignKey(to='gestaoapp.Vinculo'),
         ),
         migrations.AddField(
             model_name='nucleo',

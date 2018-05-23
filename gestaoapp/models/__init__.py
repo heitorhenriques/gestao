@@ -18,3 +18,4 @@ from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.models.vinculo import Vinculo
 from gestaoapp.models.coordenacao import Coordenacao
 
+from gestaoapp.models.pagamentos import Pagamentos
