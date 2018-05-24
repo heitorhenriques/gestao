@@ -42,6 +42,7 @@ class Command(BaseCommand):
             username=u'Heitor',
             email=u'heitor@a.com'
         )
+        usuario1.is_superuser = 'True'
         usuario1.set_password(u'Heitor')
         usuario1.save()
 

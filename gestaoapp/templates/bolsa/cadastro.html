@@ -45,10 +45,11 @@
                     Cadastro de Bolsa
                 {% endif %}
             </h1>
-            {% if edital %}
-            <div class="ui large message">
-                Cadastrando bolsa para o edital <a href="/visualizar_edital/{{ edital.id }}/"><strong>{{ edital.numero }}</strong></a> de <strong>{{ edital.orgao_concedente }}</strong>
-            </div>
+                {% if edital %}
+                <div class="ui large message">
+                    Cadastrando bolsa para o edital <a href="/visualizar_edital/{{ edital.id }}/"><strong>{{ edital.numero }}</strong></a> de <strong>{{ edital.orgao_concedente }}</strong>
+                </div>
+                {% endif %}
                 <div class="ui secondary segment">
                     <div class="ui form">
                         <div class="field">
@@ -143,7 +144,6 @@
                 <button class='ui red button'>Cancelar</button>
             </a>
             </div>
-            {% endif %}
         </form>
     {% else %}
         <div class='ui centered grid'>

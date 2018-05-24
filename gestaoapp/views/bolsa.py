@@ -83,7 +83,7 @@ class ConsultaBolsa(LoginRequiredMixin, View):
         form = Busca()
         usuario = Usuario.objects.get(pk=request.user.id)
         if usuario.super_adm == 1:
-            usuario = Usuario.objects.filter(pk=request.user.id)
+            usuario = Usuario.objects.get(pk=request.user.id)
             bolsa = Bolsa.objects.all()
             return render(request, self.template,
                           {'bolsas': bolsa, "form": form, "usuario": usuario})

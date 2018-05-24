@@ -77,7 +77,7 @@ urlpatterns = [
     url(r'^consulta_parceiro/', ConsultaParceiro.as_view()),
     url(r'^visualizar_parceiro/(?P<parceiro_id>\d+)/$', VisualizarParceiro.as_view()),
 
-    url(r'^bolsa/$', CadastroBolsa.as_view()),
+    url(r'^bolsa/$', CadastroBolsa.as_view(), name='cadastrar_bolsa'),
     url(r'^editar_bolsa/(?P<bolsa_id>\d+)/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='editar_bolsa'),
     url(r'^bolsa/edital/(?P<edital_id>\d+)/$', CadastroBolsa.as_view(), name='bolsa_por_edital'),
 
@@ -91,7 +91,6 @@ urlpatterns = [
     url(r'^vincular_bolsa/(?P<bolsa_id>\d+)/$', CadastroVinculoBolsa.as_view()),
 
     url(r'^editar_vinculo/(?P<vinculo_id>\d+)/$', CadastroVinculo.as_view(), name='editar_vinculo'),
-    url(r'^editar_vinculo/(?P<vinculo_id>\d+)', CadastroVinculo.as_view(), name='editar_vinculo'),
 
     url(r'^cadastrar_pagamento/$', CadastroPagamento.as_view(), name='cadastrar_pagamento'),
     url(r'^editar_pagamento/(?P<pagamento_id>\d+)$', CadastroPagamento.as_view(), name='editar_pagamento'),

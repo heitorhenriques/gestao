@@ -8,7 +8,11 @@
             <div class="header">{{ msg }}</div>
         </div>
     {% endif %}
-
+                {% if vinculo %}
+                    <div class="ui large message">
+                        Cadastrando pagamento para o vinculo <a href="{% url 'editar_vinculo' vinculo_id %}"><strong>{{ vinculo_id }}</strong></a>
+                    </div>
+                {% endif %}
     <form action="" method="post">
         {% csrf_token %}
         {% if editar %}
