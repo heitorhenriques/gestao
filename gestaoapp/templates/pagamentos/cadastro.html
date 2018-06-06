@@ -10,7 +10,7 @@
     {% endif %}
                 {% if vinculo %}
                     <div class="ui large message">
-                        Cadastrando pagamento para o vinculo <a href="{% url 'editar_vinculo' vinculo_id %}"><strong>{{ vinculo_id }}</strong></a>
+                        Cadastrando pagamento para o vinculo <a href="#"><strong>{{ vinculo.bolsa }}</strong></a>
                     </div>
                 {% endif %}
     <form action="" method="post">
@@ -21,6 +21,7 @@
             <input name="dt_pagamento" type="date" placeholder="dd/mm/YY">
         {% endif %}
         {{ form.vinculo }}
+        {{ form.valor }}
         <input type="submit">
     </form>
 

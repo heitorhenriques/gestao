@@ -89,11 +89,10 @@ urlpatterns = [
 
     url(r'^vinculo/', CadastroVinculo.as_view()),
     url(r'^vincular_bolsa/(?P<bolsa_id>\d+)/$', CadastroVinculoBolsa.as_view()),
-
-    url(r'^editar_vinculo/(?P<vinculo_id>\d+)/$', CadastroVinculo.as_view(), name='editar_vinculo'),
+    url(r'^editar_vinculo/(?P<vinculo_id>\d+)$', CadastroVinculo.as_view(), name='editar_vinculo'),
 
     url(r'^cadastrar_pagamento/$', CadastroPagamento.as_view(), name='cadastrar_pagamento'),
-    url(r'^editar_pagamento/(?P<pagamento_id>\d+)$', CadastroPagamento.as_view(), name='editar_pagamento'),
+    url(r'^editar_pagamento/(?P<pagamento_id>\d+)/$', CadastroPagamento.as_view(), name='editar_pagamento'),
     url(r'^consulta_pagamento/$', ConsultaPagamento.as_view(), name='consultar_pagamento'),
 
     url(r'^log_cadastro/', LogCadastro.as_view()),

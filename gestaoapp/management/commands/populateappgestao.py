@@ -99,7 +99,8 @@ class Command(BaseCommand):
 
         pagamento, created = Pagamentos.objects.get_or_create(
             dt_pagamento = datetime.date.today(),
-            vinculo = vinculo
+            vinculo = vinculo,
+            valor = u'200,00'
         )
         pagamento.save()
 

@@ -8,6 +8,8 @@
         <tr>
             <th>Vinculo</th>
             <th>Data Pagamento</th>
+            <th>Valor</th>
+            <th>Editar</th>
         </tr>
         </thead>
         <tbody>
@@ -15,6 +17,8 @@
             <tr>
                 <td>{{ pagamento.vinculo }}</td>
                 <td>{{ pagamento.dt_pagamento|date:"d/m/Y" }}</td>
+            <td>{{ pagamento.valor }}</td>
+            <td><a href="#"><i class="configure large icon"></i></a></td>
             </tr>
         {% endfor %}
         </tbody>
