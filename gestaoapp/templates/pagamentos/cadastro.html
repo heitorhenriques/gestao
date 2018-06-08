@@ -10,18 +10,28 @@
     {% endif %}
                 {% if vinculo %}
                     <div class="ui large message">
-                        Cadastrando pagamento para o vinculo <a href="#"><strong>{{ vinculo.bolsa }}</strong></a>
-                    </div>
+                    {% if editar %}
+                        Editar pagamento para o vinculo <a href="#"><strong>{{ vinculo.bolsa }}</strong></a>
+                    {% else %}
+                        Cadatrar pagamento para o vinculo <a href="#"><strong>{{ vinculo.bolsa }}</strong></a>
+                    {% endif %}
+                        </div>
                 {% endif %}
     <form action="" method="post">
         {% csrf_token %}
         {% if editar %}
+            <label for="dt_pagamento">Data de Pagamento</label>
             {{ form.dt_pagamento }}
+            <label for="valor">Valor recebido</label>
+            {{ form.valor }}
         {% else %}
+              <label for="dt_pagamento">Data de Pagamento</label>
             <input name="dt_pagamento" type="date" placeholder="dd/mm/YY">
+             <label for="valor">Valor recebido</label>
+            <input type="number">
         {% endif %}
+        <label for="vinculo">Vinculo</label>
         {{ form.vinculo }}
-        {{ form.valor }}
         <input type="submit">
     </form>
 

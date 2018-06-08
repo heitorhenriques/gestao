@@ -12,13 +12,13 @@ from gestaoapp.models.usuario import Usuario
 class CadastroPagamento(LoginRequiredMixin, View):
     template = 'pagamentos/cadastro.html'
 
-    def get(self, request, pagamento_id=None,vinculo_id=None):
+    def get(self, request, pagamento_id=None):
 
         context_dict = {}
         usuario = Usuario.objects.get(id=request.user.id)
         vinculo = Vinculo.objects.get(usuario=usuario)
         if pagamento_id:
-            pagamento = Pagamentos.objects.filter(id=pagamento_id)
+            pagamento = Pagamentos.objects.get(id=pagamento_id)
             form = FormPagamento(instance=pagamento)
             editar = True
 
@@ -37,12 +37,12 @@ class CadastroPagamento(LoginRequiredMixin, View):
 
         if pagamento_id:
             pagamento = Pagamentos.objects.get(id=pagamento_id)
-            form = FormPagamento(instance=pagamento, data=request.POST)
+            form = FormPagamento(instance=pagamento)
 
         else:
             form = FormPagamento(request.POST)
 
-        if form.is_valid():
+        if form.is_valid(): #TODO form deu errado
             form.save()
             msg = 'Operação realizada com sucesso'
 
@@ -64,8 +64,9 @@ class ConsultaPagamento(LoginRequiredMixin, View):
         if usuario.super_adm == 1:
             context_dict['pagamentos'] = Pagamentos.objects.all()
 
-        if vinculo:
-            context_dict['pagamentos'] = Pagamentos.objects.filter(vinculo=vinculo)
+        else:
+            if vinculo:
+                context_dict['pagamentos'] = Pagamentos.objects.filter(vinculo=vinculo)
 
         return render(request, self.template, context_dict)
 
