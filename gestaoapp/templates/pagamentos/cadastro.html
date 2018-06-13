@@ -19,19 +19,16 @@
                 {% endif %}
     <form action="" method="post">
         {% csrf_token %}
-        {% if editar %}
-            <label for="dt_pagamento">Data de Pagamento</label>
-            {{ form.dt_pagamento }}
-            <label for="valor">Valor recebido</label>
+        <label>Data de Pagamento</label>
+            {% if editar %}
+                {{ form.dt_pagamento }}
+            {% else %}
+                <input type="date" name="dt_pagamento" placeholder="dd/mm/YY">
+            {% endif %}
+            <label>Valor recebido</label>
             {{ form.valor }}
-        {% else %}
-              <label for="dt_pagamento">Data de Pagamento</label>
-            <input name="dt_pagamento" type="date" placeholder="dd/mm/YY">
-             <label for="valor">Valor recebido</label>
-            <input type="number">
-        {% endif %}
-        <label for="vinculo">Vinculo</label>
-        {{ form.vinculo }}
+        <label>Vinculo do Pagamento</label>
+            {{ form.vinculo }}
         <input type="submit">
     </form>
 

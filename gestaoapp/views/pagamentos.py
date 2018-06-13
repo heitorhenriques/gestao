@@ -15,8 +15,7 @@ class CadastroPagamento(LoginRequiredMixin, View):
     def get(self, request, pagamento_id=None):
 
         context_dict = {}
-        usuario = Usuario.objects.get(id=request.user.id)
-        vinculo = Vinculo.objects.get(usuario=usuario)
+        vinculo = get_vinculo(request.user.id)
         if pagamento_id:
             pagamento = Pagamentos.objects.get(id=pagamento_id)
             form = FormPagamento(instance=pagamento)
@@ -37,18 +36,19 @@ class CadastroPagamento(LoginRequiredMixin, View):
 
         if pagamento_id:
             pagamento = Pagamentos.objects.get(id=pagamento_id)
-            form = FormPagamento(instance=pagamento)
+            form = FormPagamento(instance=pagamento, data=request.POST)
 
         else:
             form = FormPagamento(request.POST)
-
-        if form.is_valid(): #TODO form deu errado
-            form.save()
+        print form
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.vinculo = get_vinculo(request.user.id)
+            post.save()
             msg = 'Operação realizada com sucesso'
 
             context_dict['msg'] = msg
             form = FormPagamento()
-
         context_dict['form'] = form
 
         return render(request, self.template, context_dict)
@@ -71,8 +71,9 @@ class ConsultaPagamento(LoginRequiredMixin, View):
         return render(request, self.template, context_dict)
 
 
-def get_vinculo(vinculo_id):
+def get_vinculo(id_usuario):
     try:
-        return Vinculo.objects.get(pk=vinculo_id)
+        usuario = Usuario.objects.get(id=id_usuario)
+        return Vinculo.objects.get(usuario=usuario)
     except:
         return None
