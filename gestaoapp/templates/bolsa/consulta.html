@@ -40,14 +40,6 @@
                 {% else %}
 
                 {% endif %}
-{#                {% for bolsista in bolsa.vinculos.all %}#}
-{#                    <td>{{ bolsista }}</td>#}
-{#                    {%  if bolsista.usuario == None %}#}
-{#                        <td> aaaa </td>#}
-{#                    {% else %}#}
-{#                        <td> {{ bolsista }}</td>#}
-{#                    {% endif %}#}
-{#                {% endfor %}#}
                 </td>
                 {% if user.is_superuser %}
                     <td class="negative"><a href="../visualizar_bolsa/{{ bolsa.id }}"><i

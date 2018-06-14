@@ -28,8 +28,13 @@ class CadastroVinculo(LoginRequiredMixin, View):
             'vinculo' : vinculo,
         })
 
-    def post(self, request):
-        form = FormVinculo(data=request.POST)
+    def post(self, request,vinculo_id):
+        if vinculo_id:
+            vinculo = Vinculo.objects.get(id=vinculo_id)
+            form = FormVinculo(instance=vinculo,data=request.POST)
+        else:
+            form = FormVinculo(request.POST)
+            
         if form.is_valid():
             form.save()
             msg = 'Operação realizada com sucesso'

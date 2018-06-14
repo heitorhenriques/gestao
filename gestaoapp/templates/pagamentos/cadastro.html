@@ -21,7 +21,7 @@
         {% csrf_token %}
         <label>Data de Pagamento</label>
             {% if editar %}
-                {{ form.dt_pagamento }}
+                {{ form.dt_pagamento}}
             {% else %}
                 <input type="date" name="dt_pagamento" placeholder="dd/mm/YY">
             {% endif %}

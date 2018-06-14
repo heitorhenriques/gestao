@@ -5,6 +5,7 @@ from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.models.usuario import Usuario
 
 
+
 class Vinculo(models.Model):
 
     status = models.BooleanField(default=True)
