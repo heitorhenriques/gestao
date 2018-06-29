@@ -7,6 +7,7 @@ from gestaoapp.models.pagamentos import Pagamentos
 from gestaoapp.forms.pagamento import FormPagamento
 from gestaoapp.models.vinculo import Vinculo
 from gestaoapp.models.usuario import Usuario
+from django.http import HttpResponseRedirect
 
 
 class CadastroPagamento(LoginRequiredMixin, View):
@@ -16,17 +17,24 @@ class CadastroPagamento(LoginRequiredMixin, View):
 
         context_dict = {}
         vinculo = get_vinculo(request.user.id)
-        if pagamento_id:
-            pagamento = Pagamentos.objects.get(id=pagamento_id)
-            form = FormPagamento(instance=pagamento)
-            editar = True
+        if vinculo:
 
+            if pagamento_id:
+                pagamento = Pagamentos.objects.get(id=pagamento_id)
+                form = FormPagamento(instance=pagamento)
+                editar = True
+
+            else:
+                form = FormPagamento()
+                editar = False
+
+            context_dict['form'] = form
+            context_dict['editar'] = editar
         else:
-            form = FormPagamento()
-            editar = False
+            msg = "Cadastro de Pagamentos só para alunos"
+            context_dict['m'] = msg
+            HttpResponseRedirect('consulta_pagamento')
 
-        context_dict['form'] = form
-        context_dict['editar'] = editar
         context_dict['vinculo'] = vinculo
 
         return render(request, self.template, context_dict)
@@ -40,7 +48,6 @@ class CadastroPagamento(LoginRequiredMixin, View):
 
         else:
             form = FormPagamento(request.POST)
-        print form
         if form.is_valid():
             post = form.save(commit=False)
             post.vinculo = get_vinculo(request.user.id)

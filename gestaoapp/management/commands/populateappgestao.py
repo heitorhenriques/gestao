@@ -46,6 +46,22 @@ class Command(BaseCommand):
         usuario1.set_password(u'Heitor')
         usuario1.save()
 
+        usuario2, created = Usuario.objects.get_or_create(
+            vinculo_institucional=u'Professor',
+            matricula=u'88979',
+            foto=u'jvnsnv',
+            carga_horaria=u'98',
+            telefone1=u'3727284',
+            desc=u'bnvbsiaej',
+            first_name=u'Nicholas',
+            last_name=u'Silva',
+            username=u'nicholas',
+            email=u'heitor@a.com'
+        )
+        usuario2.is_superuser = '1'
+        usuario2.set_password(u'nicholas')
+        usuario2.save()
+
         edital, created = Edital.objects.get_or_create(
             numero= u'451521',
             orgao_concedente= u'jnfaufai',
@@ -100,7 +116,7 @@ class Command(BaseCommand):
         pagamento, created = Pagamentos.objects.get_or_create(
             dt_pagamento = datetime.date.today(),
             vinculo = vinculo,
-            valor = u'200,00'
+            valor = u'200.00',
         )
         pagamento.save()
 
