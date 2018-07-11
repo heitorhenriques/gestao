@@ -8,6 +8,7 @@ from gestaoapp.forms.pagamento import FormPagamento
 from gestaoapp.models.vinculo import Vinculo
 from gestaoapp.models.usuario import Usuario
 from django.http import HttpResponseRedirect
+from datetime import datetime
 
 
 class CadastroPagamento(LoginRequiredMixin, View):
@@ -84,3 +85,12 @@ def get_vinculo(id_usuario):
         return Vinculo.objects.get(usuario=usuario)
     except:
         return None
+
+def verificacao_pagamento(vinculo):
+    dt_atual = datetime.now()
+    if vinculo:
+        pagamentos = Pagamentos.objects.get(vinculo=vinculo)
+        ult_dt = pagamentos.dt_pagamento('ultima dt postada')
+
+    if dt_atual.month > ult_dt.month:
+        print "Voce ainda nao cadastrou nenhuma data"
