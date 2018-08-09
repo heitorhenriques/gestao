@@ -1,22 +1,21 @@
 from gestaoapp.models.pagamentos import Pagamentos
 from datetime import datetime
 
+def verifica():
 
-data = datetime.now()
-pagamentos = Pagamentos.objects.all()
-prox_mes = data.month + 1
-usuarios = []
-dias_atrasos = []
-
-
-for pagamento in pagamentos:
-    if pagamento.dt_pagamento.month == prox_mes:
-        msg = 'Tudo certo'
-    else:
-        dias_atrasos = data.day
-        usuarios = pagamento.vinculo.usuario
+ data = datetime.now()
+ pagamentos = Pagamentos.objects.all()
+ mes_antes = data.month -1
 
 
-for dia_atrasos,usuario in dias_atrasos,usuarios:
+ for pagamento in pagamentos:
+     if pagamento.dt_pagamento.month == data.month:
+        print 'Tudo certo'
 
-    print ('Usuario % esta % dias atrasado' % (dia_atrasos, usuario))
+     else:
+         if pagamento.dt_pagamento.month == mes_antes:
+            print ('Usuario %s esta atrasado' % (pagamento.vinculo.usuario.first_name))
+
+
+
+

@@ -28,7 +28,6 @@ class CadastroPagamento(LoginRequiredMixin, View):
             else:
                 form = FormPagamento()
                 editar = False
-
             context_dict['form'] = form
             context_dict['editar'] = editar
         else:

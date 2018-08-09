@@ -96,15 +96,6 @@ class Command(BaseCommand):
         bolsa.save()
 
         vinculo, created = Vinculo.objects.get_or_create(
-            status = u'True',
-            dt_inicio = datetime.date.today(),
-            dt_termino = datetime.date.today(),
-            bolsa = bolsa,
-            usuario= usuario1,
-        )
-        vinculo.save()
-
-        vinculo, created = Vinculo.objects.get_or_create(
             status=u'True',
             dt_inicio=datetime.date.today(),
             dt_termino=datetime.date.today(),
