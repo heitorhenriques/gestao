@@ -100,7 +100,7 @@ class Command(BaseCommand):
             dt_inicio = datetime.date.today(),
             dt_termino = datetime.date.today(),
             bolsa = bolsa,
-            usuario= usuario1,
+            usuario= usuario2,
         )
         vinculo.save()
 
