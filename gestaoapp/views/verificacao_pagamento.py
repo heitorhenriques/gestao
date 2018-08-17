@@ -1,5 +1,6 @@
 from gestaoapp.models.pagamentos import Pagamentos
 from datetime import datetime
+from django.core.mail import send_mail
 
 
 def verifica():
@@ -13,8 +14,13 @@ def verifica():
             print 'Tudo certo'
         else:
             if pagamento.dt_pagamento.month == mes_antes:
-                print ('Usuario %s esta atrasado' % pagamento.vinculo.usuario.first_name)
-
+                send_mail(
+                    'Teste',
+                    'Ola, tudo bem',
+                    'orapideks@gmail.com',
+                    ['heiitorheenrique@gmail.com'],
+                    fail_silently=False,
+                )
 
 
 
