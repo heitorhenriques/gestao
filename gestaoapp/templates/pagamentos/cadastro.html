@@ -16,27 +16,44 @@
 
         {% endif %}
                 {% if vinculo %}
+<div class="ui segment">
                     <div class="ui large message">
                     {% if editar %}
-                        Editar pagamento para o vinculo <a href="#"><strong>{{ vinculo.bolsa }}</strong></a>
+                        <h2 class="ui header">Editar pagamento para o vinculo</h2> <a href="#"><strong>{{ vinculo.bolsa }}</strong></a>
                     {% else %}
-                        Cadatrar pagamento para o vinculo <a href="#"><strong>{{ vinculo.bolsa }}</strong></a>
+                        <h2 class="ui header">Cadatrar pagamento para o vinculo <a href="#"><strong>{{ vinculo.bolsa }}</strong></a>
+                        <div class="sub header">Preencha o formulário abaixo</div></h2>
                     {% endif %}
                         </div>
                 {% endif %}
-    <form action="" method="post">
+    <form action="" method="post" class="ui form">
         {% csrf_token %}
+
+        <div class="fields">
+        <div class="five wide field">
         <label>Data de Pagamento</label>
             {% if editar %}
                 {{ form.dt_pagamento}}
             {% else %}
                 <input type="date" name="dt_pagamento" placeholder="dd/mm/YY">
             {% endif %}
+        </div>
+
+        <div class="three wide field">
             <label>Valor recebido</label>
             {{ form.valor }}
+        </div>
+
+        <div class="five wide field">
         <label>Vinculo do Pagamento</label>
                 {{ form.vinculo}}
-        <input type="submit">
+        </div>
+        </div>
+
+        <input type="submit" class="ui right floated verde_escuro button" value="Enviar"/>
+        <br>
+        <br>
     </form>
+</div>
     {% endif %}
 {% endblock %}
