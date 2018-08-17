@@ -43,6 +43,7 @@ class Command(BaseCommand):
             email=u'heitor@a.com'
         )
         usuario1.is_superuser = '1'
+        usuario1.super_adm = '1'
         usuario1.set_password(u'Heitor')
         usuario1.save()
 

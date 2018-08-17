@@ -14,3 +14,7 @@ def verifica():
         else:
             if pagamento.dt_pagamento.month == mes_antes:
                 print ('Usuario %s esta atrasado' % pagamento.vinculo.usuario.first_name)
+
+
+
+
