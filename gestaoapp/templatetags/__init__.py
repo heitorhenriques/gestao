@@ -1,1 +1,1 @@
-from get_dict_item import get_dict_item
+from . import get_dict_item

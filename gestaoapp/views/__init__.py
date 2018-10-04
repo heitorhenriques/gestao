@@ -17,7 +17,7 @@ from gestaoapp.views.usuario import CadastroUsuario, ConsultaUsuario, Visualizar
 from gestaoapp.views.vinculo import CadastroVinculo, CadastroVinculoBolsa
 from gestaoapp.views.logcadastro import LogCadastro
 from gestaoapp.views.pagamentos import CadastroPagamento, ConsultaPagamento
-from gestaoapp.views.verificacao_pagamento import verifica
+from .verificacao_pagamento import verifica
 
 
 def sucesso(request):

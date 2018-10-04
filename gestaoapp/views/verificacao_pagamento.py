@@ -1,17 +1,19 @@
+from django.http import HttpResponse, HttpResponseRedirect
+
 from gestaoapp.models.pagamentos import Pagamentos
 from datetime import datetime
 from django.core.mail import send_mail
 
 
-def verifica():
-
+def verifica(request):
+    print('teste')
     data = datetime.now()
     mes_antes = data.month - 1
     pagamentos = Pagamentos.objects.all()
 
     for pagamento in pagamentos:
         if pagamento.dt_pagamento.month == data.month:
-            print 'Tudo certo'
+            print('Tudo certo')
         else:
             if pagamento.dt_pagamento.month == mes_antes:
                 send_mail(
@@ -21,6 +23,4 @@ def verifica():
                     ['heiitorheenrique@gmail.com'],
                     fail_silently=False,
                 )
-
-
-
+    return HttpResponseRedirect('/home/')
