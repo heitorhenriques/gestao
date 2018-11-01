@@ -12,5 +12,4 @@ class Pagamentos(models.Model):
     def __str__(self):
         return ('%s %s %s' % (self.dt_pagamento, self.vinculo, self.vinculo.bolsa))
 
-    #TODO fazer nova funcionalidade
 

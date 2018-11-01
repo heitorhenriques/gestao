@@ -17,8 +17,9 @@ class CadastroPagamento(LoginRequiredMixin, View):
 
         context_dict = {}
         vinculo = get_vinculo(request.user.id)
-        if vinculo:
+        usuario = Usuario.objects.get(pk=request.user.id)
 
+        if usuario.vinculo_institucional == 'Aluno':
             if pagamento_id:
                 pagamento = Pagamentos.objects.get(id=pagamento_id)
                 form = FormPagamento(instance=pagamento)
@@ -30,7 +31,7 @@ class CadastroPagamento(LoginRequiredMixin, View):
             context_dict['form'] = form
             context_dict['editar'] = editar
         else:
-            msg = "Cadastro de Pagamentos só para alunos"
+            msg = "Está ação só pode ser feita por alunos"
             context_dict['m'] = msg
             HttpResponseRedirect('consulta_pagamento')
 
