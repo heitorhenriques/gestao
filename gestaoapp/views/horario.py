@@ -74,3 +74,11 @@ class ApresentarHorarios(LoginRequiredMixin, View):
 
         horarios = list(Horario.objects.filter(usuario=usuario).values('id', 'hora_inicio', 'hora_fim', 'data', 'turno'))
         return JsonResponse({'data': horarios})
+
+class GerarHorario(LoginRequiredMixin, View):
+
+    def get(self, request):
+        usuario = Usuario.objects.get(pk=request.user.id)
+        horarios = Horario.objects.filter(usuario=usuario)
+        for horario in horarios:
+            print(horario.hora_fim - horario.hora_inicio)

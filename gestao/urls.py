@@ -11,7 +11,7 @@ urlpatterns = [
         name='password_change_done'),
 
     url(r'^$','django.contrib.auth.views.login', {'template_name': 'login.html'}, name='login'),
-    url(r'^home/', Home.as_view()), #TODO colocar name e tirar esse home feio
+    url(r'^home/', Home.as_view()),
 
     url(r'^usuario/', CadastroUsuario.as_view(), name='usuario'),
     url(r'^editar_usuario/(?P<usuario_id>\d+)/$', CadastroUsuario.as_view()),
@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^editar_horario/(?P<horario_id>\d+)/$', CadastroHorario.as_view()),
     url(r'^hora_invalida/', hora_invalida),
     url(r'^apresentar_horarios/', ApresentarHorarios.as_view()),
+    url(r'^gerar_horario/', GerarHorario.as_view(), name='gerar_horario'),
 
     url(r'^curso/', CadastroCurso.as_view()),
     url(r'^editar_curso/(?P<curso_id>\d+)/$', CadastroCurso.as_view()),
@@ -98,9 +99,13 @@ urlpatterns = [
     url(r'^log_cadastro/', LogCadastro.as_view()),
     url(r'^cadastros/', cadastros),
 
-    url(r'^teste/$', verifica, name='teste'),
-]
+    url(r'^teste/', verifica, name='teste')
 
+
+
+
+
+]
 if settings.DEBUG:
     urlpatterns += patterns(
         'django.views.static',
