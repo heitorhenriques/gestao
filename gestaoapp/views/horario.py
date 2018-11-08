@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.http import JsonResponse
-
+from gestaoapp.models import Vinculo,Projeto
 from gestaoapp.controls import TabelaHorarios
 from gestaoapp.forms.horario import FormHorario, FormHorarioEdit
 from gestaoapp.models.horario import Horario
@@ -80,5 +82,23 @@ class GerarHorario(LoginRequiredMixin, View):
     def get(self, request):
         usuario = Usuario.objects.get(pk=request.user.id)
         horarios = Horario.objects.filter(usuario=usuario)
+        vinculo = Vinculo.objects.get(usuario=usuario)
+        projeto = Projeto.objects.get(membro__responsavel__vinculo=vinculo)
+        dt_fim = (vinculo.dt_termino.year * 365) + (vinculo.dt_termino.month * 30) + vinculo.dt_termino.day
+        dt_inicio = (vinculo.dt_inicio.year * 365) + (vinculo.dt_inicio.month * 30) + vinculo.dt_inicio.day
+        tempo = (dt_fim - dt_inicio) / 7
+        dt_atual = datetime.now()
         for horario in horarios:
-            print(horario.hora_fim - horario.hora_inicio)
+            minutos_fim = (horario.hora_fim.hour * 60) + horario.hora_fim.minute
+            minutos_inicio = (horario.hora_inicio.hour * 60) + horario.hora_inicio.minute
+            semana = minutos_fim - minutos_inicio
+            qtd = semana * tempo
+            render(request,'../../paper-css-master/index.html',{'nome_aluno':usuario.first_name,
+                                                                'nomeprojeto':projeto.nome,
+                                                                'nome_professor':projeto.coordenador,
+                                                                'dt_inicio':vinculo.dt_inicio,
+                                                                'dt_termino':vinculo.dt_termino,
+                                                                'qtd_horas':qtd,
+                                                                'ano':dt_atual.year,
+                                                                'mes':dt_atual.month,
+                                                                'dia':dt_atual.day})
