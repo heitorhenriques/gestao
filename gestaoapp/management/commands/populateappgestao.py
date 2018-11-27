@@ -6,6 +6,8 @@ from gestaoapp.models.bolsa import Bolsa
 from gestaoapp.models.vinculo import Vinculo
 from gestaoapp.models.edital import Edital
 from gestaoapp.models.usuario import Usuario
+from gestaoapp.models.projeto import Projeto
+from gestaoapp.models.nucleo import Nucleo
 from django.contrib.auth.models import User
 
 
@@ -63,6 +65,7 @@ class Command(BaseCommand):
         usuario2.set_password(u'nicholas')
         usuario2.save()
 
+
         edital, created = Edital.objects.get_or_create(
             numero= u'451521',
             orgao_concedente= u'jnfaufai',
@@ -71,6 +74,29 @@ class Command(BaseCommand):
             responsavel_cadastro= usuario
         )
         edital.save()
+
+        nucleo, created = Nucleo.objects.get_or_create(
+            nome=u'Nucleada',
+            sigla=u'NC',
+            descricao=u'bavbnasuicncbasd',
+            responsavel_cadastro=usuario1
+        )
+
+        projeto, created = Projeto.objects.get_or_create(
+            nome=u'Projetada',
+            codigo=u'347548',
+            responsavel_cadastro=usuario2,
+            coordenador=usuario1,
+            duracao=u'8',
+            data_inicio=u'21/11/2018',
+            data_fim=u'23/07/2018',
+            edital=edital,
+            descricao=u'hbvouiabhovnpiças',
+            membro=usuario,
+            nucleo=nucleo
+
+        )
+        projeto.save()
 
         bolsa, created = Bolsa.objects.get_or_create(
             codigo=u'46236',

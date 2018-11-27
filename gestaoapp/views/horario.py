@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
+from math import ceil
+
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.http import JsonResponse
-from gestaoapp.models import Vinculo,Projeto
+from gestaoapp.models import Vinculo, Projeto
 from gestaoapp.controls import TabelaHorarios
 from gestaoapp.forms.horario import FormHorario, FormHorarioEdit
 from gestaoapp.models.horario import Horario
@@ -56,6 +58,7 @@ class CadastroHorario(LoginRequiredMixin, View):
         horarios = TabelaHorarios().get(usuario)
         return render(request, self.template, {'form': form, 'msg': msg, 'edit': edit, 'horarios': horarios})
 
+
 class ExcluirHorario(LoginRequiredMixin, View):
     def get(self, request, horario_id):
         nome = Horario.objects.get(id=horario_id)
@@ -74,8 +77,10 @@ class ApresentarHorarios(LoginRequiredMixin, View):
     def get(self, request):
         usuario = Usuario.objects.get(pk=request.user.id)
 
-        horarios = list(Horario.objects.filter(usuario=usuario).values('id', 'hora_inicio', 'hora_fim', 'data', 'turno'))
+        horarios = list(
+            Horario.objects.filter(usuario=usuario).values('id', 'hora_inicio', 'hora_fim', 'data', 'turno'))
         return JsonResponse({'data': horarios})
+
 
 class GerarHorario(LoginRequiredMixin, View):
 
@@ -84,23 +89,21 @@ class GerarHorario(LoginRequiredMixin, View):
         horarios = Horario.objects.filter(usuario=usuario)
         vinculo = Vinculo.objects.get(usuario=usuario)
         projeto = Projeto.objects.get(edital=vinculo.bolsa.edital)
-        dt_fim = (projeto.data_fim.year * 365) + (projeto.data_fim.month * 30) + projeto.data_fim.day
-        dt_inicio = (projeto.data_inicio.year * 365) + (projeto.data_inicio.month * 30) + projeto.data_inicio.day
-        tempo = (dt_fim - dt_inicio) / 7
         dt_atual = datetime.now()
-        qtd = 1
+        tempo = abs((projeto.data_fim - projeto.data_inicio).days)
+        qtd = 0
         for horario in horarios:
             minutos_fim = (horario.hora_fim.hour * 60) + horario.hora_fim.minute
             minutos_inicio = (horario.hora_inicio.hour * 60) + horario.hora_inicio.minute
             semana = minutos_fim - minutos_inicio
-            qtd = semana * tempo
+            qtd += ceil(semana/60) * ceil((tempo/7))
 
-        return render(request, 'paper-css-master/index.html', {'nome_aluno':usuario.first_name,
-                                                                'nomeprojeto':projeto.nome,
-                                                                'nome_professor':projeto.coordenador,
-                                                                  'dt_inicio':projeto.data_inicio,
-                                                                'dt_termino':projeto.data_fim,
-                                                                'qtd_horas':qtd,
-                                                                        'ano':dt_atual.year,
-                                                                        'mes':dt_atual.month,
-                                                                        'dia':dt_atual.day})
+        return render(request, 'paper-css-master/index.html', {'nome_aluno': usuario.first_name,
+                                                               'nomeprojeto': projeto.nome,
+                                                               'nome_professor': projeto.coordenador,
+                                                               'dt_inicio': projeto.data_inicio,
+                                                               'dt_termino': projeto.data_fim,
+                                                               'qtd_horas': qtd,
+                                                               'ano': dt_atual.year,
+                                                               'mes': dt_atual.month,
+                                                               'dia': dt_atual.day})

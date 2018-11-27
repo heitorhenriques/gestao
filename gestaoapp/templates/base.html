@@ -44,6 +44,9 @@
                                     {% endif %}
                                 {% endif %}
                             {% endif %}
+                        {% if not user.is_superuser %}
+                            <a class="item" href="{% url 'gerar_horario' %}"><i class="file icon"></i>Gerar Banco de Horas</a>
+                           {% endif %}
                             {% if user.is_superuser %}
                             {% else %}
                                 <a class="item" href="/visualizar_usuario/{{ request.user.id }}"><i
